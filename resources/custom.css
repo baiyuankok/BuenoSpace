@@ -1,0 +1,353 @@
+#header {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.sticky-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #373737;
+}
+
+.sticky-header .small-btn {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.sticky-header #sign-up-btn {
+    margin-right: 17px;
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement */
+.sticky-header + #intro {
+    padding-top: 52px;
+}
+
+.small-btn {
+    margin: 5px 10px;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: medium;
+    background-color: #6d7993;
+    color: white;
+    border: 2px solid #6d7993;
+    border-radius: 10px;
+}
+
+.small-btn:hover {
+    background-color: white;
+    color: #6d7993;
+    cursor: pointer;
+}
+
+.component-center {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.intro-container {
+    z-index: 1;
+    margin-top: 50px;
+}
+
+.background-img {
+    z-index: -1;
+    height: 55%;
+    background-image: url(assets/background_img.png);
+    opacity: 1;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.background-img-gradient {
+    z-index: -1;
+    height: 55%;
+    background-image: linear-gradient(to bottom, black, grey);
+    opacity: 0.7;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.main-title {
+    text-align: center;
+    margin: 50px auto;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 45px;
+    color: white;
+}
+
+.search-bar {
+    width: 250px;
+    font-family: Georgia, Garamond, serif;
+    padding: 10px;
+    font-size: medium;
+    border-right-color: transparent;
+    background-color: white;
+}
+
+#search-home {
+    font-family: Georgia, Garamond, serif;
+    font-size: medium;
+    font-weight: bold;
+    width: 200px;
+    padding: 10px;
+    background-color: #96858f;
+    color: white;
+    border: 2px solid #96858f;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.events-home {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.location-home, .events-home:hover {
+    cursor: pointer;
+}
+
+#search-home:hover {
+    cursor: pointer;
+    background-color: white;
+    color: #96858f;
+}
+
+.bi-search {
+    margin-right: 20px;
+}
+
+.list-space {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+#list-space-btn {
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: medium;
+    font-weight: bold;
+    background-color: #96858f;
+    color: white;
+    border: 2px solid #96858f;
+    border-radius: 10px;
+}
+
+#list-space-btn:hover {
+    cursor: pointer;
+    background-color: white;
+    color: #96858f;
+}
+
+#how-to-use {
+    margin-top: 100px;
+}
+
+.sub-title {
+    text-align: center;
+    margin: 0px auto 50px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 35px;
+    color: black;
+}
+
+.how-to-use-info {
+    padding: 0 10px;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    flex-flow: column wrap;
+}
+
+.icon-img {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.text-box {
+    background-color: #6d7993;    
+    border-radius: 15px;
+}
+
+.how-to-use-info h6 {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+    font-weight: bold;
+    color: white;
+    margin: 10px 0;
+    padding: 0 15px;
+}
+
+.how-to-use-info > p {
+    width: 200px;
+    word-wrap: normal;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: medium;
+}
+
+#popular-spaces {
+    margin-top: 70px;
+    margin-bottom: 50px;
+}
+
+.popular-spaces-slide {
+    position: relative;
+}
+
+.popular-spaces-slide > .space-btn-right {
+    position: absolute;
+    top: 40%;
+    right: 100px;
+    color: black;
+}
+
+.popular-spaces-slide > .space-btn-left {
+    position: absolute;
+    top: 40%;
+    left: 100px;
+    color: black;
+}
+
+.each-popular-space {
+    display: flex;
+    justify-content: center;
+    flex-flow: column wrap;
+    margin: 20px 20px;
+}
+
+.space-imgs {
+    position: relative;
+    width: 300px;
+    height: 200px;
+}
+
+.each-img {
+    width: 300px;
+    height: 200px;
+    object-fit: contain;
+    border: 2px solid #96858f;
+    background-color: #b19da8;
+}
+
+.space-imgs > .space-btn-right {
+    position: absolute;
+    top: 40%;
+    right: 0;
+}
+
+.space-imgs > .space-btn-left {
+    position: absolute;
+    top: 40%;
+    left: 0;
+}
+
+.fa-angle-right, .fa-angle-left {
+    border: none;
+    background-color: transparent;
+    color: white;
+}
+
+.space-btn-left, .space-btn-right:hover {
+    cursor: pointer;
+}
+
+.space-info {
+    text-align: left;
+    margin-top: 10px;
+}
+
+.space-name {
+    font-family: papyrus, 'Times New Roman', Times, serif;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.bi-geo-alt-fill {
+    margin-right: 10px;
+    color: #96858f;
+}
+
+.space-location {
+    font-family: chalkduster, 'Times New Roman', Times, serif;
+    font-size: 20px;
+}
+
+.space-price {
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-size: 20px;
+}
+
+.per-day-word {
+    opacity: 0.65;
+    font-size: 15px;
+}
+
+#footer {
+    background-color: #373737;
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}
+
+#email-link {
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-size: small;
+}
+
+.each-footer-section {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    margin: 0 50px;
+}
+
+.each-footer-section h5 {
+    color: #8ab4f1;
+    font-family: chalkduster, 'Times New Roman', Times, serif;
+    font-size: 20px;
+    margin: 10px 0 20px;
+}
+
+.each-footer-section a {
+    color: white;
+    font-family: chalkduster, 'Times New Roman', Times, serif;
+    text-decoration: none;
+}
+
+.about {
+    border-left: 2px solid #9099a2;
+    padding-left: 25px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.bi-envelope {
+    margin-right: 10px;
+}
+

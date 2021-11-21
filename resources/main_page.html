@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="custom.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!--Header section-->
+    <header id="header">
+        <div class="header-div">
+            <!--logo here-->
+            <div class="logo"></div>
+            <div class="nav-menu">
+                <button id="sign-in-btn" class="small-btn">Sign in</button>
+                <button id="sign-up-btn" class="small-btn">Sign up</button>
+            </div>
+        </div>
+    </header>
+    <!--Introduction section-->
+    <section id="intro">
+        <div class="intro-container">
+            <div class="background-img"></div>
+            <div class="background-img-gradient"></div>
+            <h1 class="main-title">Event Spaces in Malaysia</h1>
+            <div class="main-search-component">
+                <form class="component-center" action="" method="post">
+                    <div class="dropdown">
+                        <select class="events-home search-bar" name="events" id="select2" tabindex="-1">
+                            <option value="all-events" data-select2-id="2">All Events</option>
+                            <option value="annual-dinner">Annual Dinner</option>
+                            <option value="product-launch">Product Launch</option>
+                            <option value="training">Training</option>
+                            <option value="meeting">Meeting</option>
+                            <option value="function-hall">Function Hall</option>
+                            <option value="engagement">Engagement</option>
+                            <option value="exhibition">Exhibition</option>
+                            <option value="photo-shoot">Photo Shoot</option>
+                            <option value="activation">Activation</option>
+                            <option value="press-conference">Press Conference</option>
+                            <option value="team-building">Team Building</option>
+                            <option value="wedding">Wedding</option>
+                            <option value="birthday-party">Birthday Party</option>
+                            <option value="networking">Networking</option>
+                            <option value="bazaar">Bazaar</option>
+                            <option value="baby-shower">Baby Shower</option>
+                            <option value="seminar">Seminar</option>
+                            <option value="pop-up">Pop-up</option>
+                            <option value="registration-of-marriage">Registration of Marriage</option>
+                            <option value="talk">Talk</option>
+                            <option value="rooftop-event">Rooftop Event</option>
+                            <option value="auditions">Auditions</option>
+                            <option value="conference">Conference</option>
+                            <option value="video-shoots">Video Shoots</option>
+                            <option value="concerts">Concerts</option>
+                            <option value="sports-events">Sports Events</option>
+                            <option value="fashion-shows">Fashion Shows</option>
+                            <option value="outdoors">Outdoors</option>
+                            <option value="interviews">Interviews</option>
+                            <option value="cooking-studio">Cooking Studio</option>
+                            <option value="e-sports">E-sports</option>
+                            <option value="green-screen-studio">Green Screen Studio</option>
+                            <option value="virtual-event">Virtual Event</option>
+                            <option value="kitchen-studio">Kitchen Studio</option>
+                        </select>
+                    </div>
+
+                    <div class="dropdown">
+                        <select class="location-home search-bar" name="location" id="select1" tabindex="-1">
+                            <option value="all" data-select2-id="4">All Locations</option>
+                            <option value="petaling-jaya">Petaling Jaya</option>
+                            <option value="subang-jaya">Subang Jaya</option>
+                            <option value="sg-buloh">Sg Buloh</option>
+                            <option value="damansara">Damansara</option>
+                            <option value="shah-alam">Shah Alam</option>
+                            <option value="kuala-lumpur">Kuala Lumpur</option>
+                            <option value="ampang">Ampang</option>
+                            <option value="cyberjaya">Cyberjaya</option>
+                            <option value="penang-georgetown">Penang, Georgetown</option>
+                            <option value="puchong">Puchong</option>
+                            <option value="kl-sentral">KL Sentral</option>
+                            <option value="bandar-utama">Bandar Utama</option>
+                            <option value="bukit-bintang">Bukit Bintang</option>
+                            <option value="johor-bahru">Johor Bahru</option>
+                            <option value="kuantan">Kuantan</option>
+                            <option value="ipoh">Ipoh</option>
+                        </select>
+                    </div>
+                    <div id="search-icon">
+                        <button id="search-home" type="submit"><span class="bi-search"></span>SEARCH</button>
+                    </div>
+                </form>
+            </div>
+            <div class="list-space">
+                <button id="list-space-btn" type="button">List Your Space</button>
+            </div>
+        </div>
+    </section>
+    <!--How to use BuenoSpace Section-->
+    <section id="how-to-use">
+        <h2 class="sub-title">How To Use BuenoSpace</h2>
+        <div class="component-center">
+            <div id="find-space" class="how-to-use-info">
+                <span class="bi-search icon-img"></span>
+                <div class="text-box">
+                    <h6>Find a Space</h6>
+                </div>
+                <p>Browse the event spaces according to your needs</p>
+            </div>
+            <div id="rent-space" class="how-to-use-info">
+                <span class="bi-calendar2-check icon-img"></span>
+                <div class="text-box">
+                    <h6>Make a Booking</h6>
+                </div>
+                <p>Once you find your space, submit a booking form</p>
+            </div>
+            <div id="make-payment" class="how-to-use-info">
+                <span class="bi-currency-dollar icon-img"></span>
+                <div class="text-box">
+                    <h6>Make a Payment</h6>
+                </div>
+                <p>Pay the rental fee to finalize your booking</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="popular-spaces">
+        <h2 class="sub-title">Popular Spaces</h2>
+
+        <div class="component-center popular-spaces-slide">
+            <button class="fa fa-angle-right fa-5x space-btn-right" onclick="plusSpaces(1)"></button>
+            <button class="fa fa-angle-left fa-5x space-btn-left" onclick="plusSpaces(-1)"></button>
+
+            <div class="each-popular-space" id="1-space">
+                <div class="space-imgs">
+                    <img class="each-img" src="assets/1-space-1.jpg" alt="space-1-1" />
+                    <img class="each-img" src="assets/1-space-2.jpg" alt="space-1-2" />
+                    <img class="each-img" src="assets/1-space-3.jpg" alt="space-1-3" />
+
+                    <button class="fa fa-angle-right fa-3x space-btn-right" onclick="plusDivs('1-space', 1)"></button>
+                    <button class="fa fa-angle-left fa-3x space-btn-left" onclick="plusDivs('1-space', -1)"></button>
+                </div>
+
+                <div class="space-info">
+                    <p class="space-name">The Awesome Hall</p>
+                    <p class="space-location"><span class="bi-geo-alt-fill"></span>Kuala Lumpur, Kuala Lumpur</p>
+                    <p class="space-price">RM 1,800 <span class="per-day-word">per day</span></p>
+                </div>
+            </div>
+            <div class="each-popular-space" id="2-space">
+                <div class="space-imgs">
+                    <img class="each-img" src="assets/2-space-1.jpg" alt="space-2-1" />
+                    <img class="each-img" src="assets/2-space-2.jpg" alt="space-2-2" />
+
+                    <button class="fa fa-angle-right fa-3x space-btn-right" onclick="plusDivs('2-space', 1)"></button>
+                    <button class="fa fa-angle-left fa-3x space-btn-left" onclick="plusDivs('2-space', -1)"></button>
+                </div>
+
+                <div class="space-info">
+                    <p class="space-name">The Fantastic Hall</p>
+                    <p class="space-location"><span class="bi-geo-alt-fill"></span>Ipoh, Perak</p>
+                    <p class="space-price">RM 2,000 <span class="per-day-word">per day</span></p>
+                </div>
+            </div>
+            <div class="each-popular-space" id="3-space">
+                <div class="space-imgs">
+                    <img class="each-img" src="assets/3-space-1.jpg" alt="space-3-1" />
+                    <img class="each-img" src="assets/3-space-2.jpg" alt="space-3-2" />
+
+                    <button class="fa fa-angle-right fa-3x space-btn-right" onclick="plusDivs('3-space', 1)"></button>
+                    <button class="fa fa-angle-left fa-3x space-btn-left" onclick="plusDivs('3-space', -1)"></button>
+                </div>
+
+                <div class="space-info">
+                    <p class="space-name">The Great Hall</p>
+                    <p class="space-location"><span class="bi-geo-alt-fill"></span>Petaling Jaya, Selangor</p>
+                    <p class="space-price">RM 3,000 <span class="per-day-word">per day</span></p>
+                </div>
+            </div>
+            <div class="each-popular-space" id="4-space">
+                <div class="space-imgs">
+                    <img class="each-img" src="assets/4-space-1.jpg" alt="space-4-1" />
+                    <img class="each-img" src="assets/4-space-2.jpg" alt="space-4-2" />
+
+                    <button class="fa fa-angle-right fa-3x space-btn-right" onclick="plusDivs('4-space', 1)"></button>
+                    <button class="fa fa-angle-left fa-3x space-btn-left" onclick="plusDivs('4-space', -1)"></button>
+                </div>
+
+                <div class="space-info">
+                    <p class="space-name">The Outstanding Hall</p>
+                    <p class="space-location"><span class="bi-geo-alt-fill"></span>Damansara, Selangor</p>
+                    <p class="space-price">RM 1,500 <span class="per-day-word">per day</span></p>
+                </div>
+            </div>
+            <div class="each-popular-space" id="5-space">
+                <div class="space-imgs">
+                    <img class="each-img" src="assets/5-space-1.jpg" alt="space-5-1" />
+                    <img class="each-img" src="assets/5-space-2.jpg" alt="space-5-2" />
+                    <img class="each-img" src="assets/5-space-3.jpg" alt="space-5-3" />
+
+                    <button class="fa fa-angle-right fa-3x space-btn-right" onclick="plusDivs('5-space', 1)"></button>
+                    <button class="fa fa-angle-left fa-3x space-btn-left" onclick="plusDivs('5-space', -1)"></button>
+                </div>
+
+                <div class="space-info">
+                    <p class="space-name">The Tremendous Hall</p>
+                    <p class="space-location"><span class="bi-geo-alt-fill"></span>Johor Bahru, Johor</p>
+                    <p class="space-price">RM 3,500 <span class="per-day-word">per day</span></p>
+                </div>
+            </div>
+            <div class="each-popular-space" id="6-space">
+                <div class="space-imgs">
+                    <img class="each-img" src="assets/6-space-1.jpg" alt="space-6-1" />
+                    <img class="each-img" src="assets/6-space-2.jpg" alt="space-6-2" />
+
+                    <button class="fa fa-angle-right fa-3x space-btn-right" onclick="plusDivs('6-space', 1)"></button>
+                    <button class="fa fa-angle-left fa-3x space-btn-left" onclick="plusDivs('6-space', -1)"></button>
+                </div>
+
+                <div class="space-info">
+                    <p class="space-name">The Extraordinary Hall</p>
+                    <p class="space-location"><span class="bi-geo-alt-fill"></span>Georgetown, Penang</p>
+                    <p class="space-price">RM 5,000 <span class="per-day-word">per day</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div id="footer">
+            <div class="logo-section">
+                <div class="logo"></div>
+                <div class="contact">
+                    <a id="email-link" href="mailto:admin@buenospace.com"><span
+                            class="bi-envelope"></span>admin@buenospace.com</a>
+                </div>
+            </div>
+            <div class="about-section each-footer-section">
+                <div class="about">
+                    <h5>COMPANY</h5>
+                    <p><a href="/">About</a></p>
+                    <p><a href="/">Contact</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        const totalPopularSpaces = 6
+        var spacesIndex = {
+            "start": 1,
+            "end": 3
+        }
+        var slideIndex = {
+            "1-space": 1,
+            "2-space": 1,
+            "3-space": 1,
+            "4-space": 1,
+            "5-space": 1,
+            "6-space": 1
+        }
+        showSpaces(spacesIndex, totalPopularSpaces);
+        for (eachKey in slideIndex) {
+            showDivs(eachKey);
+        }
+
+        function plusSpaces(increment) {
+            spacesIndex['start'] += increment;
+            spacesIndex['end'] += increment;
+            showSpaces(spacesIndex, totalPopularSpaces);
+        }
+
+        function plusDivs(spaceId, increment) {
+            slideIndex[spaceId] += increment;
+            showDivs(spaceId);
+        }
+
+        function showSpaces(allIndex, totalSpaces) {
+            for (var key in allIndex) {
+                if (allIndex[key] < 1) {
+                    allIndex[key] = totalSpaces;
+                } else if (allIndex[key] > totalSpaces) {
+                    allIndex[key] = 1;
+                }
+            }
+            for (var i = 1; i <= totalSpaces; i++) {
+                var id = i.toString() + '-space';
+                var wholeDiv = document.getElementById(id);
+                if (wholeDiv) {
+                    wholeDiv.style.display = "none";
+                }
+            }
+            var orderNum = 1;
+            for (var i = allIndex['start']; i <= (allIndex['start'] < allIndex['end'] ? allIndex['end'] : totalSpaces); i++) {
+                var id = i.toString() + '-space';
+                var wholeDiv = document.getElementById(id);
+                if (wholeDiv) {
+                    wholeDiv.style.display = "flex";
+                    wholeDiv.style.order = orderNum;
+                    orderNum += 1;
+                }
+            }
+            if (allIndex['start'] > allIndex['end']) {
+                for (var i = 1; i <= allIndex['end']; i++) {
+                    var id = i.toString() + '-space';
+                    var wholeDiv = document.getElementById(id);
+                    if (wholeDiv) {
+                        wholeDiv.style.display = "flex";
+                        wholeDiv.style.order = orderNum;
+                        orderNum += 1;
+                    }
+                }
+            }
+        }
+
+        function showDivs(key) {
+            var imgId = document.getElementById(key);
+            if (imgId) {
+                var img = imgId.getElementsByClassName("each-img");
+                // If the image index more than the image length (when move to right max)
+                if (slideIndex[key] > img.length) {
+                    slideIndex[key] = 1;
+                }
+                // If the image index less than the 1 (when move to left max)
+                if (slideIndex[key] < 1) {
+                    slideIndex[key] = img.length;
+                }
+                for (var i = 0; i < img.length; i++) {
+                    img[i].style.display = "none";
+                }
+                img[slideIndex[key] - 1].style.display = "flex";
+            }
+        }
+
+        // Sticky header when scrolling
+        window.onscroll = function () { stickyHeader() };
+
+        var header = document.getElementById("header");
+        // Get the offset position of the navbar
+        var stickyPos = header.offsetTop;
+
+        function stickyHeader() {
+            if (window.pageYOffset > stickyPos) {
+                header.classList.add("sticky-header");
+            } else {
+                header.classList.remove("sticky-header");
+            }
+        }
+    </script>
+</body>
+
+</html>
