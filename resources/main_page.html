@@ -2,9 +2,9 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="custom.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/fontawesome.css">
+    <link rel="stylesheet" href="css/solid.css">
 </head>
 
 <body>
@@ -12,234 +12,296 @@
     <header id="header">
         <div class="header-div">
             <!--logo here-->
-            <div class="logo"></div>
+            <div class="logo"><img src="assets/logo.png" alt="logo-image"></div>
             <div class="nav-menu">
-                <button id="sign-in-btn" class="small-btn">Sign in</button>
+                <button id="sign-in-btn" class="small-btn" onclick="showSignInDropDown()">Sign in</button>
+                <div id="sign-in-section" class="dropdown-menu">
+                    <a class="sign-in-dropdown" href="/">Sign in as customer</a>
+                    <a class="sign-in-dropdown" href="/">Sign in as owner</a>
+                </div>
                 <button id="sign-up-btn" class="small-btn">Sign up</button>
             </div>
         </div>
     </header>
-    <!--Introduction section-->
+    <!-- Introduction section -->
     <section id="intro">
         <div class="intro-container">
             <div class="background-img"></div>
             <div class="background-img-gradient"></div>
             <h1 class="main-title">Event Spaces in Malaysia</h1>
             <div class="main-search-component">
-                <form class="component-center" action="" method="post">
-                    <div class="dropdown">
-                        <select class="events-home search-bar" name="events" id="select2" tabindex="-1">
-                            <option value="all-events" data-select2-id="2">All Events</option>
-                            <option value="annual-dinner">Annual Dinner</option>
-                            <option value="product-launch">Product Launch</option>
-                            <option value="training">Training</option>
-                            <option value="meeting">Meeting</option>
-                            <option value="function-hall">Function Hall</option>
-                            <option value="engagement">Engagement</option>
-                            <option value="exhibition">Exhibition</option>
-                            <option value="photo-shoot">Photo Shoot</option>
-                            <option value="activation">Activation</option>
-                            <option value="press-conference">Press Conference</option>
-                            <option value="team-building">Team Building</option>
-                            <option value="wedding">Wedding</option>
-                            <option value="birthday-party">Birthday Party</option>
-                            <option value="networking">Networking</option>
-                            <option value="bazaar">Bazaar</option>
-                            <option value="baby-shower">Baby Shower</option>
-                            <option value="seminar">Seminar</option>
-                            <option value="pop-up">Pop-up</option>
-                            <option value="registration-of-marriage">Registration of Marriage</option>
-                            <option value="talk">Talk</option>
-                            <option value="rooftop-event">Rooftop Event</option>
-                            <option value="auditions">Auditions</option>
-                            <option value="conference">Conference</option>
-                            <option value="video-shoots">Video Shoots</option>
-                            <option value="concerts">Concerts</option>
-                            <option value="sports-events">Sports Events</option>
-                            <option value="fashion-shows">Fashion Shows</option>
-                            <option value="outdoors">Outdoors</option>
-                            <option value="interviews">Interviews</option>
-                            <option value="cooking-studio">Cooking Studio</option>
-                            <option value="e-sports">E-sports</option>
-                            <option value="green-screen-studio">Green Screen Studio</option>
-                            <option value="virtual-event">Virtual Event</option>
-                            <option value="kitchen-studio">Kitchen Studio</option>
-                        </select>
+                <!-- Form for searching/filtering spaces -->
+                <form class="form-center" action="" method="post">
+                    <div class="row-center">
+                        <div class="dropdown">
+                            <select class="events-home search-bar" name="events" id="select2" tabindex="-1">
+                                <option value="all-events" data-select2-id="2">All Events</option>
+                                <option value="annual-dinner">Annual Dinner</option>
+                                <option value="product-launch">Product Launch</option>
+                                <option value="training">Training</option>
+                                <option value="meeting">Meeting</option>
+                                <option value="function-hall">Function Hall</option>
+                                <option value="engagement">Engagement</option>
+                                <option value="exhibition">Exhibition</option>
+                                <option value="photo-shoot">Photo Shoot</option>
+                                <option value="activation">Activation</option>
+                                <option value="press-conference">Press Conference</option>
+                                <option value="team-building">Team Building</option>
+                                <option value="wedding">Wedding</option>
+                                <option value="birthday-party">Birthday Party</option>
+                                <option value="networking">Networking</option>
+                                <option value="bazaar">Bazaar</option>
+                                <option value="baby-shower">Baby Shower</option>
+                                <option value="seminar">Seminar</option>
+                                <option value="pop-up">Pop-up</option>
+                                <option value="registration-of-marriage">Registration of Marriage</option>
+                                <option value="talk">Talk</option>
+                                <option value="rooftop-event">Rooftop Event</option>
+                                <option value="auditions">Auditions</option>
+                                <option value="conference">Conference</option>
+                                <option value="video-shoots">Video Shoots</option>
+                                <option value="concerts">Concerts</option>
+                                <option value="sports-events">Sports Events</option>
+                                <option value="fashion-shows">Fashion Shows</option>
+                                <option value="outdoors">Outdoors</option>
+                                <option value="interviews">Interviews</option>
+                                <option value="cooking-studio">Cooking Studio</option>
+                                <option value="e-sports">E-sports</option>
+                                <option value="green-screen-studio">Green Screen Studio</option>
+                                <option value="virtual-event">Virtual Event</option>
+                                <option value="kitchen-studio">Kitchen Studio</option>
+                            </select>
+                        </div>
+
+                        <div class="dropdown">
+                            <select class="location-home search-bar" name="location" id="select1" tabindex="-1">
+                                <option value="all" data-select2-id="4">All Locations</option>
+                                <option value="petaling-jaya">Petaling Jaya</option>
+                                <option value="subang-jaya">Subang Jaya</option>
+                                <option value="sg-buloh">Sg Buloh</option>
+                                <option value="damansara">Damansara</option>
+                                <option value="shah-alam">Shah Alam</option>
+                                <option value="kuala-lumpur">Kuala Lumpur</option>
+                                <option value="ampang">Ampang</option>
+                                <option value="cyberjaya">Cyberjaya</option>
+                                <option value="penang-georgetown">Penang, Georgetown</option>
+                                <option value="puchong">Puchong</option>
+                                <option value="kl-sentral">KL Sentral</option>
+                                <option value="bandar-utama">Bandar Utama</option>
+                                <option value="bukit-bintang">Bukit Bintang</option>
+                                <option value="johor-bahru">Johor Bahru</option>
+                                <option value="kuantan">Kuantan</option>
+                                <option value="ipoh">Ipoh</option>
+                            </select>
+                        </div>
+                        <div id="more-options">
+                            <!-- The "type button" is a must to prevent weird bugs when clicking this button to show more options -->
+                            <button id="price-capacity-btn" type="button" onclick="togglePriceCapacity()"><span
+                                    class="fas fa-plus"></span></button>
+                        </div>
+                        <div id="search-icon">
+                            <button id="search-home" type="submit"><span class="fas fa-search"></span>SEARCH</button>
+                        </div>
                     </div>
 
-                    <div class="dropdown">
-                        <select class="location-home search-bar" name="location" id="select1" tabindex="-1">
-                            <option value="all" data-select2-id="4">All Locations</option>
-                            <option value="petaling-jaya">Petaling Jaya</option>
-                            <option value="subang-jaya">Subang Jaya</option>
-                            <option value="sg-buloh">Sg Buloh</option>
-                            <option value="damansara">Damansara</option>
-                            <option value="shah-alam">Shah Alam</option>
-                            <option value="kuala-lumpur">Kuala Lumpur</option>
-                            <option value="ampang">Ampang</option>
-                            <option value="cyberjaya">Cyberjaya</option>
-                            <option value="penang-georgetown">Penang, Georgetown</option>
-                            <option value="puchong">Puchong</option>
-                            <option value="kl-sentral">KL Sentral</option>
-                            <option value="bandar-utama">Bandar Utama</option>
-                            <option value="bukit-bintang">Bukit Bintang</option>
-                            <option value="johor-bahru">Johor Bahru</option>
-                            <option value="kuantan">Kuantan</option>
-                            <option value="ipoh">Ipoh</option>
-                        </select>
-                    </div>
-                    <div id="search-icon">
-                        <button id="search-home" type="submit"><span class="bi-search"></span>SEARCH</button>
+                    <div id="price-capacity-section" style="visibility: hidden;">
+                        <div id="price-section">
+                            <p>Price <span class="per-day-word">(per day)</span></p>
+                            <div class="row-center">
+                                <p>RM</p><span class="per-day-word">(min)</span>
+                                <input id="min-price" type="number" placeholder="10" min="1"
+                                    onchange="checkOnChangePrice('min-price')" />
+                                <button type="button" id="min-price-add" class="fas fa-plus add-btn"
+                                    onclick="changePrice('min-price', 1)"></button>
+                                <button type="button" id="min-price-minus" class="fas fa-minus minus-btn"
+                                    onclick="changePrice('min-price', -1)"></button>
+                            </div>
+                            <div class="row-center">
+                                <p>RM</p><span class="per-day-word">(max)</span>
+                                <input id="max-price" type="number" placeholder="30000" min="1"
+                                    onchange="checkOnChangePrice('max-price')" />
+                                <button type="button" id="max-price-add" class="fas fa-plus add-btn"
+                                    onclick="changePrice('max-price', 1)"></button>
+                                <button type="button" id="max-price-minus" class="fas fa-minus minus-btn"
+                                    onclick="changePrice('max-price', -1)"></button>
+                            </div>
+                            <button id="price-clear-btn" type="button" onclick="clearPrice()">Clear</button>
+                        </div>
+                        <div id="capacity-section">
+                            <p>Capacity</p>
+                            <div class="row-center">
+                                <input id="capacity" type="number" placeholder="1" min="1"
+                                    onchange="checkOnChangeCapacity()" />
+                                <button type="button" id="capacity-add" class="fas fa-plus add-btn"
+                                    onclick="changeCapacity(1)"></button>
+                                <button type="button" id="capacity-minus" class="fas fa-minus minus-btn"
+                                    onclick="changeCapacity(-1)"></button>
+                            </div>
+                            <button id="capacity-clear-btn" type="button" onclick="clearCapacity()">Clear</button>
+                        </div>
                     </div>
                 </form>
             </div>
-            <div class="list-space">
-                <button id="list-space-btn" type="button">List Your Space</button>
-            </div>
         </div>
     </section>
-    <!--How to use BuenoSpace Section-->
-    <section id="how-to-use">
-        <h2 class="sub-title">How To Use BuenoSpace</h2>
-        <div class="component-center">
-            <div id="find-space" class="how-to-use-info">
-                <span class="bi-search icon-img"></span>
-                <div class="text-box">
-                    <h6>Find a Space</h6>
+    <!-- How to use BuenoSpace Section -->
+    <div class="background-plain-color">
+        <section id="how-to-use">
+            <h2 class="sub-title">How To Use BuenoSpace</h2>
+            <div class="row-center">
+                <div id="find-space" class="how-to-use-info">
+                    <span class="fas fa-search fa-3x icon-img"></span>
+                    <div class="text-box">
+                        <h6>Find a Space</h6>
+                    </div>
+                    <p>Browse the event spaces according to your needs</p>
                 </div>
-                <p>Browse the event spaces according to your needs</p>
-            </div>
-            <div id="rent-space" class="how-to-use-info">
-                <span class="bi-calendar2-check icon-img"></span>
-                <div class="text-box">
-                    <h6>Make a Booking</h6>
+                <div id="rent-space" class="how-to-use-info">
+                    <span class="fas fa-calendar-check fa-3x icon-img"></span>
+                    <div class="text-box">
+                        <h6>Make a Booking</h6>
+                    </div>
+                    <p>Once you find your space, submit a booking form</p>
                 </div>
-                <p>Once you find your space, submit a booking form</p>
-            </div>
-            <div id="make-payment" class="how-to-use-info">
-                <span class="bi-currency-dollar icon-img"></span>
-                <div class="text-box">
-                    <h6>Make a Payment</h6>
-                </div>
-                <p>Pay the rental fee to finalize your booking</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="popular-spaces">
-        <h2 class="sub-title">Popular Spaces</h2>
-
-        <div class="component-center popular-spaces-slide">
-            <button class="fa fa-angle-right fa-5x space-btn-right" onclick="plusSpaces(1)"></button>
-            <button class="fa fa-angle-left fa-5x space-btn-left" onclick="plusSpaces(-1)"></button>
-
-            <div class="each-popular-space" id="1-space">
-                <div class="space-imgs">
-                    <img class="each-img" src="assets/1-space-1.jpg" alt="space-1-1" />
-                    <img class="each-img" src="assets/1-space-2.jpg" alt="space-1-2" />
-                    <img class="each-img" src="assets/1-space-3.jpg" alt="space-1-3" />
-
-                    <button class="fa fa-angle-right fa-3x space-btn-right" onclick="plusDivs('1-space', 1)"></button>
-                    <button class="fa fa-angle-left fa-3x space-btn-left" onclick="plusDivs('1-space', -1)"></button>
-                </div>
-
-                <div class="space-info">
-                    <p class="space-name">The Awesome Hall</p>
-                    <p class="space-location"><span class="bi-geo-alt-fill"></span>Kuala Lumpur, Kuala Lumpur</p>
-                    <p class="space-price">RM 1,800 <span class="per-day-word">per day</span></p>
+                <div id="make-payment" class="how-to-use-info">
+                    <span class="fas fa-money-check-alt fa-3x icon-img"></span>
+                    <div class="text-box">
+                        <h6>Make a Payment</h6>
+                    </div>
+                    <p>Pay the rental fee to finalize your booking</p>
                 </div>
             </div>
-            <div class="each-popular-space" id="2-space">
-                <div class="space-imgs">
-                    <img class="each-img" src="assets/2-space-1.jpg" alt="space-2-1" />
-                    <img class="each-img" src="assets/2-space-2.jpg" alt="space-2-2" />
+        </section>
 
-                    <button class="fa fa-angle-right fa-3x space-btn-right" onclick="plusDivs('2-space', 1)"></button>
-                    <button class="fa fa-angle-left fa-3x space-btn-left" onclick="plusDivs('2-space', -1)"></button>
+        <!-- Popular Spaces section -->
+        <section id="popular-spaces">
+            <h2 class="sub-title">Popular Spaces</h2>
+
+            <div class="row-center popular-spaces-slide">
+                <button class="fas fa-angle-right fa-5x space-btn-right" onclick="plusSpaces(1)"></button>
+                <button class="fas fa-angle-left fa-5x space-btn-left" onclick="plusSpaces(-1)"></button>
+
+                <div class="each-popular-space" id="1-space">
+                    <div class="space-imgs">
+                        <img class="each-img" src="assets/1-space-1.jpg" alt="space-1-1" />
+                        <img class="each-img" src="assets/1-space-2.jpg" alt="space-1-2" />
+                        <img class="each-img" src="assets/1-space-3.jpg" alt="space-1-3" />
+
+                        <button class="fas fa-angle-right fa-3x space-btn-right"
+                            onclick="plusDivs('1-space', 1)"></button>
+                        <button class="fas fa-angle-left fa-3x space-btn-left"
+                            onclick="plusDivs('1-space', -1)"></button>
+                    </div>
+
+                    <div class="space-info">
+                        <p class="space-name">The Awesome Hall</p>
+                        <p class="space-location"><span class="fas fa-map-marker-alt"></span> Kuala Lumpur, Kuala Lumpur
+                        </p>
+                        <p class="space-price">RM 1,800 <span class="per-day-word">per day</span></p>
+                    </div>
                 </div>
+                <div class="each-popular-space" id="2-space">
+                    <div class="space-imgs">
+                        <img class="each-img" src="assets/2-space-1.jpg" alt="space-2-1" />
+                        <img class="each-img" src="assets/2-space-2.jpg" alt="space-2-2" />
 
-                <div class="space-info">
-                    <p class="space-name">The Fantastic Hall</p>
-                    <p class="space-location"><span class="bi-geo-alt-fill"></span>Ipoh, Perak</p>
-                    <p class="space-price">RM 2,000 <span class="per-day-word">per day</span></p>
+                        <button class="fas fa-angle-right fa-3x space-btn-right"
+                            onclick="plusDivs('2-space', 1)"></button>
+                        <button class="fas fa-angle-left fa-3x space-btn-left"
+                            onclick="plusDivs('2-space', -1)"></button>
+                    </div>
+
+                    <div class="space-info">
+                        <p class="space-name">The Fantastic Hall</p>
+                        <p class="space-location"><span class="fas fa-map-marker-alt"></span>Ipoh, Perak</p>
+                        <p class="space-price">RM 2,000 <span class="per-day-word">per day</span></p>
+                    </div>
+                </div>
+                <div class="each-popular-space" id="3-space">
+                    <div class="space-imgs">
+                        <img class="each-img" src="assets/3-space-1.jpg" alt="space-3-1" />
+                        <img class="each-img" src="assets/3-space-2.jpg" alt="space-3-2" />
+
+                        <button class="fas fa-angle-right fa-3x space-btn-right"
+                            onclick="plusDivs('3-space', 1)"></button>
+                        <button class="fas fa-angle-left fa-3x space-btn-left"
+                            onclick="plusDivs('3-space', -1)"></button>
+                    </div>
+
+                    <div class="space-info">
+                        <p class="space-name">The Great Hall</p>
+                        <p class="space-location"><span class="fas fa-map-marker-alt"></span>Petaling Jaya, Selangor</p>
+                        <p class="space-price">RM 3,000 <span class="per-day-word">per day</span></p>
+                    </div>
+                </div>
+                <div class="each-popular-space" id="4-space">
+                    <div class="space-imgs">
+                        <img class="each-img" src="assets/4-space-1.jpg" alt="space-4-1" />
+                        <img class="each-img" src="assets/4-space-2.jpg" alt="space-4-2" />
+
+                        <button class="fas fa-angle-right fa-3x space-btn-right"
+                            onclick="plusDivs('4-space', 1)"></button>
+                        <button class="fas fa-angle-left fa-3x space-btn-left"
+                            onclick="plusDivs('4-space', -1)"></button>
+                    </div>
+
+                    <div class="space-info">
+                        <p class="space-name">The Outstanding Hall</p>
+                        <p class="space-location"><span class="fas fa-map-marker-alt"></span>Damansara, Selangor</p>
+                        <p class="space-price">RM 1,500 <span class="per-day-word">per day</span></p>
+                    </div>
+                </div>
+                <div class="each-popular-space" id="5-space">
+                    <div class="space-imgs">
+                        <img class="each-img" src="assets/5-space-1.jpg" alt="space-5-1" />
+                        <img class="each-img" src="assets/5-space-2.jpg" alt="space-5-2" />
+                        <img class="each-img" src="assets/5-space-3.jpg" alt="space-5-3" />
+
+                        <button class="fas fa-angle-right fa-3x space-btn-right"
+                            onclick="plusDivs('5-space', 1)"></button>
+                        <button class="fas fa-angle-left fa-3x space-btn-left"
+                            onclick="plusDivs('5-space', -1)"></button>
+                    </div>
+
+                    <div class="space-info">
+                        <p class="space-name">The Tremendous Hall</p>
+                        <p class="space-location"><span class="fas fa-map-marker-alt"></span>Johor Bahru, Johor</p>
+                        <p class="space-price">RM 3,500 <span class="per-day-word">per day</span></p>
+                    </div>
+                </div>
+                <div class="each-popular-space" id="6-space">
+                    <div class="space-imgs">
+                        <img class="each-img" src="assets/6-space-1.jpg" alt="space-6-1" />
+                        <img class="each-img" src="assets/6-space-2.jpg" alt="space-6-2" />
+
+                        <button class="fas fa-angle-right fa-3x space-btn-right"
+                            onclick="plusDivs('6-space', 1)"></button>
+                        <button class="fas fa-angle-left fa-3x space-btn-left"
+                            onclick="plusDivs('6-space', -1)"></button>
+                    </div>
+
+                    <div class="space-info">
+                        <p class="space-name">The Extraordinary Hall</p>
+                        <p class="space-location"><span class="fas fa-map-marker-alt"></span>Georgetown, Penang</p>
+                        <p class="space-price">RM 5,000 <span class="per-day-word">per day</span></p>
+                    </div>
                 </div>
             </div>
-            <div class="each-popular-space" id="3-space">
-                <div class="space-imgs">
-                    <img class="each-img" src="assets/3-space-1.jpg" alt="space-3-1" />
-                    <img class="each-img" src="assets/3-space-2.jpg" alt="space-3-2" />
-
-                    <button class="fa fa-angle-right fa-3x space-btn-right" onclick="plusDivs('3-space', 1)"></button>
-                    <button class="fa fa-angle-left fa-3x space-btn-left" onclick="plusDivs('3-space', -1)"></button>
-                </div>
-
-                <div class="space-info">
-                    <p class="space-name">The Great Hall</p>
-                    <p class="space-location"><span class="bi-geo-alt-fill"></span>Petaling Jaya, Selangor</p>
-                    <p class="space-price">RM 3,000 <span class="per-day-word">per day</span></p>
-                </div>
-            </div>
-            <div class="each-popular-space" id="4-space">
-                <div class="space-imgs">
-                    <img class="each-img" src="assets/4-space-1.jpg" alt="space-4-1" />
-                    <img class="each-img" src="assets/4-space-2.jpg" alt="space-4-2" />
-
-                    <button class="fa fa-angle-right fa-3x space-btn-right" onclick="plusDivs('4-space', 1)"></button>
-                    <button class="fa fa-angle-left fa-3x space-btn-left" onclick="plusDivs('4-space', -1)"></button>
-                </div>
-
-                <div class="space-info">
-                    <p class="space-name">The Outstanding Hall</p>
-                    <p class="space-location"><span class="bi-geo-alt-fill"></span>Damansara, Selangor</p>
-                    <p class="space-price">RM 1,500 <span class="per-day-word">per day</span></p>
-                </div>
-            </div>
-            <div class="each-popular-space" id="5-space">
-                <div class="space-imgs">
-                    <img class="each-img" src="assets/5-space-1.jpg" alt="space-5-1" />
-                    <img class="each-img" src="assets/5-space-2.jpg" alt="space-5-2" />
-                    <img class="each-img" src="assets/5-space-3.jpg" alt="space-5-3" />
-
-                    <button class="fa fa-angle-right fa-3x space-btn-right" onclick="plusDivs('5-space', 1)"></button>
-                    <button class="fa fa-angle-left fa-3x space-btn-left" onclick="plusDivs('5-space', -1)"></button>
-                </div>
-
-                <div class="space-info">
-                    <p class="space-name">The Tremendous Hall</p>
-                    <p class="space-location"><span class="bi-geo-alt-fill"></span>Johor Bahru, Johor</p>
-                    <p class="space-price">RM 3,500 <span class="per-day-word">per day</span></p>
-                </div>
-            </div>
-            <div class="each-popular-space" id="6-space">
-                <div class="space-imgs">
-                    <img class="each-img" src="assets/6-space-1.jpg" alt="space-6-1" />
-                    <img class="each-img" src="assets/6-space-2.jpg" alt="space-6-2" />
-
-                    <button class="fa fa-angle-right fa-3x space-btn-right" onclick="plusDivs('6-space', 1)"></button>
-                    <button class="fa fa-angle-left fa-3x space-btn-left" onclick="plusDivs('6-space', -1)"></button>
-                </div>
-
-                <div class="space-info">
-                    <p class="space-name">The Extraordinary Hall</p>
-                    <p class="space-location"><span class="bi-geo-alt-fill"></span>Georgetown, Penang</p>
-                    <p class="space-price">RM 5,000 <span class="per-day-word">per day</span></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
+        </section>
+    </div>
+    <!-- Footer section -->
     <footer>
         <div id="footer">
             <div class="logo-section">
-                <div class="logo"></div>
+                <div class="logo"><img src="assets/logo.png" alt="logo-image"></div>
                 <div class="contact">
-                    <a id="email-link" href="mailto:admin@buenospace.com"><span
-                            class="bi-envelope"></span>admin@buenospace.com</a>
+                    <span class="fas fa-envelope"></span>
+                    <a id="email-link" href="mailto:admin@buenospace.com">admin@buenospace.com</a>
                 </div>
             </div>
             <div class="about-section each-footer-section">
                 <div class="about">
-                    <h5>COMPANY</h5>
+                    <h5>BUENOSPACE</h5>
                     <p><a href="/">About</a></p>
                     <p><a href="/">Contact</a></p>
                 </div>
@@ -247,12 +309,15 @@
         </div>
     </footer>
 
-    <script type="text/javascript">
+    <script>
+        // Total number of spaces in "popular spaces" section
         const totalPopularSpaces = 6
+        // Index for displaying spaces in "popular spaces" section
         var spacesIndex = {
             "start": 1,
             "end": 3
         }
+        // Index for displaying images in each space
         var slideIndex = {
             "1-space": 1,
             "2-space": 1,
@@ -261,22 +326,26 @@
             "5-space": 1,
             "6-space": 1
         }
+        // Initial declaration
         showSpaces(spacesIndex, totalPopularSpaces);
         for (eachKey in slideIndex) {
             showDivs(eachKey);
         }
 
+        // Show next/previous space in "popular spaces" section
         function plusSpaces(increment) {
             spacesIndex['start'] += increment;
             spacesIndex['end'] += increment;
             showSpaces(spacesIndex, totalPopularSpaces);
         }
 
+        // Show next/previous space image
         function plusDivs(spaceId, increment) {
             slideIndex[spaceId] += increment;
             showDivs(spaceId);
         }
 
+        // Display multiple spaces in the "popular spaces" section
         function showSpaces(allIndex, totalSpaces) {
             for (var key in allIndex) {
                 if (allIndex[key] < 1) {
@@ -315,6 +384,7 @@
             }
         }
 
+        // Display multiple images in one space
         function showDivs(key) {
             var imgId = document.getElementById(key);
             if (imgId) {
@@ -337,16 +407,136 @@
         // Sticky header when scrolling
         window.onscroll = function () { stickyHeader() };
 
-        var header = document.getElementById("header");
-        // Get the offset position of the navbar
-        var stickyPos = header.offsetTop;
-
         function stickyHeader() {
+            var header = document.getElementById("header");
+            // Get the offset position of the navbar
+            var stickyPos = header.offsetTop;
             if (window.pageYOffset > stickyPos) {
                 header.classList.add("sticky-header");
             } else {
                 header.classList.remove("sticky-header");
             }
+        }
+
+        // Show the dropdown for the sign in section
+        function showSignInDropDown() {
+            document.getElementById("sign-in-section").classList.toggle("show-sign-in");
+            document.getElementById("sign-in-btn").disabled = true;
+        }
+
+        // Toggle "show" and "hide" for the price and capacity section
+        function togglePriceCapacity() {
+            var priceCap = document.getElementById("price-capacity-section");
+            if (priceCap.style.visibility === "hidden") {
+                priceCap.style.visibility = "visible";
+            } else {
+                priceCap.style.visibility = "hidden";
+            }
+        }
+
+        // Close the "sign-in" dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            if (event.target.id != "sign-in-btn") {
+                var signInSec = document.getElementById("sign-in-section");
+                if (signInSec.classList.contains("show-sign-in")) {
+                    signInSec.classList.remove("show-sign-in");
+                    document.getElementById("sign-in-btn").disabled = false;
+                }
+            }
+        }
+
+        // To check and change the data type of the input value to integer
+        function checkValueType(inputValue) {
+            return typeof inputValue === "string" ? (inputValue == "" ? 1 : parseInt(inputValue)) : inputValue;
+        }
+
+        // To make sure that min price won't exceed max price
+        function checkMaxMinPrice(minPrice, maxPrice) {
+            return minPrice > maxPrice ? false : true;
+        }
+
+        // Increment or decrement values in the price and capacity sections using "+" and "-" buttons
+        function changeValue(inputValue, increment) {
+            var newValue = checkValueType(inputValue);
+            newValue += increment;
+            return newValue;
+        }
+
+        // Check and change the price or capacity values using "+" and "-" buttons
+        function changePrice(btnId, increment) {
+            var targetInput = document.getElementById(btnId);
+            var outputValue = changeValue(targetInput.value, increment);
+            var minPrice;
+            var maxPrice;
+            if (btnId == "min-price") {
+                minPrice = outputValue;
+                maxPrice = document.getElementById("max-price").value;
+            } else if (btnId == "max-price") {
+                minPrice = document.getElementById("min-price").value;
+                maxPrice = outputValue;
+            }
+            if ((minPrice == "" && btnId == "max-price") || (maxPrice == "" && btnId == "min-price")) {
+                targetInput.value = outputValue < 1 ? 1 : outputValue;
+            } else {
+                minPrice = checkValueType(minPrice);
+                maxPrice = checkValueType(maxPrice);
+                if (checkMaxMinPrice(minPrice, maxPrice)) {
+                    targetInput.value = outputValue < 1 ? 1 : outputValue;
+                } else {
+                    if (btnId == "min-price") {
+                        targetInput.value = maxPrice;
+                    } else if (btnId == "max-price") {
+                        targetInput.value = minPrice;
+                    }
+                }
+            }
+        }
+
+        function changeCapacity(increment) {
+            var targetInput = document.getElementById("capacity");
+            var newValue = changeValue(targetInput.value, increment);
+            targetInput.value = newValue < 1 ? 1 : newValue;
+        }
+
+        // To check for min and max price when user type in the numbers
+        function checkOnChangePrice(btnId) {
+            var targetInput = document.getElementById(btnId);
+            var minPrice = document.getElementById("min-price").value;
+            var maxPrice = document.getElementById("max-price").value;
+            if ((minPrice == "" && btnId == "max-price") || (maxPrice == "" && btnId == "min-price")) {
+                if (checkValueType(targetInput.value) < 1) {
+                    targetInput.value = 1;
+                }
+            } else {
+                if (!checkMaxMinPrice(checkValueType(minPrice), checkValueType(maxPrice))) {
+                    if (btnId == "min-price") {
+                        targetInput.value = maxPrice;
+                    } else if (btnId == "max-price") {
+                        targetInput.value = minPrice;
+                    }
+                } else {
+                    if (btnId == "min-price" && checkValueType(targetInput.value) < 1) {
+                        targetInput.value = 1;
+                    }
+                }
+            }
+        }
+
+        function checkOnChangeCapacity() {
+            var targetInput = document.getElementById("capacity");
+            if (targetInput.value < 1) {
+                targetInput.value = 1;
+            }
+        }
+
+        // Clear button to clear price or capacity section 
+        function clearPrice() {
+            document.getElementById("min-price").value = "";
+            document.getElementById("max-price").value = "";
+        }
+
+        function clearCapacity() {
+            document.getElementById("capacity").value = "";
         }
     </script>
 </body>
