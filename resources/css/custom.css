@@ -256,13 +256,15 @@ input[type=number]::-webkit-outer-spin-button {
 .dropdown-menu {
     display: none;
     position: absolute;
+    top: 65px;
+    right: 100px;
     overflow: auto;
     z-index: 99;
-    flex-flow: column wrap;
 }
 
 .show-sign-in {
     display: flex;
+    flex-flow: column wrap;
 }
 
 #price-capacity-btn {
