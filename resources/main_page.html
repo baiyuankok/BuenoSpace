@@ -18,8 +18,8 @@
                 <button id="sign-up-btn" class="small-btn">Sign up</button>
             </div>
             <div id="sign-in-section" class="dropdown-menu">
-                <a class="sign-in-dropdown" href="/">Sign in as customer</a>
-                <a class="sign-in-dropdown" href="/">Sign in as owner</a>
+                <a class="sign-in-dropdown">Sign in as customer</a>
+                <a class="sign-in-dropdown">Sign in as owner</a>
             </div>
         </div>
     </header>
@@ -32,10 +32,12 @@
             <div class="main-search-component">
                 <!-- Form for searching/filtering spaces -->
                 <form class="form-center" action="" method="post">
-                    <div class="row-center">
+                    <div class="row-center" id="main-search-bar">
                         <div class="dropdown">
-                            <select class="events-home search-bar" name="events" id="select2" tabindex="-1">
-                                <option value="all-events" data-select2-id="2">All Events</option>
+                            <select class="events-home search-bar" name="events" id="events-select" tabindex="-1"
+                                style="border-bottom-left-radius: 15px; border-top-left-radius: 15px;"
+                                onclick="changeBorderRadius()">
+                                <option value="all-events">All Events</option>
                                 <option value="annual-dinner">Annual Dinner</option>
                                 <option value="product-launch">Product Launch</option>
                                 <option value="training">Training</option>
@@ -74,8 +76,8 @@
                         </div>
 
                         <div class="dropdown">
-                            <select class="location-home search-bar" name="location" id="select1" tabindex="-1">
-                                <option value="all" data-select2-id="4">All Locations</option>
+                            <select class="location-home search-bar" name="location" id="location-select" tabindex="-1">
+                                <option value="all">All Locations</option>
                                 <option value="petaling-jaya">Petaling Jaya</option>
                                 <option value="subang-jaya">Subang Jaya</option>
                                 <option value="sg-buloh">Sg Buloh</option>
@@ -434,13 +436,21 @@
             }
         }
 
-        // Close the "sign-in" dropdown if the user clicks outside of it
+        // Listen to all onclick events
         window.onclick = function (event) {
+            // Close the "sign-in" dropdown if the user clicks outside of it
             if (event.target.id != "sign-in-btn") {
                 var signInSec = document.getElementById("sign-in-section");
                 if (signInSec.classList.contains("show-sign-in")) {
                     signInSec.classList.remove("show-sign-in");
                     document.getElementById("sign-in-btn").disabled = false;
+                }
+            }
+            // Change the events dropdown border radius to curve if the user clicks outside of it
+            if (event.target.id != "events-select") {
+                var eventSelect = document.getElementById("events-select");
+                if (eventSelect.style.borderBottomLeftRadius == "0px") {
+                    eventSelect.style.borderBottomLeftRadius = "15px";
                 }
             }
         }
@@ -538,6 +548,17 @@
         function clearCapacity() {
             document.getElementById("capacity").value = "";
         }
+
+        // Change the main search bar border radius and remove black border when clicking
+        function changeBorderRadius() {
+            var eventSelect = document.getElementById("events-select");
+            if (eventSelect.style.borderBottomLeftRadius == "15px") {
+                eventSelect.style.borderBottomLeftRadius = "0px";
+            } else {
+                eventSelect.style.borderBottomLeftRadius = "15px";
+            }
+        }
+
     </script>
 </body>
 
