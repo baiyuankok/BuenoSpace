@@ -25,9 +25,9 @@
     </header>
     <!-- Introduction section -->
     <section id="intro">
-        <div class="intro-container">
-            <div class="background-img"></div>
-            <div class="background-img-gradient"></div>
+        <div class="intro-container" id="intro-sec">
+            <div class="background-img" id="back-img"></div>
+            <div class="background-img-gradient" id="back-img-gradient"></div>
             <h1 class="main-title">Event Spaces in Malaysia</h1>
             <div class="main-search-component">
                 <!-- Form for searching/filtering spaces -->
@@ -557,6 +557,17 @@
             } else {
                 eventSelect.style.borderBottomLeftRadius = "15px";
             }
+        }
+
+        // Change the background image dynamically according to the header and intro section height
+        window.addEventListener("load", setBackgroundImg);
+        window.addEventListener("resize", setBackgroundImg);
+        function setBackgroundImg() {
+            var headerHeight = document.getElementById("header").offsetHeight;
+            var introHeight = document.getElementById("intro-sec").offsetHeight;
+            var imgHeight = (headerHeight + introHeight + 50).toString();
+            document.getElementById("back-img").style.height = imgHeight + "px";
+            document.getElementById("back-img-gradient").style.height = imgHeight + "px";
         }
 
     </script>

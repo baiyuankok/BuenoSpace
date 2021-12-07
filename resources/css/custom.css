@@ -115,7 +115,6 @@ body {
 
 .background-img {
     z-index: -1;
-    height: 68%;
     background-image: url(../assets/background_img.png);
     opacity: 1;
     background-size: cover;
@@ -128,7 +127,6 @@ body {
 
 .background-img-gradient {
     z-index: -1;
-    height: 68%;
     background-image: linear-gradient(to bottom, black, rgb(85, 84, 84));
     opacity: 0.7;
     background-size: cover;
