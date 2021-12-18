@@ -2,60 +2,34 @@ body {
     margin: 0;
 }
 
-.logo img {
-    padding: 10px 5px 10px;
+button:focus {
+    outline: none !important;
 }
 
-.header-div {
-    display: flex;
-    flex-flow: row wrap;
+.toggler-custom {
+    box-shadow: none !important;
 }
 
-.header-div .logo {
-    width: 50%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-}
-
-.nav-menu {
-    width: 50%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.sticky-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+.navbar-custom {
     background-color: #373737;
-    z-index: 999;
 }
 
-.sticky-header .small-btn {
-    margin-top: 12px;
-    margin-bottom: 12px;
+#sign-in-btn, #sign-up-btn {
+    margin-right: 10px;
+    margin-bottom: 5px;
 }
 
-.sticky-header #sign-up-btn {
-    margin-right: 17px;
+.dropdown-menu-custom {
+    border-radius: 10px !important;
+    margin-bottom: 5px !important;
 }
 
-/* Add some top padding to the page content to prevent sudden quick movement */
-.sticky-header + #intro {
-    padding-top: 80.5px;
+.dropdown-menu-custom {
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-#sign-in-btn {
-    margin: 12px 10px;
-}
-
-#sign-up-btn {
-    margin: 12px 17px 12px 10px;
+.dropdown-item-hover:hover {
+    background-color: #d3d3d3 !important;
 }
 
 .small-btn {
@@ -68,37 +42,13 @@ body {
     color: white;
     border: 2px solid #8e8d8a;
     border-radius: 10px;
+    outline: none !important;
 }
 
 .small-btn:hover {
     background-color: white;
     color: #8e8d8a;
     cursor: pointer;
-}
-
-#sign-in-btn:disabled, #sign-in-btn[disabled] {
-    opacity: 0.65;
-    cursor: not-allowed;
-}
-
-#sign-in-section {
-    border-radius: 8px;
-    background-color: #8e8d8a;
-}
-
-.sign-in-dropdown {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: medium;
-    text-decoration: none;
-    color: white;
-    display: block;
-    padding: 12px 16px;
-}
-
-.sign-in-dropdown:hover {
-    cursor: pointer;
-    background-color: white;
-    color: #8e8d8a;
 }
 
 .row-center {
@@ -149,7 +99,7 @@ body {
     height: 42px;
 }
 
-.dropdown, #more-options {
+.dropdown-custom, #more-options {
     border-right: 0.5px solid black;
 }
 
@@ -243,6 +193,10 @@ input[type=number]::-webkit-outer-spin-button {
     appearance: none;
 }
 
+#min-price, #max-price, #capacity {
+    line-height: normal;
+}
+
 #min-price-minus, #max-price-minus, #capacity-minus {
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
@@ -261,21 +215,7 @@ input[type=number]::-webkit-outer-spin-button {
     background-color: white;
 }
 
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 65px;
-    right: 100px;
-    overflow: auto;
-    z-index: 99;
-}
-
-.show-sign-in {
-    display: flex;
-    flex-flow: column wrap;
-}
-
-.dropdown, #search-icon, #more-options {
+.dropdown-custom, #search-icon, #more-options {
     height: 100%;
 }
 
@@ -504,10 +444,12 @@ input[type=number]::-webkit-outer-spin-button {
 .logo-section {
     display: flex;
     flex-flow: column wrap;
+    padding-left: 10px;
+    padding-top: 10px;
 }
 
-.logo-section .logo {
-    margin-bottom: 10px;
+.logo-section a {
+    padding-bottom: 10px;
 }
 
 #email-link {
@@ -534,6 +476,10 @@ input[type=number]::-webkit-outer-spin-button {
     color: white;
     font-family: chalkduster, 'Times New Roman', Times, serif;
     text-decoration: none;
+}
+
+.each-footer-section a:hover {
+    color: #d8c3a5;
 }
 
 .about {
