@@ -1,0 +1,63 @@
+#footer {
+    background-color: #373737;
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}
+
+.logo-section {
+    display: flex;
+    flex-flow: column wrap;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.logo-section a {
+    padding-bottom: 10px;
+}
+
+#email-link {
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-size: small;
+}
+
+.each-footer-section {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    margin: 0 50px;
+}
+
+.each-footer-section h5 {
+    color: #d8c3a5;
+    font-family: chalkduster, 'Times New Roman', Times, serif;
+    font-size: 20px;
+    margin: 10px 0 20px;
+}
+
+.each-footer-section a {
+    color: white;
+    font-family: chalkduster, 'Times New Roman', Times, serif;
+    text-decoration: none;
+}
+
+.each-footer-section a:hover {
+    color: #d8c3a5;
+}
+
+.about {
+    border-left: 2px solid white;
+    padding-left: 25px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#footer .fa-envelope {
+    margin-left: 10px;
+    margin-right: 10px;
+    color: white;
+}

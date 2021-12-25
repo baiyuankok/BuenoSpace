@@ -2,50 +2,23 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="css/custom.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/main_page.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+    <title>Home - BuenoSpace</title>
 </head>
 
 <body>
-    <!--Header section-->
-    <header id="header" class="sticky-top">
-        <nav class="navbar navbar-expand-lg" id="navbar-section">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="../resources/main_page.html">
-                    <img src="assets/logo.png" alt="logo-image">
-                </a>
-                <button class="navbar-toggler navbar-dark toggler-custom" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto justify-content-end">
-                        <li class="nav-item dropdown">
-                            <button class="dropdown-toggle small-btn" id="sign-in-btn" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Sign in
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-custom" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item dropdown-item-hover" href="#">Sign in as customer</a></li>
-                                <li>
-                                    <hr class="dropdown-divider" />
-                                </li>
-                                <li><a class="dropdown-item dropdown-item-hover" href="#">Sign in as owner</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <button class="small-btn" id="sign-up-btn">Sign up</button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <header id="header"></header>
     <!-- Introduction section -->
     <section id="intro">
         <div class="intro-container" id="intro-sec">
@@ -202,139 +175,142 @@
         <section id="popular-spaces">
             <h2 class="sub-title">Popular Spaces</h2>
 
-            <div class="row-center popular-spaces-slide">
-                <button class="fas fa-angle-right fa-5x space-btn-right" onclick="plusSpaces(1)"></button>
-                <button class="fas fa-angle-left fa-5x space-btn-left" onclick="plusSpaces(-1)"></button>
+            <div id="popular-spaces-section">
+                <div class="left-right-space-btn">
+                    <button class="fas fa-angle-left fa-5x space-btn-left" onclick="plusSpaces(-1)"></button>
+                </div>
+                <div class="row-center popular-spaces-slide">
+                    <div class="each-popular-space" id="1-space">
+                        <div class="space-imgs">
+                            <img class="each-img" src="assets/1-space-1.jpg" alt="space-1-1" />
+                            <img class="each-img" src="assets/1-space-2.jpg" alt="space-1-2" />
+                            <img class="each-img" src="assets/1-space-3.jpg" alt="space-1-3" />
 
-                <div class="each-popular-space" id="1-space">
-                    <div class="space-imgs">
-                        <img class="each-img" src="assets/1-space-1.jpg" alt="space-1-1" />
-                        <img class="each-img" src="assets/1-space-2.jpg" alt="space-1-2" />
-                        <img class="each-img" src="assets/1-space-3.jpg" alt="space-1-3" />
+                            <button class="fas fa-angle-right fa-3x space-btn-right"
+                                onclick="plusDivs('1-space', 1)"></button>
+                            <button class="fas fa-angle-left fa-3x space-btn-left"
+                                onclick="plusDivs('1-space', -1)"></button>
+                        </div>
 
-                        <button class="fas fa-angle-right fa-3x space-btn-right"
-                            onclick="plusDivs('1-space', 1)"></button>
-                        <button class="fas fa-angle-left fa-3x space-btn-left"
-                            onclick="plusDivs('1-space', -1)"></button>
+                        <div class="space-info">
+                            <p class="space-name">The Awesome Hall</p>
+                            <p class="space-location"><span class="fas fa-map-marker-alt"></span> Kuala Lumpur, Kuala
+                                Lumpur
+                            </p>
+                            <p class="space-price">RM 1,800 <span class="per-day-word">per day</span></p>
+                        </div>
                     </div>
+                    <div class="each-popular-space" id="2-space">
+                        <div class="space-imgs">
+                            <img class="each-img" src="assets/2-space-1.jpg" alt="space-2-1" />
+                            <img class="each-img" src="assets/2-space-2.jpg" alt="space-2-2" />
 
-                    <div class="space-info">
-                        <p class="space-name">The Awesome Hall</p>
-                        <p class="space-location"><span class="fas fa-map-marker-alt"></span> Kuala Lumpur, Kuala Lumpur
-                        </p>
-                        <p class="space-price">RM 1,800 <span class="per-day-word">per day</span></p>
+                            <button class="fas fa-angle-right fa-3x space-btn-right"
+                                onclick="plusDivs('2-space', 1)"></button>
+                            <button class="fas fa-angle-left fa-3x space-btn-left"
+                                onclick="plusDivs('2-space', -1)"></button>
+                        </div>
+
+                        <div class="space-info">
+                            <p class="space-name">The Fantastic Hall</p>
+                            <p class="space-location"><span class="fas fa-map-marker-alt"></span>Ipoh, Perak</p>
+                            <p class="space-price">RM 2,000 <span class="per-day-word">per day</span></p>
+                        </div>
+                    </div>
+                    <div class="each-popular-space" id="3-space">
+                        <div class="space-imgs">
+                            <img class="each-img" src="assets/3-space-1.jpg" alt="space-3-1" />
+                            <img class="each-img" src="assets/3-space-2.jpg" alt="space-3-2" />
+
+                            <button class="fas fa-angle-right fa-3x space-btn-right"
+                                onclick="plusDivs('3-space', 1)"></button>
+                            <button class="fas fa-angle-left fa-3x space-btn-left"
+                                onclick="plusDivs('3-space', -1)"></button>
+                        </div>
+
+                        <div class="space-info">
+                            <p class="space-name">The Great Hall</p>
+                            <p class="space-location"><span class="fas fa-map-marker-alt"></span>Petaling Jaya, Selangor
+                            </p>
+                            <p class="space-price">RM 3,000 <span class="per-day-word">per day</span></p>
+                        </div>
+                    </div>
+                    <div class="each-popular-space" id="4-space">
+                        <div class="space-imgs">
+                            <img class="each-img" src="assets/4-space-1.jpg" alt="space-4-1" />
+                            <img class="each-img" src="assets/4-space-2.jpg" alt="space-4-2" />
+
+                            <button class="fas fa-angle-right fa-3x space-btn-right"
+                                onclick="plusDivs('4-space', 1)"></button>
+                            <button class="fas fa-angle-left fa-3x space-btn-left"
+                                onclick="plusDivs('4-space', -1)"></button>
+                        </div>
+
+                        <div class="space-info">
+                            <p class="space-name">The Outstanding Hall</p>
+                            <p class="space-location"><span class="fas fa-map-marker-alt"></span>Damansara, Selangor</p>
+                            <p class="space-price">RM 1,500 <span class="per-day-word">per day</span></p>
+                        </div>
+                    </div>
+                    <div class="each-popular-space" id="5-space">
+                        <div class="space-imgs">
+                            <img class="each-img" src="assets/5-space-1.jpg" alt="space-5-1" />
+                            <img class="each-img" src="assets/5-space-2.jpg" alt="space-5-2" />
+                            <img class="each-img" src="assets/5-space-3.jpg" alt="space-5-3" />
+
+                            <button class="fas fa-angle-right fa-3x space-btn-right"
+                                onclick="plusDivs('5-space', 1)"></button>
+                            <button class="fas fa-angle-left fa-3x space-btn-left"
+                                onclick="plusDivs('5-space', -1)"></button>
+                        </div>
+
+                        <div class="space-info">
+                            <p class="space-name">The Tremendous Hall</p>
+                            <p class="space-location"><span class="fas fa-map-marker-alt"></span>Johor Bahru, Johor</p>
+                            <p class="space-price">RM 3,500 <span class="per-day-word">per day</span></p>
+                        </div>
+                    </div>
+                    <div class="each-popular-space" id="6-space">
+                        <div class="space-imgs">
+                            <img class="each-img" src="assets/6-space-1.jpg" alt="space-6-1" />
+                            <img class="each-img" src="assets/6-space-2.jpg" alt="space-6-2" />
+
+                            <button class="fas fa-angle-right fa-3x space-btn-right"
+                                onclick="plusDivs('6-space', 1)"></button>
+                            <button class="fas fa-angle-left fa-3x space-btn-left"
+                                onclick="plusDivs('6-space', -1)"></button>
+                        </div>
+
+                        <div class="space-info">
+                            <p class="space-name">The Extraordinary Hall</p>
+                            <p class="space-location"><span class="fas fa-map-marker-alt"></span>Georgetown, Penang</p>
+                            <p class="space-price">RM 5,000 <span class="per-day-word">per day</span></p>
+                        </div>
                     </div>
                 </div>
-                <div class="each-popular-space" id="2-space">
-                    <div class="space-imgs">
-                        <img class="each-img" src="assets/2-space-1.jpg" alt="space-2-1" />
-                        <img class="each-img" src="assets/2-space-2.jpg" alt="space-2-2" />
-
-                        <button class="fas fa-angle-right fa-3x space-btn-right"
-                            onclick="plusDivs('2-space', 1)"></button>
-                        <button class="fas fa-angle-left fa-3x space-btn-left"
-                            onclick="plusDivs('2-space', -1)"></button>
-                    </div>
-
-                    <div class="space-info">
-                        <p class="space-name">The Fantastic Hall</p>
-                        <p class="space-location"><span class="fas fa-map-marker-alt"></span>Ipoh, Perak</p>
-                        <p class="space-price">RM 2,000 <span class="per-day-word">per day</span></p>
-                    </div>
-                </div>
-                <div class="each-popular-space" id="3-space">
-                    <div class="space-imgs">
-                        <img class="each-img" src="assets/3-space-1.jpg" alt="space-3-1" />
-                        <img class="each-img" src="assets/3-space-2.jpg" alt="space-3-2" />
-
-                        <button class="fas fa-angle-right fa-3x space-btn-right"
-                            onclick="plusDivs('3-space', 1)"></button>
-                        <button class="fas fa-angle-left fa-3x space-btn-left"
-                            onclick="plusDivs('3-space', -1)"></button>
-                    </div>
-
-                    <div class="space-info">
-                        <p class="space-name">The Great Hall</p>
-                        <p class="space-location"><span class="fas fa-map-marker-alt"></span>Petaling Jaya, Selangor</p>
-                        <p class="space-price">RM 3,000 <span class="per-day-word">per day</span></p>
-                    </div>
-                </div>
-                <div class="each-popular-space" id="4-space">
-                    <div class="space-imgs">
-                        <img class="each-img" src="assets/4-space-1.jpg" alt="space-4-1" />
-                        <img class="each-img" src="assets/4-space-2.jpg" alt="space-4-2" />
-
-                        <button class="fas fa-angle-right fa-3x space-btn-right"
-                            onclick="plusDivs('4-space', 1)"></button>
-                        <button class="fas fa-angle-left fa-3x space-btn-left"
-                            onclick="plusDivs('4-space', -1)"></button>
-                    </div>
-
-                    <div class="space-info">
-                        <p class="space-name">The Outstanding Hall</p>
-                        <p class="space-location"><span class="fas fa-map-marker-alt"></span>Damansara, Selangor</p>
-                        <p class="space-price">RM 1,500 <span class="per-day-word">per day</span></p>
-                    </div>
-                </div>
-                <div class="each-popular-space" id="5-space">
-                    <div class="space-imgs">
-                        <img class="each-img" src="assets/5-space-1.jpg" alt="space-5-1" />
-                        <img class="each-img" src="assets/5-space-2.jpg" alt="space-5-2" />
-                        <img class="each-img" src="assets/5-space-3.jpg" alt="space-5-3" />
-
-                        <button class="fas fa-angle-right fa-3x space-btn-right"
-                            onclick="plusDivs('5-space', 1)"></button>
-                        <button class="fas fa-angle-left fa-3x space-btn-left"
-                            onclick="plusDivs('5-space', -1)"></button>
-                    </div>
-
-                    <div class="space-info">
-                        <p class="space-name">The Tremendous Hall</p>
-                        <p class="space-location"><span class="fas fa-map-marker-alt"></span>Johor Bahru, Johor</p>
-                        <p class="space-price">RM 3,500 <span class="per-day-word">per day</span></p>
-                    </div>
-                </div>
-                <div class="each-popular-space" id="6-space">
-                    <div class="space-imgs">
-                        <img class="each-img" src="assets/6-space-1.jpg" alt="space-6-1" />
-                        <img class="each-img" src="assets/6-space-2.jpg" alt="space-6-2" />
-
-                        <button class="fas fa-angle-right fa-3x space-btn-right"
-                            onclick="plusDivs('6-space', 1)"></button>
-                        <button class="fas fa-angle-left fa-3x space-btn-left"
-                            onclick="plusDivs('6-space', -1)"></button>
-                    </div>
-
-                    <div class="space-info">
-                        <p class="space-name">The Extraordinary Hall</p>
-                        <p class="space-location"><span class="fas fa-map-marker-alt"></span>Georgetown, Penang</p>
-                        <p class="space-price">RM 5,000 <span class="per-day-word">per day</span></p>
-                    </div>
+                <div class="left-right-space-btn">
+                    <button class="fas fa-angle-right fa-5x space-btn-right" onclick="plusSpaces(1)"></button>
                 </div>
             </div>
         </section>
     </div>
-    <!-- Footer section -->
-    <footer>
-        <div id="footer">
-            <div class="logo-section">
-                <a href="../resources/main_page.html"><img src="assets/logo.png" alt="logo-image"></a>
-                <div class="contact">
-                    <span class="fas fa-envelope"></span>
-                    <a id="email-link" href="mailto:admin@buenospace.com">admin@buenospace.com</a>
-                </div>
-            </div>
-            <div class="about-section each-footer-section">
-                <div class="about">
-                    <h5>BuenoSpace</h5>
-                    <p><a href="#">About</a></p>
-                    <p><a href="#">Contact</a></p>
-                </div>
-            </div>
-        </div>
-    </footer>
+
+    <footer id="footer"></footer>
 
     <script>
+        // Load the page for header and footer using jQuery
+        $("#header").load("header.html");
+        $("#footer").load("footer.html");
+
+        // Allow user to type in numbers only without "+", "-", "." and "e" sign in input type number
+        document.getElementById("min-price").addEventListener("keypress", keyAllowInputNum);
+        document.getElementById("max-price").addEventListener("keypress", keyAllowInputNum);
+        document.getElementById("capacity").addEventListener("keypress", keyAllowInputNum);
+        function keyAllowInputNum(event) {
+            if (event.which != 8 && event.which != 0 && event.which < 48 || event.which > 57) {
+                event.preventDefault();
+            }
+        };
         // Total number of spaces in "popular spaces" section
         const totalPopularSpaces = 6
         // Index for displaying spaces in "popular spaces" section
@@ -426,20 +402,6 @@
                     img[i].style.display = "none";
                 }
                 img[slideIndex[key] - 1].style.display = "flex";
-            }
-        }
-
-        // Change background color for sticky header when scrolling
-        window.onscroll = function () { stickyHeader() };
-
-        function stickyHeader() {
-            var navSection = document.getElementById("navbar-section");
-            // Get the offset position of the navbar
-            var stickyPos = navSection.offsetTop;
-            if (window.pageYOffset > stickyPos) {
-                navSection.classList.add("navbar-custom");
-            } else {
-                navSection.classList.remove("navbar-custom");
             }
         }
 
@@ -568,21 +530,54 @@
             }
         }
 
-        // Change the background image dynamically according to the header and intro section height
-        // Set the background image height onload
-        window.addEventListener("load", setBackgroundImg);
+        // Change background color for sticky header when scrolling
+        window.onscroll = function () {
+            stickyHeader();
+        };
+
+        function stickyHeader() {
+            var navSection = document.getElementById("navbar-section");
+            // Get the offset position of the navbar
+            var stickyPos = navSection.offsetTop;
+            if (window.pageYOffset > stickyPos) {
+                navSection.classList.add("navbar-custom");
+            } else {
+                // If the triple bar is not clicked, then the background color should be removed
+                if (!document.getElementById("navbarSupportedContent").classList.contains("show")) {
+                    navSection.classList.remove("navbar-custom");
+                }
+            }
+        }
+
+        // Set the background image height onload and onresize
+        window.addEventListener("resize", setBackgroundImg);
+        window.addEventListener("load", function () {
+            setBackgroundImg();
+            // The "timeout" is used to fix firefox problem
+            const btnListenTimeout = setTimeout(function () {
+                document.getElementById("triple-bar").addEventListener("click", setNav);
+                clearTimeout(btnListenTimeout);
+            }, 20);
+        });
         function setBackgroundImg() {
-            var navHeight = document.getElementById("navbar-section").offsetHeight;
+            // Set the background image height dynamically
             var introHeight = document.getElementById("intro-sec").offsetHeight;
-            var imgHeight = (navHeight + introHeight + 50).toString();
+            var imgHeight = (introHeight + 100).toString();
             document.getElementById("back-img").style.height = imgHeight + "px";
             document.getElementById("back-img-gradient").style.height = imgHeight + "px";
         }
-        // Set new background image height when navigation bar resized
-        const resizeObserver = new ResizeObserver(function (entries) {
-            setBackgroundImg();
-        });
-        resizeObserver.observe(document.getElementById("navbar-section"));
+        // Function to call when clicking the triple bar when shrinking navigation bar
+        function setNav() {
+            var navSec = document.getElementById("navbar-section");
+            if (window.pageYOffset == 0) {
+                if (navSec.classList.contains("navbar-custom")) {
+                    navSec.classList.remove("navbar-custom");
+                } else {
+                    navSec.classList.add("navbar-custom");
+                }
+            }
+        }
+
 
     </script>
 </body>

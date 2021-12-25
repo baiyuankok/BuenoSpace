@@ -1,54 +1,18 @@
-body {
-    margin: 0;
-}
-
-button:focus {
-    outline: none !important;
-}
-
-.toggler-custom {
-    box-shadow: none !important;
-}
-
-.navbar-custom {
-    background-color: #373737;
-}
-
-#sign-in-btn, #sign-up-btn {
-    margin-right: 10px;
-    margin-bottom: 5px;
-}
-
-.dropdown-menu-custom {
-    border-radius: 10px !important;
-    margin-bottom: 5px !important;
-}
-
-.dropdown-menu-custom {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
-.dropdown-item-hover:hover {
-    background-color: #d3d3d3 !important;
-}
-
-.small-btn {
-    width: 100px;
-    height: 40px;
-    text-align: center;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: medium;
-    background-color: #8e8d8a;
-    color: white;
-    border: 2px solid #8e8d8a;
-    border-radius: 10px;
-    outline: none !important;
-}
-
-.small-btn:hover {
-    background-color: white;
-    color: #8e8d8a;
-    cursor: pointer;
+/* To make sure the price and capacity section don't block the search button 
+when the browser width is smaller than 768px */
+@media (max-width: 768px) {
+    .row-center {
+        display: inline-block !important;
+    }
+    .dropdown-custom, #more-options, #search-icon {
+        margin: 5px auto;
+    }
+    .events-home, #search-home {
+        border-radius: 0 !important;
+    }
+    #price-capacity-section {
+        margin-top: 160px !important;
+    }
 }
 
 .row-center {
@@ -59,8 +23,8 @@ button:focus {
 }
 
 .intro-container {
-    margin-top: 50px;
     padding-bottom: 20px;
+    margin-top: 100px;
 }
 
 .background-img {
@@ -169,7 +133,8 @@ button:focus {
     background-color: #8e8d8a;
 }
 
-#price-clear-btn:hover, #capacity-clear-btn:hover {
+#price-clear-btn:hover,
+#capacity-clear-btn:hover {
     color: #8e8d8a;
     background-color: white;
 }
@@ -184,12 +149,12 @@ button:focus {
     border: 1px solid black;
     box-sizing: border-box;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    -moz-appearance: textfield;
 }
 
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
     -webkit-appearance: none;
-    -moz-appearance: none;
     appearance: none;
 }
 
@@ -259,7 +224,8 @@ input[type=number]::-webkit-outer-spin-button {
     border-bottom-right-radius: 15px;
 }
 
-.location-home, .events-home:hover {
+.location-home:hover,
+.events-home:hover {
     cursor: pointer;
 }
 
@@ -337,24 +303,18 @@ input[type=number]::-webkit-outer-spin-button {
 
 #popular-spaces {
     margin-top: 45px;
-    padding-bottom: 50px;
+    padding-bottom: 50px;    
 }
 
-.popular-spaces-slide {
-    position: relative;
+#popular-spaces-section {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
-.popular-spaces-slide > .space-btn-right {
-    position: absolute;
-    top: 40%;
-    right: 100px;
-    color: #373737;
-}
-
-.popular-spaces-slide > .space-btn-left {
-    position: absolute;
-    top: 40%;
-    left: 100px;
+.left-right-space-btn > .space-btn-right,
+.left-right-space-btn > .space-btn-left {
     color: #373737;
 }
 
@@ -396,7 +356,8 @@ input[type=number]::-webkit-outer-spin-button {
     color: white;
 }
 
-.space-btn-left, .space-btn-right:hover {
+.space-btn-left:hover,
+.space-btn-right:hover {
     cursor: pointer;
 }
 
@@ -429,68 +390,4 @@ input[type=number]::-webkit-outer-spin-button {
 .per-day-word {
     opacity: 0.65;
     font-size: 15px;
-}
-
-#footer {
-    background-color: #373737;
-    position: absolute;
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-}
-
-.logo-section {
-    display: flex;
-    flex-flow: column wrap;
-    padding-left: 10px;
-    padding-top: 10px;
-}
-
-.logo-section a {
-    padding-bottom: 10px;
-}
-
-#email-link {
-    color: white;
-    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-    font-size: small;
-}
-
-.each-footer-section {
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-    margin: 0 50px;
-}
-
-.each-footer-section h5 {
-    color: #d8c3a5;
-    font-family: chalkduster, 'Times New Roman', Times, serif;
-    font-size: 20px;
-    margin: 10px 0 20px;
-}
-
-.each-footer-section a {
-    color: white;
-    font-family: chalkduster, 'Times New Roman', Times, serif;
-    text-decoration: none;
-}
-
-.each-footer-section a:hover {
-    color: #d8c3a5;
-}
-
-.about {
-    border-left: 2px solid white;
-    padding-left: 25px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-
-#footer .fa-envelope {
-    margin-left: 10px;
-    margin-right: 10px;
-    color: white;
 }

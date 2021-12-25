@@ -1,0 +1,49 @@
+/* Note that this apply to all pages */
+button:focus {
+    outline: none !important;
+}
+
+.toggler-custom {
+    box-shadow: none !important;
+}
+
+.navbar-custom {
+    background-color: #373737;
+}
+
+#sign-in-btn, #sign-up-btn {
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.dropdown-menu-custom {
+    border-radius: 10px !important;
+    margin-bottom: 5px !important;
+}
+
+.dropdown-menu-custom {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.dropdown-item-hover:hover {
+    background-color: #d3d3d3 !important;
+}
+
+.small-btn {
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: medium;
+    background-color: #8e8d8a;
+    color: white;
+    border: 2px solid #8e8d8a;
+    border-radius: 10px;
+    outline: none !important;
+}
+
+.small-btn:hover {
+    background-color: white;
+    color: #8e8d8a;
+    cursor: pointer;
+}
