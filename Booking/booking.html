@@ -77,8 +77,24 @@
                                 <input type="number" min="1" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control" id="guest-number" name="guestNumber" required>
                             </div>
                         </div>
-                        <div class="tab">Payment Info:
-                            
+                        <div class="tab">
+                            <p class="sub-head-form">Payment Details</p>
+                            <div class="mb-3">
+                                <label for="card-number" class="col-form-label">Card Number</label>
+                                <input type="text" class="form-control" id="card-number" name="cardNumber" placeholder="xxxx-xxxx-xxxx-xxxx" maxlength="19" onkeypress="return onlyNumberKey(event)" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="card-expiry-date" class="col-form-label">Expiry Date</label>
+                                <input type="text" class="form-control" id="card-expiry-date" name="cardExpiryDate" placeholder="MM/YY" maxlength="5" onkeypress="return onlyNumberKey(event)" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="card-cvv-number" class="col-form-label">CVV Number</label>
+                                <input type="text" class="form-control" id="card-cvv-number" name="cardCVVNumber" placeholder="xxx" maxlength="3" onkeypress="return onlyNumberKey(event)" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="card-holder-name" class="col-form-label">Card Holder Name</label>
+                                <input type="text" class="form-control" id="card-holder-name" name="cardHolderName" required>
+                            </div>
                         </div>
 
                         <div style="overflow:auto;">
@@ -87,12 +103,6 @@
                               <button type="button" class="modalNextBtn" id="nextBtn" onclick="nextPrev(1)">Next</button>
                             </div>
                         </div>
-
-
-                        <!-- <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <input type="submit" value="Submit Booking"/>
-                        </div> -->
                     </form>
                 </div>
             </div>
@@ -109,6 +119,29 @@
             todayBtn: "linked",
             autoclose: "true"
         });
+
+        $("#card-number").keypress(function() {
+            var foo = $(this).val().split("-").join(""); // remove hyphens
+            if (foo.length > 0) {
+                foo = foo.match(/.{1,4}/g).join("-");
+            }
+            $(this).val(foo);
+        });
+
+        $("#card-expiry-date").keypress(function() {
+            var foo = $(this).val().split("/").join(""); // remove hyphens
+            if (foo.length > 0) {
+                foo = foo.match(new RegExp('.{1,2}', 'g')).join("/");
+            }
+            $(this).val(foo);
+        });
+
+        function onlyNumberKey(evt) {
+            var asciiCode = (evt.which) ? evt.which : evt.keyCode // get the Unicode value of the pressed keyboard key
+            if (asciiCode > 31 && (asciiCode < 48 || asciiCode > 57))
+                return false;
+            return true;
+        }
 
         function showTab(n) {
             var x = document.getElementsByClassName("tab");
@@ -153,6 +186,44 @@
                 else {
                     if(y[i].classList.contains("invalid"))
                         y[i].classList.remove("invalid");
+                }
+
+                if (y[i].id == "card-number") {
+                    var cardNumber = y[i].value;
+                    cardNumber = cardNumber.replace(/-/g,"").length;
+                    if (cardNumber != 16) {
+                        y[i].className += " invalid";
+                        valid = false;
+                    }
+                    else {
+                        if(y[i].classList.contains("invalid"))
+                            y[i].classList.remove("invalid");
+                    }
+                }
+
+                if (y[i].id == "card-expiry-date") {
+                    var cardExpiryDate = y[i].value;
+                    cardExpiryDate = cardExpiryDate.replace(/\//g,"").length;
+                    if (cardExpiryDate != 4) {
+                        y[i].className += " invalid";
+                        valid = false;
+                    }
+                    else {
+                        if(y[i].classList.contains("invalid"))
+                            y[i].classList.remove("invalid");
+                    }
+                }
+
+                if (y[i].id == "card-cvv-number") {
+                    var cardCCVNumber = y[i].value.length;
+                    if (cardCCVNumber != 3) {
+                        y[i].className += " invalid";
+                        valid = false;
+                    }
+                    else {
+                        if(y[i].classList.contains("invalid"))
+                            y[i].classList.remove("invalid");
+                    }
                 }
             }
 
