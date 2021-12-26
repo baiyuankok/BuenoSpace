@@ -1,0 +1,163 @@
+@media (max-width: 768px) {
+    .modal-body .space-btn-left,
+    .modal-body .space-btn-right {
+        top: 20% !important;
+    }
+}
+
+@media (max-device-width: 768px) {
+    .modal-body .space-btn-left,
+    .modal-body .space-btn-right {
+        top: 15% !important;
+    }
+
+    #footer {
+        bottom: 0;
+    }
+}
+
+#space-img-section {
+    margin-top: 86px;
+    margin-bottom: 50px;
+    position: relative;
+    display: flex;
+}
+
+.space-btn-left, .space-btn-right {
+    position: absolute;
+    border: none;
+    top: 40%;
+}
+
+.space-btn-left {
+    left: 30px;
+}
+
+.space-btn-right {
+    right: 30px;
+}
+
+.left-right-space-btn .space-btn-left,
+.left-right-space-btn .space-btn-right {
+    color: #373737;
+    background-color: white;
+}
+
+.modal-body .space-btn-left,
+.modal-body .space-btn-right {
+    color: white;
+    background-color: transparent;
+}
+
+#images:hover {
+    cursor: zoom-in;
+}
+
+#image-preview .modal-content {
+    background-color: #373737 !important;
+}
+
+#image-preview .modal-header {
+    border: none !important;
+}
+
+#image-preview .modal-body {
+    display: flex;
+}
+
+.modal-header .btn-close {
+    margin: 0px !important;
+}
+
+.rent-btn {
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bolder;
+    border: 1px solid #8e8d8a;
+    border-radius: 10px;
+    background-color: #8e8d8a;
+    color: white;
+    cursor: pointer;
+}
+
+.rent-btn:hover {
+    background-color: white;
+    color: #8e8d8a;
+}
+
+#image-preview .rent-btn {
+    width: 100px;
+    height: 40px;
+    font-size: medium;
+}
+
+#rent-section .rent-btn {
+    width: 160px;
+    height: 80px;
+    font-size: x-large;
+    margin-right: 15px;
+}
+
+#all-image-samples img {
+    max-width: 100%;
+    height: auto;
+}
+
+.initial-visible {
+    display: block;
+}
+
+.initial-invisible {
+    display: none;
+}
+
+#space-details-section {
+    padding: 15px 25px;
+}
+
+#space-details-section h2,
+#space-details-section p {
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+
+#name {
+    font-weight: bold;
+}
+
+#location-price-capacity-section {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.lpc-details {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    padding: 10px;
+    margin: 10px;
+}
+
+.lpc-details p {
+    margin-top: 10px;
+    font-size: large;
+}
+
+#event-type {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+#event-type p {
+    margin-right: 15px;
+    padding: 10px;
+    border: 2px solid black;
+}
+
+#details {
+    width: 60%;
+}
+
+#rent-section {
+    display: flex;
+    padding: 15px;
+}
