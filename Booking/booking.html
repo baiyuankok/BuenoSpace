@@ -79,6 +79,7 @@
                         </div>
                         <div class="tab">
                             <p class="sub-head-form">Payment Details</p>
+                            <p style="font-weight: bold;">Total Amount: RM 1111</p>
                             <div class="mb-3">
                                 <label for="card-number" class="col-form-label">Card Number</label>
                                 <input type="text" class="form-control" id="card-number" name="cardNumber" placeholder="xxxx-xxxx-xxxx-xxxx" maxlength="19" onkeypress="return onlyNumberKey(event)" required>
@@ -117,7 +118,8 @@
             format: "dd-mm-yyyy",
             todayHighlight: true,
             todayBtn: "linked",
-            autoclose: "true"
+            autoclose: "true",
+            startDate: new Date()
         });
 
         $("#card-number").keypress(function() {
