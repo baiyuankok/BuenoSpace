@@ -49,6 +49,11 @@
     background-color: transparent;
 }
 
+.sub-img-section {
+    width: 25%;
+    height: auto;
+}
+
 #images:hover {
     cursor: zoom-in;
 }
@@ -99,8 +104,8 @@
 }
 
 #all-image-samples img {
-    max-width: 100%;
-    height: auto;
+    width: auto;
+    height: 100%;
 }
 
 .initial-visible {

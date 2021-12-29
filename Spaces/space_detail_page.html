@@ -2,8 +2,8 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="../Home/css/header.css">
+    <link rel="stylesheet" href="../Home/css/footer.css">
     <link rel="stylesheet" href="css/space_detail.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
@@ -21,8 +21,8 @@
             <button class="fas fa-angle-left fa-5x space-btn-left" onclick="zoomInImg()"></button>
         </div>
 
-        <div class="mx-auto justify-content-center">
-            <img id="images" class="img-fluid" src="assets/1-space-1.jpg" alt="space-sample" onclick="zoomInImg()" />
+        <div class="mx-auto justify-content-center sub-img-section">
+            <img id="images" class="img-fluid" src="../Home/assets/background_img.png" alt="space-sample" onclick="zoomInImg()" />
         </div>
 
         <div class="left-right-space-btn">
@@ -90,8 +90,8 @@
     <footer id="footer"></footer>
 
     <script>
-        $("#header").load("header.html");
-        $("#footer").load("footer.html");
+        $("#header").load("../Home/header.html");
+        $("#footer").load("../Home/footer.html");
         // "Timeout" is used instead of "window.onload",
         // because Firefox somehow cannot execute getElementById("navbar-section") onload
         const setNavColor = setTimeout(function () {
@@ -101,8 +101,8 @@
 
         function zoomInImg() {
             // Asign the image src to the modal when the user click the enlarge link
-            $("#image-sample-1").attr("src", "assets/1-space-1.jpg");
-            $("#image-sample-2").attr("src", "assets/1-space-2.jpg");
+            $("#image-sample-1").attr("src", "../Home/assets/background_img.png");
+            $("#image-sample-2").attr("src", "../HOme/assets/about_us_img.jpg");
             $("#image-preview").modal("show");
         }
 
