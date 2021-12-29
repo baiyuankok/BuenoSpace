@@ -38,42 +38,26 @@
                                 <option value="product-launch">Product Launch</option>
                                 <option value="training">Training</option>
                                 <option value="meeting">Meeting</option>
-                                <option value="function-hall">Function Hall</option>
                                 <option value="engagement">Engagement</option>
                                 <option value="exhibition">Exhibition</option>
                                 <option value="photo-shoot">Photo Shoot</option>
-                                <option value="activation">Activation</option>
                                 <option value="press-conference">Press Conference</option>
                                 <option value="team-building">Team Building</option>
                                 <option value="wedding">Wedding</option>
                                 <option value="birthday-party">Birthday Party</option>
-                                <option value="networking">Networking</option>
-                                <option value="bazaar">Bazaar</option>
-                                <option value="baby-shower">Baby Shower</option>
                                 <option value="seminar">Seminar</option>
-                                <option value="pop-up">Pop-up</option>
-                                <option value="registration-of-marriage">Registration of Marriage</option>
-                                <option value="talk">Talk</option>
-                                <option value="rooftop-event">Rooftop Event</option>
                                 <option value="auditions">Auditions</option>
                                 <option value="conference">Conference</option>
                                 <option value="video-shoots">Video Shoots</option>
-                                <option value="concerts">Concerts</option>
-                                <option value="sports-events">Sports Events</option>
-                                <option value="fashion-shows">Fashion Shows</option>
-                                <option value="outdoors">Outdoors</option>
                                 <option value="interviews">Interviews</option>
-                                <option value="cooking-studio">Cooking Studio</option>
-                                <option value="e-sports">E-sports</option>
-                                <option value="green-screen-studio">Green Screen Studio</option>
                                 <option value="virtual-event">Virtual Event</option>
-                                <option value="kitchen-studio">Kitchen Studio</option>
                             </select>
                         </div>
 
                         <div class="dropdown-custom">
                             <select class="location-home search-bar" name="location" id="location-select" tabindex="-1">
                                 <option value="all">All Locations</option>
+                                <option value="taiping">Taiping</option>
                                 <option value="petaling-jaya">Petaling Jaya</option>
                                 <option value="subang-jaya">Subang Jaya</option>
                                 <option value="sg-buloh">Sg Buloh</option>
@@ -175,121 +159,54 @@
         <section id="popular-spaces">
             <h2 class="sub-title">Popular Spaces</h2>
 
-            <div id="popular-spaces-section">
-                <div class="left-right-space-btn">
-                    <button class="fas fa-angle-left fa-5x space-btn-left" onclick="plusSpaces(-1)"></button>
-                </div>
-                <div class="row-center popular-spaces-slide">
-                    <div class="each-popular-space" id="1-space">
-                        <div class="space-imgs">
-                            <img class="each-img" src="assets/1-space-1.jpg" alt="space-1-1" />
-                            <img class="each-img" src="assets/1-space-2.jpg" alt="space-1-2" />
-                            <img class="each-img" src="assets/1-space-3.jpg" alt="space-1-3" />
+            <div class="row-center">
+                <div class="each-popular-space" id="1-space">
+                    <div class="space-imgs" id="space-image-1">
 
-                            <button class="fas fa-angle-right fa-3x space-btn-right"
-                                onclick="plusDivs('1-space', 1)"></button>
-                            <button class="fas fa-angle-left fa-3x space-btn-left"
-                                onclick="plusDivs('1-space', -1)"></button>
-                        </div>
-
-                        <div class="space-info">
-                            <p class="space-name">The Awesome Hall</p>
-                            <p class="space-location"><span class="fas fa-map-marker-alt"></span> Kuala Lumpur, Kuala
-                                Lumpur
-                            </p>
-                            <p class="space-price">RM 1,800 <span class="per-day-word">per day</span></p>
-                        </div>
+                        <button class="fas fa-angle-right fa-3x space-btn-right"
+                            onclick="plusDivs('1-space', 1)"></button>
+                        <button class="fas fa-angle-left fa-3x space-btn-left"
+                            onclick="plusDivs('1-space', -1)"></button>
                     </div>
-                    <div class="each-popular-space" id="2-space">
-                        <div class="space-imgs">
-                            <img class="each-img" src="assets/2-space-1.jpg" alt="space-2-1" />
-                            <img class="each-img" src="assets/2-space-2.jpg" alt="space-2-2" />
 
-                            <button class="fas fa-angle-right fa-3x space-btn-right"
-                                onclick="plusDivs('2-space', 1)"></button>
-                            <button class="fas fa-angle-left fa-3x space-btn-left"
-                                onclick="plusDivs('2-space', -1)"></button>
-                        </div>
-
-                        <div class="space-info">
-                            <p class="space-name">The Fantastic Hall</p>
-                            <p class="space-location"><span class="fas fa-map-marker-alt"></span>Ipoh, Perak</p>
-                            <p class="space-price">RM 2,000 <span class="per-day-word">per day</span></p>
-                        </div>
-                    </div>
-                    <div class="each-popular-space" id="3-space">
-                        <div class="space-imgs">
-                            <img class="each-img" src="assets/3-space-1.jpg" alt="space-3-1" />
-                            <img class="each-img" src="assets/3-space-2.jpg" alt="space-3-2" />
-
-                            <button class="fas fa-angle-right fa-3x space-btn-right"
-                                onclick="plusDivs('3-space', 1)"></button>
-                            <button class="fas fa-angle-left fa-3x space-btn-left"
-                                onclick="plusDivs('3-space', -1)"></button>
-                        </div>
-
-                        <div class="space-info">
-                            <p class="space-name">The Great Hall</p>
-                            <p class="space-location"><span class="fas fa-map-marker-alt"></span>Petaling Jaya, Selangor
-                            </p>
-                            <p class="space-price">RM 3,000 <span class="per-day-word">per day</span></p>
-                        </div>
-                    </div>
-                    <div class="each-popular-space" id="4-space">
-                        <div class="space-imgs">
-                            <img class="each-img" src="assets/4-space-1.jpg" alt="space-4-1" />
-                            <img class="each-img" src="assets/4-space-2.jpg" alt="space-4-2" />
-
-                            <button class="fas fa-angle-right fa-3x space-btn-right"
-                                onclick="plusDivs('4-space', 1)"></button>
-                            <button class="fas fa-angle-left fa-3x space-btn-left"
-                                onclick="plusDivs('4-space', -1)"></button>
-                        </div>
-
-                        <div class="space-info">
-                            <p class="space-name">The Outstanding Hall</p>
-                            <p class="space-location"><span class="fas fa-map-marker-alt"></span>Damansara, Selangor</p>
-                            <p class="space-price">RM 1,500 <span class="per-day-word">per day</span></p>
-                        </div>
-                    </div>
-                    <div class="each-popular-space" id="5-space">
-                        <div class="space-imgs">
-                            <img class="each-img" src="assets/5-space-1.jpg" alt="space-5-1" />
-                            <img class="each-img" src="assets/5-space-2.jpg" alt="space-5-2" />
-                            <img class="each-img" src="assets/5-space-3.jpg" alt="space-5-3" />
-
-                            <button class="fas fa-angle-right fa-3x space-btn-right"
-                                onclick="plusDivs('5-space', 1)"></button>
-                            <button class="fas fa-angle-left fa-3x space-btn-left"
-                                onclick="plusDivs('5-space', -1)"></button>
-                        </div>
-
-                        <div class="space-info">
-                            <p class="space-name">The Tremendous Hall</p>
-                            <p class="space-location"><span class="fas fa-map-marker-alt"></span>Johor Bahru, Johor</p>
-                            <p class="space-price">RM 3,500 <span class="per-day-word">per day</span></p>
-                        </div>
-                    </div>
-                    <div class="each-popular-space" id="6-space">
-                        <div class="space-imgs">
-                            <img class="each-img" src="assets/6-space-1.jpg" alt="space-6-1" />
-                            <img class="each-img" src="assets/6-space-2.jpg" alt="space-6-2" />
-
-                            <button class="fas fa-angle-right fa-3x space-btn-right"
-                                onclick="plusDivs('6-space', 1)"></button>
-                            <button class="fas fa-angle-left fa-3x space-btn-left"
-                                onclick="plusDivs('6-space', -1)"></button>
-                        </div>
-
-                        <div class="space-info">
-                            <p class="space-name">The Extraordinary Hall</p>
-                            <p class="space-location"><span class="fas fa-map-marker-alt"></span>Georgetown, Penang</p>
-                            <p class="space-price">RM 5,000 <span class="per-day-word">per day</span></p>
-                        </div>
+                    <div class="space-info">
+                        <p class="space-name" id="space-name-1"></p>
+                        <p class="space-location" id="space-location-1"><span class="fas fa-map-marker-alt"></span></p>
+                        <p class="space-price">RM <span id="space-price-1"></span><span class="per-day-word">per
+                                day</span></p>
                     </div>
                 </div>
-                <div class="left-right-space-btn">
-                    <button class="fas fa-angle-right fa-5x space-btn-right" onclick="plusSpaces(1)"></button>
+                <div class="each-popular-space" id="2-space">
+                    <div class="space-imgs" id="space-image-2">
+
+                        <button class="fas fa-angle-right fa-3x space-btn-right"
+                            onclick="plusDivs('2-space', 1)"></button>
+                        <button class="fas fa-angle-left fa-3x space-btn-left"
+                            onclick="plusDivs('2-space', -1)"></button>
+                    </div>
+
+                    <div class="space-info">
+                        <p class="space-name" id="space-name-2"></p>
+                        <p class="space-location" id="space-location-2"><span class="fas fa-map-marker-alt"></span></p>
+                        <p class="space-price">RM <span id="space-price-2"></span><span class="per-day-word">per
+                                day</span></p>
+                    </div>
+                </div>
+                <div class="each-popular-space" id="3-space">
+                    <div class="space-imgs" id="space-image-3">
+
+                        <button class="fas fa-angle-right fa-3x space-btn-right"
+                            onclick="plusDivs('3-space', 1)"></button>
+                        <button class="fas fa-angle-left fa-3x space-btn-left"
+                            onclick="plusDivs('3-space', -1)"></button>
+                    </div>
+
+                    <div class="space-info">
+                        <p class="space-name" id="space-name-3"></p>
+                        <p class="space-location" id="space-location-3"><span class="fas fa-map-marker-alt"></span></p>
+                        <p class="space-price">RM <span id="space-price-3"></span><span class="per-day-word">per
+                                day</span></p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -311,78 +228,17 @@
                 event.preventDefault();
             }
         };
-        // Total number of spaces in "popular spaces" section
-        const totalPopularSpaces = 6
-        // Index for displaying spaces in "popular spaces" section
-        var spacesIndex = {
-            "start": 1,
-            "end": 3
-        }
         // Index for displaying images in each space
         var slideIndex = {
             "1-space": 1,
             "2-space": 1,
-            "3-space": 1,
-            "4-space": 1,
-            "5-space": 1,
-            "6-space": 1
-        }
-        // Initial declaration
-        showSpaces(spacesIndex, totalPopularSpaces);
-        for (eachKey in slideIndex) {
-            showDivs(eachKey);
-        }
-
-        // Show next/previous space in "popular spaces" section
-        function plusSpaces(increment) {
-            spacesIndex['start'] += increment;
-            spacesIndex['end'] += increment;
-            showSpaces(spacesIndex, totalPopularSpaces);
+            "3-space": 1
         }
 
         // Show next/previous space image
         function plusDivs(spaceId, increment) {
             slideIndex[spaceId] += increment;
             showDivs(spaceId);
-        }
-
-        // Display multiple spaces in the "popular spaces" section
-        function showSpaces(allIndex, totalSpaces) {
-            for (var key in allIndex) {
-                if (allIndex[key] < 1) {
-                    allIndex[key] = totalSpaces;
-                } else if (allIndex[key] > totalSpaces) {
-                    allIndex[key] = 1;
-                }
-            }
-            for (var i = 1; i <= totalSpaces; i++) {
-                var id = i.toString() + '-space';
-                var wholeDiv = document.getElementById(id);
-                if (wholeDiv) {
-                    wholeDiv.style.display = "none";
-                }
-            }
-            var orderNum = 1;
-            for (var i = allIndex['start']; i <= (allIndex['start'] < allIndex['end'] ? allIndex['end'] : totalSpaces); i++) {
-                var id = i.toString() + '-space';
-                var wholeDiv = document.getElementById(id);
-                if (wholeDiv) {
-                    wholeDiv.style.display = "flex";
-                    wholeDiv.style.order = orderNum;
-                    orderNum += 1;
-                }
-            }
-            if (allIndex['start'] > allIndex['end']) {
-                for (var i = 1; i <= allIndex['end']; i++) {
-                    var id = i.toString() + '-space';
-                    var wholeDiv = document.getElementById(id);
-                    if (wholeDiv) {
-                        wholeDiv.style.display = "flex";
-                        wholeDiv.style.order = orderNum;
-                        orderNum += 1;
-                    }
-                }
-            }
         }
 
         // Display multiple images in one space
