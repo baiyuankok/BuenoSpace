@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/main_page.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+    <title>BuenoSpace - Home</title>
+</head>
+
+<body>
+    <header id="header"></header>
+    <!-- Introduction section -->
+    <section id="intro">
+        <div class="intro-container" id="intro-sec">
+            <div class="background-img" id="back-img"></div>
+            <div class="background-img-gradient" id="back-img-gradient"></div>
+            <h1 class="main-title">Event Spaces in Malaysia</h1>
+            <div class="main-search-component">
+                <!-- Form for searching/filtering spaces -->
+                <form class="form-center" action="" method="post">
+                    <div class="row-center" id="main-search-bar">
+                        <div class="dropdown-custom">
+                            <select class="events-home search-bar" name="events" id="events-select" tabindex="-1"
+                                style="border-bottom-left-radius: 15px; border-top-left-radius: 15px;"
+                                onclick="changeBorderRadius()">
+                                <option value="all-events">All Events</option>
+                                <option value="annual-dinner">Annual Dinner</option>
+                                <option value="product-launch">Product Launch</option>
+                                <option value="training">Training</option>
+                                <option value="meeting">Meeting</option>
+                                <option value="engagement">Engagement</option>
+                                <option value="exhibition">Exhibition</option>
+                                <option value="photo-shoot">Photo Shoot</option>
+                                <option value="press-conference">Press Conference</option>
+                                <option value="team-building">Team Building</option>
+                                <option value="wedding">Wedding</option>
+                                <option value="birthday-party">Birthday Party</option>
+                                <option value="seminar">Seminar</option>
+                                <option value="auditions">Auditions</option>
+                                <option value="conference">Conference</option>
+                                <option value="video-shoots">Video Shoots</option>
+                                <option value="interviews">Interviews</option>
+                                <option value="virtual-event">Virtual Event</option>
+                            </select>
+                        </div>
+
+                        <div class="dropdown-custom">
+                            <select class="location-home search-bar" name="location" id="location-select" tabindex="-1">
+                                <option value="all">All Locations</option>
+                                <option value="taiping">Taiping</option>
+                                <option value="petaling-jaya">Petaling Jaya</option>
+                                <option value="subang-jaya">Subang Jaya</option>
+                                <option value="sg-buloh">Sg Buloh</option>
+                                <option value="damansara">Damansara</option>
+                                <option value="shah-alam">Shah Alam</option>
+                                <option value="kuala-lumpur">Kuala Lumpur</option>
+                                <option value="ampang">Ampang</option>
+                                <option value="cyberjaya">Cyberjaya</option>
+                                <option value="penang-georgetown">Penang, Georgetown</option>
+                                <option value="puchong">Puchong</option>
+                                <option value="kl-sentral">KL Sentral</option>
+                                <option value="bandar-utama">Bandar Utama</option>
+                                <option value="bukit-bintang">Bukit Bintang</option>
+                                <option value="johor-bahru">Johor Bahru</option>
+                                <option value="kuantan">Kuantan</option>
+                                <option value="ipoh">Ipoh</option>
+                            </select>
+                        </div>
+                        <div id="more-options">
+                            <!-- The "type button" is a must to prevent weird bugs when clicking this button to show more options -->
+                            <button id="price-capacity-btn" type="button" onclick="togglePriceCapacity()"><span
+                                    class="fas fa-plus"></span></button>
+                        </div>
+                        <div id="search-icon">
+                            <button id="search-home" type="submit"><span class="fas fa-search"></span>SEARCH</button>
+                        </div>
+                    </div>
+
+                    <div id="price-capacity-section" style="visibility: hidden;">
+                        <div id="price-section">
+                            <p>Price <span class="per-day-word">(per day)</span></p>
+                            <div class="row-center">
+                                <p>RM</p><span class="per-day-word">(min)</span>
+                                <input id="min-price" type="number" placeholder="10" min="1"
+                                    onchange="checkOnChangePrice('min-price')" />
+                                <button type="button" id="min-price-add" class="fas fa-plus add-btn"
+                                    onclick="changePrice('min-price', 1)"></button>
+                                <button type="button" id="min-price-minus" class="fas fa-minus minus-btn"
+                                    onclick="changePrice('min-price', -1)"></button>
+                            </div>
+                            <div class="row-center">
+                                <p>RM</p><span class="per-day-word">(max)</span>
+                                <input id="max-price" type="number" placeholder="30000" min="1"
+                                    onchange="checkOnChangePrice('max-price')" />
+                                <button type="button" id="max-price-add" class="fas fa-plus add-btn"
+                                    onclick="changePrice('max-price', 1)"></button>
+                                <button type="button" id="max-price-minus" class="fas fa-minus minus-btn"
+                                    onclick="changePrice('max-price', -1)"></button>
+                            </div>
+                            <button id="price-clear-btn" type="button" onclick="clearPrice()">Clear</button>
+                        </div>
+                        <div id="capacity-section">
+                            <p>Capacity</p>
+                            <div class="row-center">
+                                <input id="capacity" type="number" placeholder="1" min="1"
+                                    onchange="checkOnChangeCapacity()" />
+                                <button type="button" id="capacity-add" class="fas fa-plus add-btn"
+                                    onclick="changeCapacity(1)"></button>
+                                <button type="button" id="capacity-minus" class="fas fa-minus minus-btn"
+                                    onclick="changeCapacity(-1)"></button>
+                            </div>
+                            <button id="capacity-clear-btn" type="button" onclick="clearCapacity()">Clear</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- How to use BuenoSpace Section -->
+    <div class="background-plain-color">
+        <section id="how-to-use">
+            <h2 class="sub-title">How To Use BuenoSpace</h2>
+            <div class="row-center">
+                <div id="find-space" class="how-to-use-info">
+                    <span class="fas fa-search fa-3x icon-img"></span>
+                    <div class="text-box">
+                        <h6>Find a Space</h6>
+                    </div>
+                    <p>Browse the event spaces according to your needs</p>
+                </div>
+                <div id="rent-space" class="how-to-use-info">
+                    <span class="fas fa-calendar-check fa-3x icon-img"></span>
+                    <div class="text-box">
+                        <h6>Make a Booking</h6>
+                    </div>
+                    <p>Once you find your space, submit a booking form</p>
+                </div>
+                <div id="make-payment" class="how-to-use-info">
+                    <span class="fas fa-money-check-alt fa-3x icon-img"></span>
+                    <div class="text-box">
+                        <h6>Make a Payment</h6>
+                    </div>
+                    <p>Pay the rental fee to finalize your booking</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Spaces section -->
+        <section id="popular-spaces">
+            <h2 class="sub-title">Popular Spaces</h2>
+
+            <div class="row-center">
+                <div class="each-popular-space" id="1-space">
+                    <div class="space-imgs" id="space-image-1">
+
+                        <button class="fas fa-angle-right fa-3x space-btn-right"
+                            onclick="plusDivs('1-space', 1)"></button>
+                        <button class="fas fa-angle-left fa-3x space-btn-left"
+                            onclick="plusDivs('1-space', -1)"></button>
+                    </div>
+
+                    <div class="space-info">
+                        <p class="space-name" id="space-name-1"></p>
+                        <p class="space-location" id="space-location-1"><span class="fas fa-map-marker-alt"></span></p>
+                        <p class="space-price">RM <span id="space-price-1"></span><span class="per-day-word">per
+                                day</span></p>
+                    </div>
+                </div>
+                <div class="each-popular-space" id="2-space">
+                    <div class="space-imgs" id="space-image-2">
+
+                        <button class="fas fa-angle-right fa-3x space-btn-right"
+                            onclick="plusDivs('2-space', 1)"></button>
+                        <button class="fas fa-angle-left fa-3x space-btn-left"
+                            onclick="plusDivs('2-space', -1)"></button>
+                    </div>
+
+                    <div class="space-info">
+                        <p class="space-name" id="space-name-2"></p>
+                        <p class="space-location" id="space-location-2"><span class="fas fa-map-marker-alt"></span></p>
+                        <p class="space-price">RM <span id="space-price-2"></span><span class="per-day-word">per
+                                day</span></p>
+                    </div>
+                </div>
+                <div class="each-popular-space" id="3-space">
+                    <div class="space-imgs" id="space-image-3">
+
+                        <button class="fas fa-angle-right fa-3x space-btn-right"
+                            onclick="plusDivs('3-space', 1)"></button>
+                        <button class="fas fa-angle-left fa-3x space-btn-left"
+                            onclick="plusDivs('3-space', -1)"></button>
+                    </div>
+
+                    <div class="space-info">
+                        <p class="space-name" id="space-name-3"></p>
+                        <p class="space-location" id="space-location-3"><span class="fas fa-map-marker-alt"></span></p>
+                        <p class="space-price">RM <span id="space-price-3"></span><span class="per-day-word">per
+                                day</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer id="footer"></footer>
+
+    <script>
+        // Load the page for header and footer using jQuery
+        $("#header").load("header.html");
+        $("#footer").load("footer.html");
+
+        // Allow user to type in numbers only without "+", "-", "." and "e" sign in input type number
+        document.getElementById("min-price").addEventListener("keypress", keyAllowInputNum);
+        document.getElementById("max-price").addEventListener("keypress", keyAllowInputNum);
+        document.getElementById("capacity").addEventListener("keypress", keyAllowInputNum);
+        function keyAllowInputNum(event) {
+            if (event.which != 8 && event.which != 0 && event.which < 48 || event.which > 57) {
+                event.preventDefault();
+            }
+        };
+        // Index for displaying images in each space
+        var slideIndex = {
+            "1-space": 1,
+            "2-space": 1,
+            "3-space": 1
+        }
+
+        // Show next/previous space image
+        function plusDivs(spaceId, increment) {
+            slideIndex[spaceId] += increment;
+            showDivs(spaceId);
+        }
+
+        // Display multiple images in one space
+        function showDivs(key) {
+            var imgId = document.getElementById(key);
+            if (imgId) {
+                var img = imgId.getElementsByClassName("each-img");
+                // If the image index more than the image length (when move to right max)
+                if (slideIndex[key] > img.length) {
+                    slideIndex[key] = 1;
+                }
+                // If the image index less than the 1 (when move to left max)
+                if (slideIndex[key] < 1) {
+                    slideIndex[key] = img.length;
+                }
+                for (var i = 0; i < img.length; i++) {
+                    img[i].style.display = "none";
+                }
+                img[slideIndex[key] - 1].style.display = "flex";
+            }
+        }
+
+        // Toggle "show" and "hide" for the price and capacity section
+        function togglePriceCapacity() {
+            var priceCap = document.getElementById("price-capacity-section");
+            if (priceCap.style.visibility === "hidden") {
+                priceCap.style.visibility = "visible";
+            } else {
+                priceCap.style.visibility = "hidden";
+            }
+        }
+
+        // Listen to all onclick events
+        window.onclick = function (event) {
+            // Change the events dropdown border radius to curve if the user clicks outside of it
+            if (event.target.id != "events-select") {
+                var eventSelect = document.getElementById("events-select");
+                if (eventSelect.style.borderBottomLeftRadius == "0px") {
+                    eventSelect.style.borderBottomLeftRadius = "15px";
+                }
+            }
+        }
+
+        // To check and change the data type of the input value to integer
+        function checkValueType(inputValue) {
+            return typeof inputValue === "string" ? (inputValue == "" ? 1 : parseInt(inputValue)) : inputValue;
+        }
+
+        // To make sure that min price won't exceed max price
+        function checkMaxMinPrice(minPrice, maxPrice) {
+            return minPrice > maxPrice ? false : true;
+        }
+
+        // Increment or decrement values in the price and capacity sections using "+" and "-" buttons
+        function changeValue(inputValue, increment) {
+            var newValue = checkValueType(inputValue);
+            newValue += increment;
+            return newValue;
+        }
+
+        // Check and change the price or capacity values using "+" and "-" buttons
+        function changePrice(btnId, increment) {
+            var targetInput = document.getElementById(btnId);
+            var outputValue = changeValue(targetInput.value, increment);
+            var minPrice;
+            var maxPrice;
+            if (btnId == "min-price") {
+                minPrice = outputValue;
+                maxPrice = document.getElementById("max-price").value;
+            } else if (btnId == "max-price") {
+                minPrice = document.getElementById("min-price").value;
+                maxPrice = outputValue;
+            }
+            if ((minPrice == "" && btnId == "max-price") || (maxPrice == "" && btnId == "min-price")) {
+                targetInput.value = outputValue < 1 ? 1 : outputValue;
+            } else {
+                minPrice = checkValueType(minPrice);
+                maxPrice = checkValueType(maxPrice);
+                if (checkMaxMinPrice(minPrice, maxPrice)) {
+                    targetInput.value = outputValue < 1 ? 1 : outputValue;
+                } else {
+                    if (btnId == "min-price") {
+                        targetInput.value = maxPrice;
+                    } else if (btnId == "max-price") {
+                        targetInput.value = minPrice;
+                    }
+                }
+            }
+        }
+
+        function changeCapacity(increment) {
+            var targetInput = document.getElementById("capacity");
+            var newValue = changeValue(targetInput.value, increment);
+            targetInput.value = newValue < 1 ? 1 : newValue;
+        }
+
+        // To check for min and max price when user type in the numbers
+        function checkOnChangePrice(btnId) {
+            var targetInput = document.getElementById(btnId);
+            var minPrice = document.getElementById("min-price").value;
+            var maxPrice = document.getElementById("max-price").value;
+            if ((minPrice == "" && btnId == "max-price") || (maxPrice == "" && btnId == "min-price")) {
+                if (checkValueType(targetInput.value) < 1) {
+                    targetInput.value = 1;
+                }
+            } else {
+                if (!checkMaxMinPrice(checkValueType(minPrice), checkValueType(maxPrice))) {
+                    if (btnId == "min-price") {
+                        targetInput.value = maxPrice;
+                    } else if (btnId == "max-price") {
+                        targetInput.value = minPrice;
+                    }
+                } else {
+                    if (btnId == "min-price" && checkValueType(targetInput.value) < 1) {
+                        targetInput.value = 1;
+                    }
+                }
+            }
+        }
+
+        function checkOnChangeCapacity() {
+            var targetInput = document.getElementById("capacity");
+            if (targetInput.value < 1) {
+                targetInput.value = 1;
+            }
+        }
+
+        // Clear button to clear price or capacity section 
+        function clearPrice() {
+            document.getElementById("min-price").value = "";
+            document.getElementById("max-price").value = "";
+        }
+
+        function clearCapacity() {
+            document.getElementById("capacity").value = "";
+        }
+
+        // Change the main search bar border radius and remove black border when clicking
+        function changeBorderRadius() {
+            var eventSelect = document.getElementById("events-select");
+            if (eventSelect.style.borderBottomLeftRadius == "15px") {
+                eventSelect.style.borderBottomLeftRadius = "0px";
+            } else {
+                eventSelect.style.borderBottomLeftRadius = "15px";
+            }
+        }
+
+        // Change background color for sticky header when scrolling
+        window.onscroll = function () {
+            stickyHeader();
+        };
+
+        function stickyHeader() {
+            var navSection = document.getElementById("navbar-section");
+            // Get the offset position of the navbar
+            var stickyPos = navSection.offsetTop;
+            if (window.pageYOffset > stickyPos) {
+                navSection.classList.add("navbar-custom");
+            } else {
+                // If the triple bar is not clicked, then the background color should be removed
+                if (!document.getElementById("navbarSupportedContent").classList.contains("show")) {
+                    navSection.classList.remove("navbar-custom");
+                }
+            }
+        }
+
+        // Set the background image height onload and onresize
+        window.addEventListener("resize", setBackgroundImg);
+        window.addEventListener("load", function () {
+            setBackgroundImg();
+            // The "timeout" is used to fix firefox problem
+            const btnListenTimeout = setTimeout(function () {
+                document.getElementById("triple-bar").addEventListener("click", setNav);
+                clearTimeout(btnListenTimeout);
+            }, 20);
+        });
+        function setBackgroundImg() {
+            // Set the background image height dynamically
+            var introHeight = document.getElementById("intro-sec").offsetHeight;
+            var imgHeight = (introHeight + 100).toString();
+            document.getElementById("back-img").style.height = imgHeight + "px";
+            document.getElementById("back-img-gradient").style.height = imgHeight + "px";
+        }
+        // Function to call when clicking the triple bar when shrinking navigation bar
+        function setNav() {
+            var navSec = document.getElementById("navbar-section");
+            if (window.pageYOffset == 0) {
+                if (navSec.classList.contains("navbar-custom")) {
+                    navSec.classList.remove("navbar-custom");
+                } else {
+                    navSec.classList.add("navbar-custom");
+                }
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
