@@ -414,6 +414,13 @@
                 document.getElementById("triple-bar").addEventListener("click", setNav);
                 clearTimeout(btnListenTimeout);
             }, 20);
+
+            var targetObserver = document.querySelectorAll(".each-img");
+            for (let eachTarget of targetObserver) {
+                if (!eachTarget.src) {
+                    eachTarget.setAttribute("src", eachTarget.dataset.src);
+                }
+            }
         });
         function setBackgroundImg() {
             // Set the background image height dynamically
@@ -433,8 +440,6 @@
                 }
             }
         }
-
-
     </script>
 </body>
 

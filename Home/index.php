@@ -25,10 +25,9 @@ foreach($space_id as $each_space) {
         echo '<script>
                 var imgSec = document.getElementById("space-image-'.$counter.'");
                 var imgEle = document.createElement("IMG");
-                imgEle.src = "image.php?id='.$each_img.'";
+                imgEle.setAttribute("data-src", "image.php?id='.$each_img.'");
                 imgEle.classList.add("each-img");
                 imgEle.alt = "space-'.$counter.'-'.$img_counter.'";
-                imgEle.setAttribute("loading", "lazy");
                 imgSec.appendChild(imgEle);
             </script>';
         $img_counter += 1;
