@@ -1,6 +1,14 @@
 <?php
 // Connect to database
 require_once "config.php";
+
+session_start();
+ // Check if the owner is already logged in, if yes then redirect owner to owner profile page
+ if(isset($_SESSION["owner_loggedin"]) && $_SESSION["owner_loggedin"] === true){
+            
+    header("location: owner_profile.php");
+    exit;
+}
 require "../Home/main_page.html";
 
 function select_images_id($pdo, $space) {
