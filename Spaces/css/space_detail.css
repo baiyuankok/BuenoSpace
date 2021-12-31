@@ -10,10 +10,6 @@
     .modal-body .space-btn-right {
         top: 15% !important;
     }
-
-    #footer {
-        bottom: 0;
-    }
 }
 
 #space-img-section {
@@ -158,8 +154,26 @@
     border: 2px solid black;
 }
 
-#details {
-    width: 60%;
+#event-type-section p,
+#review-section p {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#review-section {
+    margin-top: 20px;
+}
+
+.user-name {
+    font-weight: bold;
+}
+
+.review-content {
+    padding-left: 20px;
+}
+
+#load-more-review {
+    max-width: fit-content;
+    cursor: pointer;
 }
 
 #rent-section {
