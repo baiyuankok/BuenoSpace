@@ -7,7 +7,7 @@
 
 <nav class="navbar navbar-expand-lg fixed-top" id="navbar-section">
     <div class="container-fluid">
-        <a class="navbar-brand" href="../Home/main_page.html">
+        <a class="navbar-brand" href="../Home/index.php">
             <img src="../Home/assets/logo.png" alt="logo-image">
         </a>
         <button class="navbar-toggler navbar-dark toggler-custom" type="button" data-bs-toggle="collapse"
@@ -28,7 +28,7 @@
                     <button onclick="dropdownFunction()" class="dropbtn_welcome" >Welcome <?php echo $customer_name; ?> <i class="fas fa-caret-down"></i> </button>
                     <div id="myDropdown" class="dropdown-content-welcome">
 
-                        <a href="main_page.html">Home Page</a>
+                        <a href="index.php">Home Page</a>
                         <a href="customer_profile.php">Profile Page</a>
                         <a href="signOut.php">Sign Out</a>
                     </div>
