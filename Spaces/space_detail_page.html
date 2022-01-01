@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../Home/css/header.css">
+    <link rel="stylesheet" href="../Home/css/footer.css">
+    <link rel="stylesheet" href="css/space_detail.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+    <script src="../Home/js/header_background.js"></script>
+</head>
+
+<body>
+    <header id="header"></header>
+
+    <div id="space-img-section">
+        <div class="left-right-space-btn">
+            <button class="fas fa-angle-left fa-5x space-btn-left" onclick="zoomInImg()"></button>
+        </div>
+
+        <div class="mx-auto justify-content-center sub-img-section">
+            <img id="images" class="img-fluid" alt="space-sample" onclick="zoomInImg()" />
+        </div>
+
+        <div class="left-right-space-btn">
+            <button class="fas fa-angle-right fa-5x space-btn-right" onclick="zoomInImg()"></button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="image-preview" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="mx-auto justify-content-center rent-btn"
+                        data-bs-dismiss="modal">RENT</button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <button class="fas fa-angle-left fa-5x space-btn-left" onclick="slideImg(-1)"></button>
+                    <div id="all-image-samples" class="mx-auto justify-content-center">
+                    </div>
+                    <button class="fas fa-angle-right fa-5x space-btn-right" onclick="slideImg(1)"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="space-details-section">
+        <h2 id="name"></h2>
+        <div id="location-price-capacity-section">
+            <div class="lpc-details">
+                <span class="fas fa-map-marker-alt"></span>
+                <p id="location"></p>
+            </div>
+            <div class="lpc-details">
+                <span class="fas fa-hand-holding-usd"></span>
+                <p>RM <span id="price"></span><span style="opacity: 0.65; font-size: small;"> per day</span></p>
+            </div>
+            <div class="lpc-details">
+                <span class="fas fa-user-friends"></span>
+                <p><span id="capacity"></span> Max</p>
+            </div>
+        </div>
+
+        <div id="event-type-section">
+            <p><b>Recommended for:</b></p>
+            <div id="event-type">
+            </div>
+        </div>
+
+        <div id="review-section">
+            <p style="font-size: larger;"><b>Reviews</b><span
+                    style="font-size: small; padding-left: 10px; opacity: 0.85;">(
+                    <span id="review-num"></span> reviews)</span></p>
+            <div id="review-content-section">
+            </div>
+            <div id="load-more-review">
+                <p><i>... Load More</i><span style="margin-left: 10px; opacity: 0.65;"
+                        class="fas fa-angle-double-down"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="rent-section">
+        <button class="rent-btn ms-auto justify-content-end">RENT</button>
+    </div>
+
+    <footer id="footer"></footer>
+
+    <script>
+        $("#header").load("../Home/header.html");
+        $("#footer").load("../Home/footer.html");
+        // Index for displaying next/previous images in modal
+        var imgIndex = 1;
+
+        function zoomInImg() {
+            showImg(imgIndex);
+            $("#image-preview").modal("show");
+        }
+
+        // Display multiple images in modal body
+        function showImg() {
+            var imgs = document.querySelectorAll("#all-image-samples > img");
+            if (imgs) {
+                if (imgIndex > imgs.length) {
+                    imgIndex = 1;
+                }
+                // If the image index less than the 1 (when move to left max)
+                if (imgIndex < 1) {
+                    imgIndex = imgs.length;
+                }
+                for (var i = 0; i < imgs.length; i++) {
+                    imgs[i].style.display = "none";
+                }
+                imgs[imgIndex - 1].style.display = "flex";
+            }
+        }
+
+        function slideImg(increment) {
+            imgIndex += increment;
+            showImg(imgIndex);
+        }
+
+        function showReviews() {
+            var allReviews = document.querySelectorAll("#review-content-section > p");
+            if (allReviews.length > 6) {
+                for (var i = 6; i < allReviews.length; i++) {
+                    allReviews[i].style.display = "none";
+                }
+            } else {
+                document.getElementById("load-more-review").style.display = "none";
+            }
+        }
+
+        function loadMoreReview() {
+            var allReviews = document.querySelectorAll("#review-content-section > p");
+            if (allReviews) {
+                for (var i = 6; i < allReviews.length; i++) {
+                    allReviews[i].style.display = "block";
+                }
+            }
+            document.getElementById("load-more-review").style.display = "none";
+        }
+
+        window.addEventListener("load", function () {
+            headerInitialGray();
+            // Load the images onload
+            var targetImg = document.querySelectorAll("#all-image-samples > img");
+            for (var eachTarget of targetImg) {
+                if (!eachTarget.src) {
+                    eachTarget.setAttribute("src", eachTarget.dataset.src);
+                }
+            }
+            // Add listener to load more review section
+            document.getElementById("load-more-review").addEventListener("click", loadMoreReview);
+        });
+    </script>
+</body>
+
+</html>
