@@ -1,6 +1,5 @@
 .search-result-container {
     display: grid;
     grid: auto / auto auto auto;
-    align-items: center;
-    /* justify-content: center; */
+    gap: 20px;
 }
