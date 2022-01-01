@@ -1,3 +1,4 @@
 .search-result-container {
     display: grid;
+    grid: 150px / auto auto auto;
 }
