@@ -1,11 +1,14 @@
 .search-results-main {
-    display: block;
+    display: flex;
+}
+
+.search-results-main {
+    width: 30%;
 }
 
 
-
-
 .search-result-container {
+    flex: 1;
     display: grid;
     grid: auto / auto auto auto;
     gap: 20px;
