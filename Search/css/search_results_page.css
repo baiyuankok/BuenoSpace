@@ -1,6 +1,5 @@
 .search-results-main {
-    display: flex;
-    flex-flow: row wrap;
+    display: inline;
 }
 
 
