@@ -2,5 +2,5 @@
     display: grid;
     grid: auto / auto auto auto;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
 }
