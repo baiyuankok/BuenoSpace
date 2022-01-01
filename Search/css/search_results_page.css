@@ -6,7 +6,8 @@
 
 
 .search-result-container {
-    display: grid;
-    grid: auto / auto auto auto;
-    gap: 20px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
 }
