@@ -4,6 +4,7 @@
 
 .search-filter-menu {
     width: 20%;
+    overflow: auto;
 }
 
 
