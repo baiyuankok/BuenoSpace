@@ -1,3 +1,11 @@
+.search-results-main {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+
+
+
 .search-result-container {
     display: grid;
     grid: auto / auto auto auto;
