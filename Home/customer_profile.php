@@ -107,6 +107,7 @@
         </tr>
 
         <?php
+       
             //read the user favourite space from database and show it in table view
             $sql = "SELECT s.spaceID, userID, favouriteID, name 
             FROM space s, favourite f 

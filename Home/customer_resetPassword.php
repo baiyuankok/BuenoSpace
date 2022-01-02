@@ -4,7 +4,7 @@
     session_start(); 
     // Include config file
     require_once "config.php";
-    //require "../Home/account_function/customer_reset_password_validate.php";
+    require "../Home/account_function/customer_reset_password_validate.php";
 
 
 ?>
@@ -50,7 +50,7 @@
                 <br><br>
             
                 <label>Email</label>
-                <input type="email" name="customer_email_resetPass"  value="<?php echo $customer_email_resetPass; ?>">
+                <input type="email" name="customer_email"  value="<?php echo $customer_email; ?>">
                 <br>
                 <span class="help-block"><?php echo $customer_email_resetPass_err; ?></span>
                 <br>

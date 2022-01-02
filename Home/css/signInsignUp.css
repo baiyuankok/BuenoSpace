@@ -19,6 +19,15 @@ text-align: center;
  
 }
 
+.container_message_reset{
+  width:45%;
+  background-color:#383a3db0;
+  margin:auto;
+  padding:5px 10px 1px 10px;
+  text-align:center;
+  color:white;
+}
+
 .sign_form{
   width:60%;
   margin:auto;
