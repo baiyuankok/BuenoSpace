@@ -4,7 +4,7 @@
 
 .search-filter-menu {
     width: 20%;
-    overflow: auto;
+    display: block;
 }
 
 
@@ -13,4 +13,11 @@
     display: grid;
     grid: auto / auto auto auto;
     gap: 20px;
+}
+
+.row-center {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
 }

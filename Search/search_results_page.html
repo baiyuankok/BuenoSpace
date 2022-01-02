@@ -22,8 +22,7 @@
     <div class="search-results-main">
         <!--Search filter menu-->
         <div class="search-filter-menu">
-            <p>Search bar goes here</p>
-            <!--Price filter-->
+             <!--Price filter-->
             <div>
                 <p>Price (per day)</p>
                 <div class="row-center">
@@ -42,7 +41,11 @@
 
             
             <!--Capacity filter-->
-            
+            <div class="row-center">
+                <input id="capacity" type="number" placeholder="1" min="1"/>
+                <button type="button" id="capacity-add"></button>
+                <button type="button" id="capacity-minus" class="fas fa-minus minus-btn"></button>
+            </div>
 
             <!--Event type filter-->
             <div>
