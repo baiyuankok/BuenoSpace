@@ -1,16 +1,5 @@
 <?php
 // Connect to database
-<<<<<<< HEAD
-require_once "config.php";
-
-session_start();
- // Check if the owner is already logged in, if yes then redirect owner to owner profile page
- if(isset($_SESSION["owner_loggedin"]) && $_SESSION["owner_loggedin"] === true){
-            
-    header("location: owner_profile.php");
-    exit;
-}
-=======
 require_once "../Home/config.php";
 >>>>>>> 91f74b1cd71a6f7a35ae1f39652b7d69450a32b0
 require "../Home/main_page.html";
