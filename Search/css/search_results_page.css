@@ -1,23 +1,48 @@
+.search-results-body {
+    display: block;   
+}
+
+
 .search-results-main {
     display: flex;
+
+    
 }
 
 .search-filter-menu {
+    float: left;
     width: 20%;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    padding: 10px;
+    
 }
 
 
 .search-result-container {
+    float: right;
     flex: 1;
     display: grid;
     grid: auto / auto auto auto;
     gap: 20px;
+    padding: 10px;
 }
 
 .row-center {
+    display: block;
+}
+
+.filter-type {
+    padding: 5px;
+}
+
+.filter-body {
+    padding: 5px;
+}
+
+.pagination {
     display: flex;
     flex-flow: row wrap;
-    align-items: center;
     justify-content: center;
 }
