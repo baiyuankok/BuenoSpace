@@ -18,244 +18,233 @@
 
 <body>
     <header id="header"></header>
-    <div class="search-results-body">
-        <div class="search-results-wrapper">
-            <!--Search filter menu-->
-            <div class="search-filter-menu">
-                <!--Price filter-->
-                <div class="filter-block">
-                    <div class="filter-type">Price (per day)</div>
-                    <div class="filter-body">
-                        <div class="row-center">
+
+    <div class="search-results-wrapper">
+        <!--Search filter menu-->
+        <div class="search-filter-menu">
+            <!--Price filter-->
+            <div class="filter-block">
+                <div class="filter-type">Price (per day)</div>
+                <div class="filter-body">
+                    <div class="row-center">
                         <div>RM (min)</div>
                         <input id="min-price" type="number" placeholder="10" min="1"
-                            onchange="checkOnChangePrice('min-price')"/>
-                        <button type="button" id="min-price-add"
-                            onclick="changePrice('min-price', 1)">+</button>
-                        <button type="button" id="min-price-minus"
-                            onclick="changePrice('min-price', -1)">-</button>
-                        </div>
-                        <div class="row-center">
-                            <div>RM (max)</div>
-                            <input id="max-price" type="number" placeholder="30000" min="1"
-                                onchange="checkOnChangePrice('max-price')"/>
-                            <button type="button" id="max-price-add"
-                                onclick="changePrice('max-price', 1)">+</button>
-                            <button type="button" id="max-price-minus"
-                                onclick="changePrice('max-price', -1)">-</button>
-                        </div>
+                            onchange="checkOnChangePrice('min-price')" />
+                        <button type="button" id="min-price-add" onclick="changePrice('min-price', 1)">+</button>
+                        <button type="button" id="min-price-minus" onclick="changePrice('min-price', -1)">-</button>
                     </div>
-                </div>
-
-            
-                <!--Capacity filter-->
-                <div class="filter-block">
-                    <div class="filter-type">Capacity</div>
-                    <div class="filter-body">
-                        <input id="capacity" type="number" placeholder="1" min="1"
-                            onchange="checkOnChangeCapacity()"/>
-                        <button type="button" id="capacity-add"
-                            onclick="changeCapacity(1)">+</button>
-                        <button type="button" id="capacity-minus"
-                            onclick="changeCapacity(-1)">-</button>
-                    </div>  
-                </div>
-
-                <!--Event type filter-->
-                <div class="filter-block">
-                    <div class="filter-type">Event</div>
-                    <div class="filter-body">
-                        <input type="checkbox"  value="annual-dinner">
-                        <label>Annual Dinner</label><br>
-                        <input type="checkbox"  value="product-launch">
-                        <label>Product Launch</label><br>
-                        <input type="checkbox"  value="training">
-                        <label>Training</label><br>
-                        <input type="checkbox"  value="meeting">
-                        <label>Meeting</label><br>
-                        <input type="checkbox"  value="engagement">
-                        <label>Engagement</label><br>
-                        <input type="checkbox"  value="exhibition">
-                        <label>Exhibition</label><br>
-                        <input type="checkbox"  value="photo-shoot">
-                        <label>Photo Shoot</label><br>
-                        <input type="checkbox"  value="press-conference">
-                        <label>Press Conference</label><br>
-                        <input type="checkbox"  value="team-building">
-                        <label>Team Building</label><br>
-                        <input type="checkbox"  value="wedding">
-                        <label>Wedding</label><br>
-                        <input type="checkbox"  value="birthday-party">
-                        <label>Birthday Party</label><br>
-                        <input type="checkbox"  value="seminar">
-                        <label>Seminar</label><br>
-                        <input type="checkbox"  value="auditions">
-                        <label>Auditions</label><br>
-                        <input type="checkbox"  value="conference">
-                        <label>Conference</label><br>
-                        <input type="checkbox"  value="video-shoots">
-                        <label>Video Shoots</label><br>
-                        <input type="checkbox"  value="interviews">
-                        <label>Interviews</label><br>
-                        <input type="checkbox"  value="virtual-event">
-                        <label>Virtual Event</label><br>
-                    </div>
-                </div>
-            
-                <!--Location filter-->
-                <div class="filter-block">
-                    <div class="filter-type">Location</div>
-                    <div class="filter-body">
-                        <input type="checkbox"  value="taiping">
-                        <label>Taiping</label><br>
-                        <input type="checkbox"  value="petaling-jaya">
-                        <label>Petaling Jaya</label><br>
-                        <input type="checkbox"  value="subang-jaya">
-                        <label>Subang Jaya</label><br>
-                        <input type="checkbox"  value="sg-buloh">
-                        <label>Sg Buloh</label><br>
-                        <input type="checkbox"  value="damansara">
-                        <label>Damansara</label><br>
-                        <input type="checkbox"  value="shah-alam">
-                        <label>Shah Alam</label><br>
-                        <input type="checkbox"  value="kuala-lumpur">
-                        <label>Kuala Lumpur</label><br>
-                        <input type="checkbox"  value="ampang">
-                        <label>Ampang</label><br>
-                        <input type="checkbox"  value="cyberjaya">
-                        <label>Cyberjaya</label><br>
-                        <input type="checkbox"  value="penang-georgetown">
-                        <label>Penang, Georgetown</label><br>
-                        <input type="checkbox"  value="puchong">
-                        <label>Puchong</label><br>
-                        <input type="checkbox"  value="kl-sentral">
-                        <label>KL Sentral</label><br>
-                        <input type="checkbox"  value="bandar-utama">
-                        <label>Bandar Utama</label><br>
-                        <input type="checkbox"  value="bukit-bintang">
-                        <label>Bukit Bintang</label><br>
-                        <input type="checkbox"  value="johor-bahru">
-                        <label>Johor Bahru</label><br>
-                        <input type="checkbox"  value="kuantan">
-                        <label>Kuantan</label><br>
-                        <input type="checkbox"  value="ipoh">
-                        <label>Ipoh</label><br>
+                    <div class="row-center">
+                        <div>RM (max)</div>
+                        <input id="max-price" type="number" placeholder="30000" min="1"
+                            onchange="checkOnChangePrice('max-price')" />
+                        <button type="button" id="max-price-add" onclick="changePrice('max-price', 1)">+</button>
+                        <button type="button" id="max-price-minus" onclick="changePrice('max-price', -1)">-</button>
                     </div>
                 </div>
             </div>
 
-            <!--Search results area-->
-            <div class="search-results-area">
-                <!--List of spaces-->
-                <div class="search-result-container">
-                    <div class="space-box" id="1-space">
-                        <div class="space-image" id="space-image-1">
+
+            <!--Capacity filter-->
+            <div class="filter-block">
+                <div class="filter-type">Capacity</div>
+                <div class="filter-body">
+                    <input id="capacity" type="number" placeholder="1" min="1" onchange="checkOnChangeCapacity()" />
+                    <button type="button" id="capacity-add" onclick="changeCapacity(1)">+</button>
+                    <button type="button" id="capacity-minus" onclick="changeCapacity(-1)">-</button>
+                </div>
+            </div>
+
+            <!--Event type filter-->
+            <div class="filter-block">
+                <div class="filter-type">Event</div>
+                <div class="filter-body">
+                    <input type="checkbox" value="annual-dinner">
+                    <label>Annual Dinner</label><br>
+                    <input type="checkbox" value="product-launch">
+                    <label>Product Launch</label><br>
+                    <input type="checkbox" value="training">
+                    <label>Training</label><br>
+                    <input type="checkbox" value="meeting">
+                    <label>Meeting</label><br>
+                    <input type="checkbox" value="engagement">
+                    <label>Engagement</label><br>
+                    <input type="checkbox" value="exhibition">
+                    <label>Exhibition</label><br>
+                    <input type="checkbox" value="photo-shoot">
+                    <label>Photo Shoot</label><br>
+                    <input type="checkbox" value="press-conference">
+                    <label>Press Conference</label><br>
+                    <input type="checkbox" value="team-building">
+                    <label>Team Building</label><br>
+                    <input type="checkbox" value="wedding">
+                    <label>Wedding</label><br>
+                    <input type="checkbox" value="birthday-party">
+                    <label>Birthday Party</label><br>
+                    <input type="checkbox" value="seminar">
+                    <label>Seminar</label><br>
+                    <input type="checkbox" value="auditions">
+                    <label>Auditions</label><br>
+                    <input type="checkbox" value="conference">
+                    <label>Conference</label><br>
+                    <input type="checkbox" value="video-shoots">
+                    <label>Video Shoots</label><br>
+                    <input type="checkbox" value="interviews">
+                    <label>Interviews</label><br>
+                    <input type="checkbox" value="virtual-event">
+                    <label>Virtual Event</label><br>
+                </div>
+            </div>
+
+            <!--Location filter-->
+            <div class="filter-block">
+                <div class="filter-type">Location</div>
+                <div class="filter-body">
+                    <input type="checkbox" value="taiping">
+                    <label>Taiping</label><br>
+                    <input type="checkbox" value="petaling-jaya">
+                    <label>Petaling Jaya</label><br>
+                    <input type="checkbox" value="subang-jaya">
+                    <label>Subang Jaya</label><br>
+                    <input type="checkbox" value="sg-buloh">
+                    <label>Sg Buloh</label><br>
+                    <input type="checkbox" value="damansara">
+                    <label>Damansara</label><br>
+                    <input type="checkbox" value="shah-alam">
+                    <label>Shah Alam</label><br>
+                    <input type="checkbox" value="kuala-lumpur">
+                    <label>Kuala Lumpur</label><br>
+                    <input type="checkbox" value="ampang">
+                    <label>Ampang</label><br>
+                    <input type="checkbox" value="cyberjaya">
+                    <label>Cyberjaya</label><br>
+                    <input type="checkbox" value="penang-georgetown">
+                    <label>Penang, Georgetown</label><br>
+                    <input type="checkbox" value="puchong">
+                    <label>Puchong</label><br>
+                    <input type="checkbox" value="kl-sentral">
+                    <label>KL Sentral</label><br>
+                    <input type="checkbox" value="bandar-utama">
+                    <label>Bandar Utama</label><br>
+                    <input type="checkbox" value="bukit-bintang">
+                    <label>Bukit Bintang</label><br>
+                    <input type="checkbox" value="johor-bahru">
+                    <label>Johor Bahru</label><br>
+                    <input type="checkbox" value="kuantan">
+                    <label>Kuantan</label><br>
+                    <input type="checkbox" value="ipoh">
+                    <label>Ipoh</label><br>
+                </div>
+            </div>
+        </div>
+
+        <!--Search results area-->
+        <div class="search-results-area">
+            <!--List of spaces-->
+            <div class="search-result-container">
+                <div class="space-box" id="1-space">
+                    <div class="space-image" id="space-image-1">
                         <button class="fas fa-angle-right fa-2x space-btn-right"
                             onclick="plusDivs('1-space', 1)"></button>
                         <button class="fas fa-angle-left fa-2x space-btn-left"
                             onclick="plusDivs('1-space', -1)"></button>
-                        </div>
-                        <p class="space-name" id="space-name-1">Name</p>
-                        <p class="space-location" id="space-location-1">Location</p>
-                        <div>
-                            <span class="space-price" id="space-price-1">Price</span>
-                            <span class="space-capacity" id="space-capacity-1">Capacity</span>
-                        </div>
                     </div>
-    
-                    <div class="space-box" id="2-space">
-                        <div class="space-image" id="space-image-2">
-                            <button class="fas fa-angle-right fa-2x space-btn-right"
-                            onclick="plusDivs('2-space', 1)"></button>
-                        <button class="fas fa-angle-left fa-2x space-btn-left"
-                            onclick="plusDivs('2-space', -1)"></button>
-                        </div>
-                        <p class="space-name" id="space-name-2">Name</p>
-                        <p class="space-location" id="space-location-2">Location</p>
-                        <div>
-                            <span class="space-price" id="space-price-2">Price</span>
-                            <span class="space-capacity" id="space-capacity-2">Capacity</span>
-                        </div>
-                    </div>
-
-                    <div class="space-box" id="3-space">
-                        <div class="space-image" id="space-image-3">
-                            <button class="fas fa-angle-right fa-2x space-btn-right"
-                            onclick="plusDivs('3-space', 1)"></button>
-                        <button class="fas fa-angle-left fa-2x space-btn-left"
-                            onclick="plusDivs('3-space', -1)"></button>
-                        </div>
-                        <p class="space-name" id="space-name-3">Name</p>
-                        <p class="space-location" id="space-location-3">Location</p>
-                        <div>
-                            <span class="space-price" id="space-price-3">Price</span>
-                            <span class="space-capacity" id="space-capacity-3">Capacity</span>
-                        </div>
-                    </div>
-
-                    <div class="space-box" id="4-space">
-                        <div class="space-image" id="space-image-4">
-                            <button class="fas fa-angle-right fa-2x space-btn-right"
-                            onclick="plusDivs('4-space', 1)"></button>
-                        <button class="fas fa-angle-left fa-2x space-btn-left"
-                            onclick="plusDivs('4-space', -1)"></button>
-                        </div>
-                        <p class="space-name" id="space-name-4">Name</p>
-                        <p class="space-location" id="space-location-4">Location</p>
-                        <div>
-                            <span class="space-price" id="space-price-4">Price</span>
-                            <span class="space-capacity" id="space-capacity-4">Capacity</span>
-                        </div>
-                    </div>
-
-                    <div class="space-box" id="5-space">
-                        <div class="space-image" id="space-image-5">
-                            <button class="fas fa-angle-right fa-2x space-btn-right"
-                            onclick="plusDivs('5-space', 1)"></button>
-                        <button class="fas fa-angle-left fa-2x space-btn-left"
-                            onclick="plusDivs('5-space', -1)"></button>
-                        </div>
-                        <p class="space-name" id="space-name-5">Name</p>
-                        <p class="space-location" id="space-location-5">Location</p>
-                        <div>
-                            <span class="space-price" id="space-price-5">Price</span>
-                            <span class="space-capacity" id="space-capacity-5">Capacity</span>
-                        </div>
-                    </div>
-
-                    <div class="space-box" id="6-space">
-                        <div class="space-image" id="space-image-6">
-                            <button class="fas fa-angle-right fa-2x space-btn-right"
-                            onclick="plusDivs('6-space', 1)"></button>
-                        <button class="fas fa-angle-left fa-2x space-btn-left"
-                            onclick="plusDivs('6-space', -1)"></button>
-                        </div>
-                        <p class="space-name" id="space-name-6">Name</p>
-                        <p class="space-location" id="space-location-6">Location</p>
-                        <div>
-                            <span class="space-price" id="space-price-6">Price</span>
-                            <span class="space-capacity" id="space-capacity-6">Capacity</span>
-                        </div>
+                    <p class="space-name" id="space-name-1">Name</p>
+                    <p class="space-location" id="space-location-1">Location</p>
+                    <div>
+                        <span class="space-price" id="space-price-1">Price</span>
+                        <span class="space-capacity" id="space-capacity-1">Capacity</span>
                     </div>
                 </div>
 
-                <!--Pagination-->
-                <div class="pagination">
-                    <ul>
-                        <a href="#">prev</a>
-                        <a href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">nextt</a>
-                    </ul>
-                </div>    
+                <div class="space-box" id="2-space">
+                    <div class="space-image" id="space-image-2">
+                        <button class="fas fa-angle-right fa-2x space-btn-right"
+                            onclick="plusDivs('2-space', 1)"></button>
+                        <button class="fas fa-angle-left fa-2x space-btn-left"
+                            onclick="plusDivs('2-space', -1)"></button>
+                    </div>
+                    <p class="space-name" id="space-name-2">Name</p>
+                    <p class="space-location" id="space-location-2">Location</p>
+                    <div>
+                        <span class="space-price" id="space-price-2">Price</span>
+                        <span class="space-capacity" id="space-capacity-2">Capacity</span>
+                    </div>
+                </div>
+
+                <div class="space-box" id="3-space">
+                    <div class="space-image" id="space-image-3">
+                        <button class="fas fa-angle-right fa-2x space-btn-right"
+                            onclick="plusDivs('3-space', 1)"></button>
+                        <button class="fas fa-angle-left fa-2x space-btn-left"
+                            onclick="plusDivs('3-space', -1)"></button>
+                    </div>
+                    <p class="space-name" id="space-name-3">Name</p>
+                    <p class="space-location" id="space-location-3">Location</p>
+                    <div>
+                        <span class="space-price" id="space-price-3">Price</span>
+                        <span class="space-capacity" id="space-capacity-3">Capacity</span>
+                    </div>
+                </div>
+
+                <div class="space-box" id="4-space">
+                    <div class="space-image" id="space-image-4">
+                        <button class="fas fa-angle-right fa-2x space-btn-right"
+                            onclick="plusDivs('4-space', 1)"></button>
+                        <button class="fas fa-angle-left fa-2x space-btn-left"
+                            onclick="plusDivs('4-space', -1)"></button>
+                    </div>
+                    <p class="space-name" id="space-name-4">Name</p>
+                    <p class="space-location" id="space-location-4">Location</p>
+                    <div>
+                        <span class="space-price" id="space-price-4">Price</span>
+                        <span class="space-capacity" id="space-capacity-4">Capacity</span>
+                    </div>
+                </div>
+
+                <div class="space-box" id="5-space">
+                    <div class="space-image" id="space-image-5">
+                        <button class="fas fa-angle-right fa-2x space-btn-right"
+                            onclick="plusDivs('5-space', 1)"></button>
+                        <button class="fas fa-angle-left fa-2x space-btn-left"
+                            onclick="plusDivs('5-space', -1)"></button>
+                    </div>
+                    <p class="space-name" id="space-name-5">Name</p>
+                    <p class="space-location" id="space-location-5">Location</p>
+                    <div>
+                        <span class="space-price" id="space-price-5">Price</span>
+                        <span class="space-capacity" id="space-capacity-5">Capacity</span>
+                    </div>
+                </div>
+
+                <div class="space-box" id="6-space">
+                    <div class="space-image" id="space-image-6">
+                        <button class="fas fa-angle-right fa-2x space-btn-right"
+                            onclick="plusDivs('6-space', 1)"></button>
+                        <button class="fas fa-angle-left fa-2x space-btn-left"
+                            onclick="plusDivs('6-space', -1)"></button>
+                    </div>
+                    <p class="space-name" id="space-name-6">Name</p>
+                    <p class="space-location" id="space-location-6">Location</p>
+                    <div>
+                        <span class="space-price" id="space-price-6">Price</span>
+                        <span class="space-capacity" id="space-capacity-6">Capacity</span>
+                    </div>
+                </div>
+            </div>
+
+            <!--Pagination-->
+            <div class="pagination">
+                <ul>
+                    <a href="#">prev</a>
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">nextt</a>
+                </ul>
             </div>
         </div>
     </div>
-
     
-    
-
     <footer id="footer"></footer>
 
     <script>
@@ -391,9 +380,11 @@
                 img[slideIndex[key] - 1].style.display = "flex";
             }
         }
-        
-        //Load the images onload
+
+        //Onload
         window.addEventListener("load", function () {
+            // Initially, add grey background color to header
+            headerInitialGray();
             // Load the images onload
             var targetObserver = document.querySelectorAll(".each-img");
             for (var eachTarget of targetObserver) {
@@ -406,7 +397,7 @@
         });
 
     </script>
-    
+
 
 </body>
 
