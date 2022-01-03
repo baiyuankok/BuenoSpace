@@ -4,6 +4,7 @@
     session_start();
     require"../Home/account_function/customer_readProfile.php";
     require"../Home/account_function/customer_updateProfile.php";
+    $customer_name = isset($_SESSION['customer_name']) ? trim($_SESSION['customer_name']) : ''; 
 ?>
 
 <!DOCTYPE html>
@@ -35,12 +36,10 @@
     <section id="profile_page_layout">
 
         <div class="profile_infor">
-            <div id="profile_logo">
-                <img src="../Home/assets/blackcolourlogo.png" alt="BuenoSpace">
-            </div>
+            
             <div id="information_edit">
-                <br>
-            <h5>WELCOME - BuenoSpace</h5>
+             
+            <h5>WELCOME - <?php echo $customer_name; ?></h5>
 
             <br>
             <form class="profile_form" action="" method="post">

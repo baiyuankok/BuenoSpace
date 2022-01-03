@@ -124,14 +124,15 @@
                 <input type="password" id="password" name="customer_password" value="<?php echo $customer_password; ?>">
                  <br>
                 <span class="help-block"><?php echo $customer_password_err; ?></span>
-                <br><br>
+                <br>
                
                 <div class="form-btn">
                 <input type="submit" class="small-btn" value="Sign In">
             
-                <br><br>
+                
                 <p style="color:#fff;">Forget Password? <a href="customer_resetPassword.php" style="color:#fff;">Reset Password here</a>.</p>
             <p style="color:#fff;">Don't have a Customer Account? <a href="customer_signUp.php" style="color:#fff;">Sign Up here</a>.</p>
+            <br>
                 </div>
         </form>
     

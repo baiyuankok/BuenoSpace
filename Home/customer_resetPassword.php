@@ -47,7 +47,7 @@
     <h1 class="title-form">Reset Password</h1>
     <form class="sign_form" action="" method="post">
 
-                <br><br>
+                <br>
             
                 <label>Email</label>
                 <input type="email" name="customer_email"  value="<?php echo $customer_email; ?>">
@@ -58,9 +58,10 @@
                 <div class="form-btn">
                 <input type="submit" class="small-btn" name="customer_resetPassword" value="Reset">
 
-                <br><br>
+              
                 
                 <p style="color:#fff;">Back to Sign In page? <a href="customer_signIn.php" style="color:#fff;">Sign In</a>.</p>
+                <br>
             
                 </div>
         </form>

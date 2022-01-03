@@ -29,6 +29,8 @@ if(isset(($_POST['edit_customer_profile']))){
         //execute the query
         $pdoQuery_exec= $pdoQuery_run->execute(array(":customer_email"=>$customer_email,":customer_contact"=>$customer_contact,":customer_name"=>$customer_name));
         if ($pdoQuery_exec) {
+                session_start();
+                $_SESSION["customer_name"] = $customer_name;
                 $updatedMsg="Successfully Updated";
             }  
         else{

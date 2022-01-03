@@ -91,6 +91,7 @@ require '../Home/account_function/owner_write_signUp.php';
                 <input type="submit" class="small-btn" value="Sign Up">
             
             <p style="color:#fff;">Already have an Owner Account? <a href="owner_signIn.php" style="color:#fff;">Sign In here</a>.</p>
+            <br>
                 </div>
         </form>
     

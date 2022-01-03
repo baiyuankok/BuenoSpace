@@ -30,6 +30,7 @@ if(isset(($_POST['edit_owner_profile']))){
         //execute the query
         $pdoQuery_exec= $pdoQuery_run->execute(array(":owner_email"=>$owner_email,":owner_contact"=>$owner_contact,":owner_name"=>$owner_name));
         if ($pdoQuery_exec) {
+            $_SESSION["owner_name"] = $owner_name;
                 $updatedMsg="Successfully Updated";
             }  
         else{

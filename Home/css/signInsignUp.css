@@ -51,6 +51,11 @@ form label{
   text-align:center;
 }
 
+.form-btn p{
+  margin-bottom:0px;
+}
+
+
 
 /*Strong password css*/
 /* The message box is shown when the user clicks on the password field */

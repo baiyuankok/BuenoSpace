@@ -51,17 +51,10 @@
                                         <li><a class="dropdown-item dropdown-item-hover" href="owner_signIn.php">Sign in as owner</a></li>
                                     </ul>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <button class="small-btn" id="sign-up-btn" data-bs-toggle="dropdown" aria-expanded="false">Sign Up</button>
-                                    <ul class="dropdown-menu dropdown-menu-custom" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item dropdown-item-hover" href="customer_signUp.php">Sign Up as customer</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider" />
-                                        </li>
-                                        <li><a class="dropdown-item dropdown-item-hover" href="owner_signUp.php">Sign Up as owner</a></li>
-                                    </ul>
-                                    
+                                <li class="nav-item">
+                                    <button class="small-btn" id="sign-up-btn" onclick="window.location.href='customer_signUp.php'">Sign Up</button>
                                 </li>
+                                
                             </ul>
 
 

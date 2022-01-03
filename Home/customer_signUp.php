@@ -38,7 +38,7 @@ require '../Home/account_function/customer_write_signUp.php';
         </a>
     </div>
 </nav>
-<br><br><br>
+<br><br>
 <div class="form_container">
     <h1 class="title-form">Sign Up As Customer</h1>
     <form class="sign_form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -89,8 +89,9 @@ require '../Home/account_function/customer_write_signUp.php';
            
                 <div class="form-btn">
                 <input type="submit" class="small-btn" value="Sign Up">
-            
+            <p style="color:#fff;">Sign Up as Owner? <a href="owner_signUp.php" style="color:#fff;">Sign Up here</a>.</p>
             <p style="color:#fff;">Already have a Customer Account? <a href="customer_signIn.php" style="color:#fff;">Sign In here</a>.</p>
+            <br>
                 </div>
         </form>
     

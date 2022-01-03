@@ -129,9 +129,9 @@
                 <div class="form-btn">
                 <input type="submit" class="small-btn" value="Sign In">
 
-                <br><br>
+                <br>
                 <p style="color:#fff;">Forget Password? <a href="owner_resetPassword.php" style="color:#fff;">Reset Password here</a>.</p>
-                <p style="color:#fff;">Don't have a Customer Account? <a href="owner_signUp.php" style="color:#fff;">Sign Up here</a>.</p>
+                <p style="color:#fff;">Don't have a Owner Account? <a href="owner_signUp.php" style="color:#fff;">Sign Up here</a>.</p>
             
                 </div>
         </form>
