@@ -27,6 +27,11 @@ function select_event_type($pdo, $space) {
     return $event_results->fetchAll(PDO::FETCH_COLUMN, 0);
 }
 
+function select_available_slot($pdo, $space) {
+    $results = $pdo->query("SELECT availableMonday, availableTuesday, availableWednesday, availableThursday, availableFriday, availableSaturday, availableSunday FROM myfirstdatabase.available_slot WHERE spaceID = $space");
+    return $results->fetch();
+}
+
 $img_id = select_images_id($pdo, $get_space_id);
 $img_counter = 1;
 foreach ($img_id as $each_img) {
@@ -52,6 +57,7 @@ echo '<script>
     document.getElementById("location").innerHTML = "'.$each_detail['location'].'";
     document.getElementById("price").innerHTML = "'.$each_detail['price'].'";
     document.getElementById("capacity").innerHTML = "'.$each_detail['capacity'].'";
+    document.getElementById("staticBackdropLabel").innerHTML = "'.$each_detail['name'].'";
 </script>';
 
 $space_event_type = select_event_type($pdo, $get_space_id);
@@ -86,5 +92,46 @@ echo '<script>
     document.getElementById("review-num").innerHTML = "'.$total_count.'";
     showReviews();
 </script>';
+
+
+$space_available_slot = select_available_slot($pdo, $get_space_id);
+echo '<script>
+        const availableSlots = [];
+</script>';
+if($space_available_slot['availableSunday'] == FALSE) {
+    echo '<script>
+        availableSlots.push("0");
+    </script>';
+}
+if($space_available_slot['availableMonday'] == FALSE) {
+    echo '<script>
+        availableSlots.push("1");
+    </script>';
+}
+if($space_available_slot['availableTuesday'] == FALSE) {
+    echo '<script>
+        availableSlots.push("2");
+    </script>';
+}
+if($space_available_slot['availableWednesday'] == FALSE) {
+    echo '<script>
+        availableSlots.push("3");
+    </script>';
+}
+if($space_available_slot['availableThursday'] == FALSE) {
+    echo '<script>
+        availableSlots.push("4");
+    </script>';
+}
+if($space_available_slot['availableFriday'] == FALSE) {
+    echo '<script>
+        availableSlots.push("5");
+    </script>';
+}
+if($space_available_slot['availableSaturday'] == FALSE) {
+    echo '<script>
+        availableSlots.push("6");
+    </script>';
+}
 
 ?>

@@ -180,3 +180,63 @@
     display: flex;
     padding: 15px;
 }
+
+.modal-header {
+    border-bottom: none !important;
+    padding-bottom: 0px !important;
+}
+
+.sub-head-form {
+    border-bottom: solid 1px #eaebec;
+    color: #808184;
+    font-size: 16px;
+    margin-bottom: 11px;
+}
+
+/* Hide all steps by default: */
+.tab {
+    display: none;
+}
+
+input.invalid, select.invalid {
+    border: 1px solid red;
+}
+
+.date-container {
+    display: flex;
+    width: 100%;
+}
+
+.date-column-1 {
+    flex-shrink: 0; /* shrinks to 0 to apply 70% width*/
+    flex-basis: 70%; /* sets initial width to 70%*/
+}
+
+@media only screen and (max-width: 900px) {
+    .date-container {
+        flex-direction: column;
+    }
+}
+
+.modalPrvBtn {
+    color: #262629;
+    border: solid 0.8px #000;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.modalNextBtn {
+    color: #262629;
+    border: solid 1px #ffce4a;
+    background-color: #ffce4a;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.modalPrvBtn:hover {
+    background-color: #ffce4a;
+}
