@@ -27,9 +27,12 @@
     padding: 10px;
 }
 
-/* .space-box { */
-    /*padding:  10px;*/
-/* } */
+.space-box {
+    display: flex;
+    justify-content: center;
+    flex-flow: column wrap;
+    padding:  10px;
+}
 
 .row-center {
     display: block;
@@ -47,4 +50,43 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+}
+
+
+/* Space gallery stuff */
+.space-image {
+    position: relative;
+    width: 300px;
+    height: 200px;
+}
+
+.each-img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border: none;
+    cursor: pointer;
+}
+
+.space-image > .space-btn-right {
+    position: absolute;
+    top: 40%;
+    right: 0;
+}
+
+.space-image > .space-btn-left {
+    position: absolute;
+    top: 40%;
+    left: 0;
+}
+
+.fa-angle-right, .fa-angle-left {
+    border: none;
+    background-color: transparent;
+    color: white;
+}
+
+.space-btn-left:hover,
+.space-btn-right:hover {
+    cursor: pointer;
 }
