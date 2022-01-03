@@ -1,0 +1,51 @@
+#navbar-section{
+  background-color:#373737;
+}
+
+#profile_page_layout{
+  width:50%;
+  display:block;
+  margin:auto;
+ 
+
+ 
+}
+
+.profile_infor{
+   margin-top:120px;
+  text-align:center;
+  padding:0px 150px;
+}
+
+#profile_logo img{
+  width:120px;
+  height:90px;
+}
+
+.profile_form label{
+  color:black;
+  width:200px;
+  font-size:18px;
+  text-align:left;
+}
+
+#success_msg{
+  color: green;
+}
+
+/*table styling*/
+table {
+  width: 100%;
+}
+
+table td, table th {
+  border: 1px solid #cbc7c7;
+  text-align: left;
+  padding: 8px;
+}
+
+
+#icon_td{
+  text-align:center;
+}
+
