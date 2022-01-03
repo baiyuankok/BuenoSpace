@@ -4,7 +4,36 @@
 require_once "../Home/config.php";
 require "../Search/search_results_page.html";
 
-// $get_space_id = $_GET['spaceID'];
+//Test to see if search attributes were received from main page
+echo $_POST["events"];
+echo '<html><br></html>';
+echo $_POST["location"];
+echo '<html><br></html>';
+echo $_POST["min_price"];
+echo '<html><br></html>';
+echo $_POST["max_price"];
+echo '<html><br></html>';
+echo $_POST["capacity"];
+echo '<html><br></html>';
+
+//Get event type, location, minimum price (if it exists), maximum price (if it exists) and capacity (if it exists)
+$event_type = $_POST["events"];
+$location = $_POST["location"];
+if (isset($_POST["min_price"])) $min_price = $_POST["min_price"];
+if (isset($_POST["max_price"])) $max_price = $_POST["max_price"];
+if (isset($_POST["capacity"])) $capacity = $_POST["capacity"];
+
+//Test to see if variables were initialized
+echo $event_type;
+echo '<html><br></html>';
+echo $location;
+echo '<html><br></html>';
+echo $min_price;
+echo '<html><br></html>';
+echo $max_price;
+echo '<html><br></html>';
+echo $capacity;
+
 
 //Get all the space IDs
 // TOD0: modify the below line to become a search query

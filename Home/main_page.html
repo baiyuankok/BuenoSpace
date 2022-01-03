@@ -28,7 +28,7 @@
             <h1 class="main-title">Event Spaces in Malaysia</h1>
             <div class="main-search-component">
                 <!-- Form for searching/filtering spaces -->
-                <form class="form-center" action="" method="post">
+                <form class="form-center" action="../Search/search_results_logic.php" method="post">
                     <div class="row-center" id="main-search-bar">
                         <div class="dropdown-custom">
                             <select class="events-home search-bar" name="events" id="events-select" tabindex="-1"
@@ -92,7 +92,7 @@
                             <p>Price <span class="per-day-word">(per day)</span></p>
                             <div class="row-center">
                                 <p>RM</p><span class="per-day-word">(min)</span>
-                                <input id="min-price" type="number" placeholder="10" min="1"
+                                <input id="min-price" type="number" name="min_price" placeholder="10" min="1"
                                     onchange="checkOnChangePrice('min-price')" />
                                 <button type="button" id="min-price-add" class="fas fa-plus add-btn"
                                     onclick="changePrice('min-price', 1)"></button>
@@ -101,7 +101,7 @@
                             </div>
                             <div class="row-center">
                                 <p>RM</p><span class="per-day-word">(max)</span>
-                                <input id="max-price" type="number" placeholder="30000" min="1"
+                                <input id="max-price" type="number" name="max_price" placeholder="30000" min="1"
                                     onchange="checkOnChangePrice('max-price')" />
                                 <button type="button" id="max-price-add" class="fas fa-plus add-btn"
                                     onclick="changePrice('max-price', 1)"></button>
@@ -113,7 +113,7 @@
                         <div id="capacity-section">
                             <p>Capacity</p>
                             <div class="row-center">
-                                <input id="capacity" type="number" placeholder="1" min="1"
+                                <input id="capacity" type="number" name="capacity" placeholder="1" min="1"
                                     onchange="checkOnChangeCapacity()" />
                                 <button type="button" id="capacity-add" class="fas fa-plus add-btn"
                                     onclick="changeCapacity(1)"></button>
@@ -443,6 +443,7 @@
                 }
             }
         }
+        
     </script>
 </body>
 
