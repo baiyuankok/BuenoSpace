@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../Home/css/header.css">
+    <link rel="stylesheet" href="../Home/css/footer.css">
+    <link rel="stylesheet" href="../Spaces/css/space_listing.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+    <script src="../Home/js/header_background.js"></script>
+
+    <title>BuenoSpace - Space Listing</title>
+</head>
+
+<body>
+    <header id="header"></header>
+    <h2 id="page-title">List Your Space Here</h2>
+    <form id="space-form-custom" method="post">
+        <div class="mb-3">
+            <label for="space-name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="space-name">
+        </div>
+        <div class="mb-3">
+            <label for="space-location" class="form-label">Location</label>
+            <input type="text" class="form-control" id="space-location">
+        </div>
+        <div class="mb-3">
+            <label for="space-price" class="form-label">Price</label>
+            <div class="input-group">
+                <span class="input-group-text">RM</span>
+                <input type="number" class="form-control" aria-label="Amount" id="space-price">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="space-capacity" class="form-label">Capacity</label>
+            <div class="input-group">
+                <input type="number" class="form-control" aria-label="MaxCap" id="space-capacity">
+                <span class="input-group-text">Max</span>
+            </div>
+        </div>
+        <div class="mb-3" id="space-event-section">
+            <label for="space-event-type" class="form-label">Event type</label>
+            <div class="input-group" id="one-event">
+                <select class="form-select space-event-type">
+                    <option value="taiping">Taiping</option>
+                </select>
+                <button type="button" class="btn btn-secondary" id="more-events"><span
+                        class="fas fa-plus"></span></button>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Images</label>
+            <div class="container" id="image-upload-section">
+                <div class="row-custom" id="image-preview-section">
+                    <div class="img-up">
+                        <div class="image-preview"><img /></div>
+                        <label class="btn btn-secondary upload-label-custom">Upload
+                            <input type="file" class="upload-file img upload-input-custom" accept="image/*"
+                                onchange="imageUploadPreview(this)">
+                        </label>
+                    </div>
+                    <button type="button" class="fas fa-plus img-add" onclick="addImagePreview()"
+                        id="new-img-btn"></button>
+                </div>
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary" id="submit-text-btn" name="edit_space_detail">Submit</button>
+    </form>
+
+    <footer id="footer"></footer>
+
+    <script>
+        // Load the page for header and footer using jQuery
+        $("#header").load("../Home/header.html");
+        $("#footer").load("../Home/footer.html");
+
+        // Allow user to type in numbers only without "+", "-", "." and "e" sign in input type number
+        document.getElementById("space-price").addEventListener("keypress", keyAllowInputNum);
+        document.getElementById("space-capacity").addEventListener("keypress", keyAllowInputNum);
+        function keyAllowInputNum(event) {
+            if (event.which != 8 && event.which != 0 && event.which < 48 || event.which > 57) {
+                event.preventDefault();
+            }
+        };
+
+        window.addEventListener("load", function () {
+            headerInitialGray();
+        });
+
+        addBtnEventListener();
+        function addBtnEventListener() {
+            document.getElementById("more-events").addEventListener("click", addNewEvent);
+        }
+
+        function addNewEvent() {
+            this.remove();
+            var spaceEventsSec = document.getElementById("space-event-section");
+
+            var divEle = document.createElement("div");
+            divEle.classList.add("input-group");
+
+            var selectEle = document.createElement("select");
+            selectEle.classList.add("form-select", "space-event-type");
+            divEle.appendChild(selectEle);
+
+            var lessBtn = document.createElement("button");
+            lessBtn.classList.add("btn", "btn-secondary");
+            lessBtn.onclick = removeEvent;
+            var timesIcon = document.createElement("span");
+            timesIcon.classList.add("fas", "fa-times");
+            lessBtn.appendChild(timesIcon);
+            divEle.appendChild(lessBtn);
+
+            var moreBtn = document.createElement("button");
+            moreBtn.classList.add("btn", "btn-secondary");
+            moreBtn.id = "more-events";
+            var plusIcon = document.createElement("span");
+            plusIcon.classList.add("fas", "fa-plus");
+            moreBtn.appendChild(plusIcon);
+            divEle.appendChild(moreBtn);
+
+            spaceEventsSec.appendChild(divEle);
+
+            addBtnEventListener();
+        }
+
+        function removeEvent() {
+            if (this.nextElementSibling) {
+                if (this.nextElementSibling.id == "more-events") {
+                    addPlusBtn(this.parentNode.previousElementSibling);
+                }
+            };
+            this.parentNode.remove();
+        }
+
+        function addPlusBtn(nodeEle) {
+            var moreBtn = document.createElement("button");
+            moreBtn.classList.add("btn", "btn-secondary");
+            moreBtn.id = "more-events";
+            var plusIcon = document.createElement("span");
+            plusIcon.classList.add("fas", "fa-plus");
+            moreBtn.appendChild(plusIcon);
+            nodeEle.appendChild(moreBtn);
+
+            addBtnEventListener();
+        }
+
+        function addImagePreview() {
+            var imgDivEle = document.createElement("div");
+            imgDivEle.classList.add("img-up");
+            var imgPreviewEle = document.createElement("div");
+            imgPreviewEle.classList.add("image-preview");
+            var imgEle = document.createElement("img");
+            imgPreviewEle.appendChild(imgEle);
+
+            var labelUpload = document.createElement("label");
+            labelUpload.classList.add("btn", "btn-secondary", "upload-label-custom");
+            labelUpload.innerHTML = "Upload";
+
+            var inputUpload = document.createElement("input");
+            inputUpload.setAttribute("type", "file");
+            inputUpload.setAttribute("accept", "image/*");
+            inputUpload.setAttribute("onchange", "imageUploadPreview(this)")
+            inputUpload.classList.add("upload-file", "img", "upload-input-custom");
+
+            var removeUpload = document.createElement("button");
+            removeUpload.classList.add("fas", "fa-times", "del");
+            removeUpload.onclick = removeImagePreview;
+
+            labelUpload.appendChild(inputUpload);
+            imgDivEle.appendChild(imgPreviewEle);
+            imgDivEle.appendChild(labelUpload);
+            imgDivEle.appendChild(removeUpload);
+
+            document.getElementById("new-img-btn").insertAdjacentElement("beforebegin", imgDivEle);
+        }
+
+        function removeImagePreview() {
+            this.parentNode.remove();
+        }
+
+        function imageUploadPreview(current) {
+            var files = current.files[0];
+            // If no file selected
+            if (!files) return;
+
+            // Only image file is accepted
+            if (/^image/.test(files.type)) {
+                var reader = new FileReader();
+                // Read the local file
+                reader.readAsDataURL(files);
+
+                // Set image data in the image preview section
+                reader.onloadend = function () {
+                    current.parentNode.previousElementSibling.childNodes[0].src = reader.result;
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>

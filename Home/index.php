@@ -18,18 +18,23 @@ $select_space = "SELECT spaceID, count(*) FROM myfirstdatabase.booking GROUP BY 
 $space_id = $pdo->query($select_space)->fetchAll(PDO::FETCH_COLUMN, 0);
 
 // If the space from booking table is less than 3
-if (count($space_id) < 3) {
-    $more_space_id = "SELECT spaceID FROM myfirstdatabase.space WHERE spaceID NOT IN (";
-    foreach ($space_id as $each_more_space) {
-        $more_space_id .= $each_more_space.",";
+if (count($space_id) == 0) {
+    $none_space_result = $pdo->query("SELECT spaceID FROM myfirstdatabase.space LIMIT 3")->fetchAll(PDO::FETCH_COLUMN, 0);
+    $space_id = array_merge($space_id, $none_space_result);
+} else {
+    if (count($space_id) < 3) {
+        $more_space_id = "SELECT spaceID FROM myfirstdatabase.space WHERE spaceID NOT IN (";
+        foreach ($space_id as $each_more_space) {
+            $more_space_id .= $each_more_space.",";
+        }
+        $more_space_id = substr_replace($more_space_id, ")", -1);
+        // Calculate the number of space left to be rendered
+        $left_space = 3 - count($space_id);
+        $more_space_id .= " LIMIT ".$left_space;
+        // Get the remaining spaces to be rendered
+        $more_space_result = $pdo->query($more_space_id)->fetchAll(PDO::FETCH_COLUMN, 0);
+        $space_id = array_merge($space_id, $more_space_result);
     }
-    $more_space_id = substr_replace($more_space_id, ")", -1);
-    // Calculate the number of space left to be rendered
-    $left_space = 3 - count($space_id);
-    $more_space_id .= " LIMIT ".$left_space;
-    // Get the remaining spaces to be rendered
-    $more_space_result = $pdo->query($more_space_id)->fetchAll(PDO::FETCH_COLUMN, 0);
-    $space_id = array_merge($space_id, $more_space_result);
 }
 // Select space images and details
 $counter = 1;
