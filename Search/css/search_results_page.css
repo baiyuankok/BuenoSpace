@@ -3,8 +3,8 @@
 }
 
 
-.search-results-main {
-    display: flex;
+.search-results-wrapper {
+    display: block;
 
     
 }
@@ -21,13 +21,15 @@
 
 
 .search-result-container {
-    float: right;
-    flex: 1;
-    display: grid;
-    grid: auto / auto auto auto;
-    gap: 20px;
+    display: flex;
+    flex-flow:  row wrap;
+    /*justify-content: space-around;*/
     padding: 10px;
 }
+
+/* .space-box { */
+    /*padding:  10px;*/
+/* } */
 
 .row-center {
     display: block;
