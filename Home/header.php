@@ -1,9 +1,6 @@
 <?php
-    session_start();
-
-   
+    session_start();  
 ?>
-
 
 <nav class="navbar navbar-expand-lg fixed-top" id="navbar-section">
     <div class="container-fluid">
@@ -28,12 +25,20 @@
                     <button onclick="dropdownFunction()" class="dropbtn_welcome" >Welcome <?php echo $customer_name; ?> <i class="fas fa-caret-down"></i> </button>
                     <div id="myDropdown" class="dropdown-content-welcome">
 
-                        <a href="index.php">Home Page</a>
-                        <a href="customer_profile.php">Profile Page</a>
-                        <a href="signOut.php">Sign Out</a>
+                        <a href="../Home/index.php">Home Page</a>
+                        <a href="../Home/customer_profile.php">Profile Page</a>
+                        <a href="../Home/signOut.php">Sign Out</a>
                     </div>
                     </div>         
-                    
+            <?php
+
+                // Check if the owner is already logged in, if yes then hide the sign in sign up btn and show sign out btn
+                } elseif (isset($_SESSION["owner_loggedin"]) && $_SESSION["owner_loggedin"] === true){ ?>
+                    <ul class="navbar-nav ms-auto justify-content-end">
+                        <li class="nav-item dropdown">
+                            <button class="small-btn" id="sign-up-btn" data-bs-toggle="dropdown" aria-expanded="false" onclick="window.location.href='../Home/signOut.php'">Sign Out</button>
+                        </li>
+                    </ul>
                     
               <?php  }else{ //the customer not yet sign in, so show sign in sign up button ?>
 
@@ -44,21 +49,18 @@
                                         Sign in 
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-custom" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item dropdown-item-hover" href="customer_signIn.php">Sign in as customer</a></li>
+                                        <li><a class="dropdown-item dropdown-item-hover" href="../Home/customer_signIn.php">Sign in as customer</a></li>
                                         <li>
                                             <hr class="dropdown-divider" />
                                         </li>
-                                        <li><a class="dropdown-item dropdown-item-hover" href="owner_signIn.php">Sign in as owner</a></li>
+                                        <li><a class="dropdown-item dropdown-item-hover" href="../Home/owner_signIn.php">Sign in as owner</a></li>
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="small-btn" id="sign-up-btn" onclick="window.location.href='customer_signUp.php'">Sign Up</button>
+                                    <button class="small-btn" id="sign-up-btn" onclick="window.location.href='../Home/customer_signUp.php'">Sign Up</button>
                                 </li>
                                 
                             </ul>
-
-
-
 
            <?php     }
           

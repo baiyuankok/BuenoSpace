@@ -21,35 +21,41 @@
 
 <body>
     <header id="header"></header>
-    <h2 id="page-title">List Your Space Here</h2>
-    <form id="space-form-custom" method="post">
+    <h2 id="page-title"></h2>
+    <form id="space-form-custom" action="../Spaces/update_space.php" method="post" enctype="multipart/form-data">
+        <!-- To submit spaceID in form -->
+        <div style="display: none;">
+            <label for="space-id" class="form-label">Space ID</label>
+            <input type="number" class="form-control" id="space-id" name="space-id">
+        </div>
         <div class="mb-3">
             <label for="space-name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="space-name">
+            <input type="text" class="form-control" id="space-name" name="space-name" required>
         </div>
         <div class="mb-3">
             <label for="space-location" class="form-label">Location</label>
-            <input type="text" class="form-control" id="space-location">
+            <input type="text" class="form-control" id="space-location" name="space-location" required>
         </div>
         <div class="mb-3">
             <label for="space-price" class="form-label">Price</label>
             <div class="input-group">
                 <span class="input-group-text">RM</span>
-                <input type="number" class="form-control" aria-label="Amount" id="space-price">
+                <input type="number" class="form-control" aria-label="Amount" id="space-price" name="space-price"
+                    required>
             </div>
         </div>
         <div class="mb-3">
             <label for="space-capacity" class="form-label">Capacity</label>
             <div class="input-group">
-                <input type="number" class="form-control" aria-label="MaxCap" id="space-capacity">
+                <input type="number" class="form-control" aria-label="MaxCap" id="space-capacity" name="space-capacity"
+                    required>
                 <span class="input-group-text">Max</span>
             </div>
         </div>
         <div class="mb-3" id="space-event-section">
             <label for="space-event-type" class="form-label">Event type</label>
-            <div class="input-group" id="one-event">
-                <select class="form-select space-event-type">
-                    <option value="taiping">Taiping</option>
+            <div class="input-group">
+                <select class="form-select" id="one-event" name="event[]" required>
                 </select>
                 <button type="button" class="btn btn-secondary" id="more-events"><span
                         class="fas fa-plus"></span></button>
@@ -63,26 +69,35 @@
                     <div class="img-up">
                         <div class="image-preview"><img /></div>
                         <label class="btn btn-secondary upload-label-custom">Upload
-                            <input type="file" class="upload-file img upload-input-custom" accept="image/*"
-                                onchange="imageUploadPreview(this)">
+                            <input type="file" name="images[]" class="upload-file img upload-input-custom"
+                                accept="image/*" onchange="imageUploadPreview(this)">
                         </label>
+                        <button type="button" class="fas fa-times del" onclick="removeImagePreview(this)"></button>
                     </div>
                     <button type="button" class="fas fa-plus img-add" onclick="addImagePreview()"
                         id="new-img-btn"></button>
                 </div>
             </div>
         </div>
+        <!-- To remove existing space images -->
+        <div id="remove-image-section" style="display: none;">
+        </div>
 
-
-        <button type="submit" class="btn btn-primary" id="submit-text-btn" name="edit_space_detail">Submit</button>
+        <div class="text-end">
+            <button type="submit" class="btn btn-primary" id="submit-text-btn" name="edit_space_detail">Submit</button>
+            <button type="button" class="btn btn-secondary" onclick="cancelUpdate()">Cancel</button>
+        </div>
     </form>
 
     <footer id="footer"></footer>
 
     <script>
         // Load the page for header and footer using jQuery
-        $("#header").load("../Home/header.html");
+        $("#header").load("../Home/header.php");
         $("#footer").load("../Home/footer.html");
+
+        // Index to keep track of number of removed images
+        var removeImageIndex = 0;
 
         // Allow user to type in numbers only without "+", "-", "." and "e" sign in input type number
         document.getElementById("space-price").addEventListener("keypress", keyAllowInputNum);
@@ -94,7 +109,17 @@
         };
 
         window.addEventListener("load", function () {
+            removeImageIndex = 0;
             headerInitialGray();
+
+            // Load the images onload
+            var targetObserver = document.querySelectorAll(".image-preview");
+            for (var i = 0; i < targetObserver.length - 1; i++) {
+                var targetImg = targetObserver[i].childNodes[0];
+                if (!targetImg.src) {
+                    targetImg.setAttribute("src", targetImg.dataset.src);
+                }
+            }
         });
 
         addBtnEventListener();
@@ -110,10 +135,17 @@
             divEle.classList.add("input-group");
 
             var selectEle = document.createElement("select");
-            selectEle.classList.add("form-select", "space-event-type");
+            selectEle.setAttribute("name", "event[]");
+            selectEle.classList.add("form-select");
+            var oriOptions = document.querySelectorAll("#one-event option");
+            for (var eachOriOption of oriOptions) {
+                var newOption = eachOriOption.cloneNode(true);
+                selectEle.appendChild(newOption);
+            }
             divEle.appendChild(selectEle);
 
             var lessBtn = document.createElement("button");
+            lessBtn.type = "button";
             lessBtn.classList.add("btn", "btn-secondary");
             lessBtn.onclick = removeEvent;
             var timesIcon = document.createElement("span");
@@ -122,6 +154,7 @@
             divEle.appendChild(lessBtn);
 
             var moreBtn = document.createElement("button");
+            moreBtn.type = "button";
             moreBtn.classList.add("btn", "btn-secondary");
             moreBtn.id = "more-events";
             var plusIcon = document.createElement("span");
@@ -145,6 +178,7 @@
 
         function addPlusBtn(nodeEle) {
             var moreBtn = document.createElement("button");
+            moreBtn.type = "button";
             moreBtn.classList.add("btn", "btn-secondary");
             moreBtn.id = "more-events";
             var plusIcon = document.createElement("span");
@@ -169,13 +203,15 @@
 
             var inputUpload = document.createElement("input");
             inputUpload.setAttribute("type", "file");
+            inputUpload.setAttribute("name", "images[]");
             inputUpload.setAttribute("accept", "image/*");
             inputUpload.setAttribute("onchange", "imageUploadPreview(this)")
             inputUpload.classList.add("upload-file", "img", "upload-input-custom");
 
             var removeUpload = document.createElement("button");
+            removeUpload.type = "button";
             removeUpload.classList.add("fas", "fa-times", "del");
-            removeUpload.onclick = removeImagePreview;
+            removeUpload.setAttribute("onclick", "removeImagePreview(this)");
 
             labelUpload.appendChild(inputUpload);
             imgDivEle.appendChild(imgPreviewEle);
@@ -185,8 +221,23 @@
             document.getElementById("new-img-btn").insertAdjacentElement("beforebegin", imgDivEle);
         }
 
-        function removeImagePreview() {
-            this.parentNode.remove();
+        function removeImagePreview(current) {
+            // Existing image is removed
+            if (!current.previousElementSibling.classList.contains("upload-label-custom")) {
+                if (current.previousElementSibling.classList.contains("image-preview")) {
+                    addNewRemoveImg();
+                    var dataSrc = current.previousElementSibling.childNodes[0].dataset.src;
+                    if (dataSrc) {
+                        var getId = dataSrc.split("?")[1];
+                        var getNum = getId.split("=")[1];
+                        var targetInput = document.querySelectorAll("#remove-image-section input");
+                        targetInput[removeImageIndex].value = parseInt(getNum);
+                        removeImageIndex += 1;
+                    }
+                }
+            }
+
+            current.parentNode.remove();
         }
 
         function imageUploadPreview(current) {
@@ -205,6 +256,21 @@
                     current.parentNode.previousElementSibling.childNodes[0].src = reader.result;
                 }
             }
+        }
+
+        function cancelUpdate() {
+            location.href = "../Home/owner_profile.php";
+        }
+
+        function removeUploadBtn(previousSibling) {
+            previousSibling.nextElementSibling.remove();
+        }
+
+        function addNewRemoveImg() {
+            var newInput = document.createElement("input");
+            newInput.setAttribute("type", "number");
+            newInput.setAttribute("name", "removeImage[]");
+            document.getElementById("remove-image-section").appendChild(newInput);
         }
 
     </script>

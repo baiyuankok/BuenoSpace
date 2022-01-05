@@ -164,11 +164,6 @@
             <div class="row-center">
                 <div class="each-popular-space" id="1-space">
                     <div class="space-imgs" id="space-image-1">
-
-                        <button class="fas fa-angle-right fa-3x space-btn-right"
-                            onclick="plusDivs('1-space', 1)"></button>
-                        <button class="fas fa-angle-left fa-3x space-btn-left"
-                            onclick="plusDivs('1-space', -1)"></button>
                     </div>
 
                     <div class="space-info">
@@ -180,11 +175,6 @@
                 </div>
                 <div class="each-popular-space" id="2-space">
                     <div class="space-imgs" id="space-image-2">
-
-                        <button class="fas fa-angle-right fa-3x space-btn-right"
-                            onclick="plusDivs('2-space', 1)"></button>
-                        <button class="fas fa-angle-left fa-3x space-btn-left"
-                            onclick="plusDivs('2-space', -1)"></button>
                     </div>
 
                     <div class="space-info">
@@ -196,11 +186,6 @@
                 </div>
                 <div class="each-popular-space" id="3-space">
                     <div class="space-imgs" id="space-image-3">
-
-                        <button class="fas fa-angle-right fa-3x space-btn-right"
-                            onclick="plusDivs('3-space', 1)"></button>
-                        <button class="fas fa-angle-left fa-3x space-btn-left"
-                            onclick="plusDivs('3-space', -1)"></button>
                     </div>
 
                     <div class="space-info">
@@ -230,38 +215,6 @@
                 event.preventDefault();
             }
         };
-        // Index for displaying images in each space
-        var slideIndex = {
-            "1-space": 1,
-            "2-space": 1,
-            "3-space": 1
-        }
-
-        // Show next/previous space image
-        function plusDivs(spaceId, increment) {
-            slideIndex[spaceId] += increment;
-            showDivs(spaceId);
-        }
-
-        // Display multiple images in one space
-        function showDivs(key) {
-            var imgId = document.getElementById(key);
-            if (imgId) {
-                var img = imgId.getElementsByClassName("each-img");
-                // If the image index more than the image length (when move to right max)
-                if (slideIndex[key] > img.length) {
-                    slideIndex[key] = 1;
-                }
-                // If the image index less than the 1 (when move to left max)
-                if (slideIndex[key] < 1) {
-                    slideIndex[key] = img.length;
-                }
-                for (var i = 0; i < img.length; i++) {
-                    img[i].style.display = "none";
-                }
-                img[slideIndex[key] - 1].style.display = "flex";
-            }
-        }
 
         // Toggle "show" and "hide" for the price and capacity section
         function togglePriceCapacity() {

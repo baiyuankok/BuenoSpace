@@ -36,7 +36,7 @@
    
     <nav class="navbar navbar-expand-lg fixed-top" id="navbar-section">
     <div class="container-fluid">
-        <a class="navbar-brand" href="../Home/main_page.html">
+        <a class="navbar-brand" href="../Home/index.php">
             <img src="../Home/assets/logo.png" alt="logo-image">
         </a>
     </div>
