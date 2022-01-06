@@ -1,4 +1,3 @@
-
 // Initially white background header, onscroll add grey background color
 // when the browser screen size is small, set the background to grey
 // Add this function to "window.onscroll"
