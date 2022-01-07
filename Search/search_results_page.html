@@ -11,7 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
-    <script src="../Home/js/header_background.js"></script>
+    <script src="../Home/javascript/header_background.js"></script>
 
     <title>BuenoSpace</title>
 </head>
@@ -140,67 +140,7 @@
         <!--Search results area-->
         <div class="search-results-area">
             <!--List of spaces-->
-            <ul id="search-result-container">
-                <!-- <div class="space-box" id="1-space">
-                    <div class="space-image" id="space-image-1"></div>
-                    <p class="space-name" id="space-name-1"></p>
-                    <p class="space-location" id="space-location-1"></p>
-                    <div>
-                        <span class="space-price" id="space-price-1">Price</span>
-                        <span class="space-capacity" id="space-capacity-1">Capacity</span>
-                    </div>
-                </div>
-
-                <div class="space-box" id="2-space">
-                    <div class="space-image" id="space-image-2"></div>
-                    <p class="space-name" id="space-name-2">Name</p>
-                    <p class="space-location" id="space-location-2">Location</p>
-                    <div>
-                        <span class="space-price" id="space-price-2">Price</span>
-                        <span class="space-capacity" id="space-capacity-2">Capacity</span>
-                    </div>
-                </div>
-
-                <div class="space-box" id="3-space">
-                    <div class="space-image" id="space-image-3"></div>
-                    <p class="space-name" id="space-name-3">Name</p>
-                    <p class="space-location" id="space-location-3">Location</p>
-                    <div>
-                        <span class="space-price" id="space-price-3">Price</span>
-                        <span class="space-capacity" id="space-capacity-3">Capacity</span>
-                    </div>
-                </div>
-
-                <div class="space-box" id="4-space">
-                    <div class="space-image" id="space-image-4"></div>
-                    <p class="space-name" id="space-name-4">Name</p>
-                    <p class="space-location" id="space-location-4">Location</p>
-                    <div>
-                        <span class="space-price" id="space-price-4">Price</span>
-                        <span class="space-capacity" id="space-capacity-4">Capacity</span>
-                    </div>
-                </div>
-
-                <div class="space-box" id="5-space">
-                    <div class="space-image" id="space-image-5"></div>
-                    <p class="space-name" id="space-name-5">Name</p>
-                    <p class="space-location" id="space-location-5">Location</p>
-                    <div>
-                        <span class="space-price" id="space-price-5">Price</span>
-                        <span class="space-capacity" id="space-capacity-5">Capacity</span>
-                    </div> -->
-                <!-- </div> -->
-
-                <!-- <li class="space-box" id="6-space">
-                    <div class="space-image" id="space-image-6"></div>
-                    <p class="space-name" id="space-name-6">Name</p>
-                    <p class="space-location" id="space-location-6">Location</p>
-                    <div>
-                        <span class="space-price" id="space-price-6">Price</span>
-                        <span class="space-capacity" id="space-capacity-6">Capacity</span>
-                    </div>
-                </li> -->
-            </ul>
+            <ul id="search-result-container"></ul>
 
             <!--Pagination-->
             <div class="pagination">
@@ -215,11 +155,11 @@
         </div>
     </div>
     
-    <footer id="footer"></footer>
+    <!-- <footer id="footer"></footer> -->
 
     <script>
         // Load the page for header and footer using jQuery
-        $("#header").load("../Home/header.html");
+        $("#header").load("../Home/header.php");
         $("#footer").load("../Home/footer.html");
 
         // Allow user to type in numbers only without "+", "-", "." and "e" sign in input type number
@@ -254,6 +194,19 @@
                     }
                 }
             }
+            if ((minPrice != "") && (maxPrice != "")) {
+                console.log("Min price and max price are not null");
+                //Filter based on price
+                //Take location, event, minprice, maxprice & capacity and query the database
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "search_query.php", true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                var data = `{
+                    "min_price": minPrice
+                }`
+                xhr.send(data);
+            }
+            
         }
 
         function checkOnChangeCapacity() {

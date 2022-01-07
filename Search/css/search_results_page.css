@@ -1,14 +1,15 @@
 
 .search-results-wrapper {
     display: block;
-
-    
+    position: relative;
+    top: 85px;
+      
 }
 
 .search-filter-menu {
     float: left;
-    height: 700px;
-    width: 20%;
+    height: 500px;
+    width: 30%;
     display: flex;
     flex-direction: column;
     overflow: auto;
