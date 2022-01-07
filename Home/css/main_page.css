@@ -335,29 +335,6 @@ input[type=number]::-webkit-outer-spin-button {
     cursor: pointer;
 }
 
-.space-imgs > .space-btn-right {
-    position: absolute;
-    top: 40%;
-    right: 0;
-}
-
-.space-imgs > .space-btn-left {
-    position: absolute;
-    top: 40%;
-    left: 0;
-}
-
-.fa-angle-right, .fa-angle-left {
-    border: none;
-    background-color: transparent;
-    color: white;
-}
-
-.space-btn-left:hover,
-.space-btn-right:hover {
-    cursor: pointer;
-}
-
 .space-info {
     text-align: left;
     margin-top: 10px;

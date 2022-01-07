@@ -2,9 +2,10 @@
     // Connect to database
     require_once "config.php";
     session_start();
-    require"../Home/account_function/owner_readProfile.php";
-    require"../Home/account_function/owner_updateProfile.php";
+    require "../Home/account_function/owner_readProfile.php";
+    require "../Home/account_function/owner_updateProfile.php";
     $owner_name = isset($_SESSION['owner_name']) ? trim($_SESSION['owner_name']) : '';
+    $query_msg = isset($_GET['query_msg']) ? trim($_GET['query_msg']) : '';
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +30,7 @@
 </head>
 
 <body>
-<header id="owner_header"></header>
+<header id="header"></header>
     
 
 
@@ -78,12 +79,15 @@
         <br><br><br>
 
         <section id="profile_page_layout">
-        <h5 style="display: inline;">Space Listing </h5> <i class="fas fa-plus" style="display: inline; cursor:pointer;" onclick="addSpace()"></i>
+            <h5 style="display: inline;">Space Listing</h5>
+            <i class="fas fa-plus" style="display: inline; cursor:pointer; margin-left: 10px" onclick="addSpace()"></i>
+            <span id="query-result-msg" style="margin-left: 10px; display: inline; opacity: 0.85;"><?php echo $query_msg; ?></span>
         <br><br>
 
             <table>
         <tr>
             <th>Space</th>
+            <th></th>
             <th></th>
            
         </tr>
@@ -99,12 +103,13 @@
               //fetch pdo object
               while ($row= $pdoQuery_run->fetch(PDO::FETCH_OBJ)) {
                   ////found owner record in space table
-                 $name= $row->name; ?>
+                 $name= $row->name; 
+                 $space_id = $row->spaceID; ?>
 
                     <tr>
                         <td><?php echo $name; ?></td>
-                        <td>action</td>
-                    
+                        <td><a href="../Spaces/space_listing.php?spaceID=<?php echo $space_id; ?>">Edit</a></td>
+                        <td><a href="../Spaces/space_deleting.php?spaceID=<?php echo $space_id; ?>">Delete</a></td>
                     </tr>
 
            <?php  }}
@@ -129,19 +134,12 @@
             <?php    }
         ?>
        
-        
-      
         </table>
 
         <br><br><br>
 
         <h1>Add Calander Here</h1>
         </section>
-
-        
-
-        
-    
 
     <footer id="footer"></footer> 
 
