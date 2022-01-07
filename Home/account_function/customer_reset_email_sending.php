@@ -19,6 +19,8 @@ $mail->SetFrom('nomiying1998@gmail.com');
 $mail->Subject = $subject;
 $mail->Body = $body;
 $mail->AddAddress($customer_email);
+$mail->Host = gethostbyname('smtp.gmail.com');
+// $mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
 if (!$mail->send()) {
     echo "Email not sent. Mailer Error: {$mail->ErrorInfo}";

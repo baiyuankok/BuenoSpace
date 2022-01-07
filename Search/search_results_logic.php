@@ -115,20 +115,15 @@ $counter = 1;
 foreach($space_id as $each_space) {
     $img_id = select_images_id($pdo, $each_space);
     $img_counter = 1;
-    foreach($img_id as $each_img) {
-        echo '<script>
-            var imgSec = document.getElementById("space-image-'.$counter.'");
-            imgSec.classList.add("database-space-id-'.$each_space.'");
+    echo '<script>
+            var imgSec = document.getElementById("space-image-' . $counter . '");
+            imgSec.classList.add("database-space-id-' . $each_space . '");
             var imgEle = document.createElement("IMG");
-            imgEle.setAttribute("data-src", "../Home/image.php?id='.$each_img.'");
+            imgEle.setAttribute("data-src", "image.php?id=' . $img_id[0] . '");
             imgEle.classList.add("each-img");
-            imgEle.alt = "space-'.$counter.'-'.$img_counter.'";
+            imgEle.alt = "space-' . $counter . '-1";
             imgSec.appendChild(imgEle);
         </script>';
-        $img_counter += 1;
-    }
-
-
 
     $each_detail = select_details($pdo, $each_space);
     echo '<script>
