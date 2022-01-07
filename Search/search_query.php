@@ -4,7 +4,6 @@
 require_once "../Home/config.php";
 
 //Test to see if search attributes were received from main page
-console.log("search_query.php activated");
 echo $_POST["events"];
 echo '<html><br></html>';
 echo $_POST["location"];

@@ -21,6 +21,7 @@
 
     <div class="search-results-wrapper">
         <!--Search filter menu-->
+        <form action="search_results_logic.php" method="post">
         <div class="search-filter-menu">
             <!--Price filter-->
             <div class="filter-block">
@@ -28,14 +29,14 @@
                 <div class="filter-body">
                     <div class="row-center">
                         <div>RM (min)</div>
-                        <input id="min-price" type="number" placeholder="10" min="1"
+                        <input id="min-price" name="min_price" type="number" placeholder="10" min="1"
                             onchange="checkOnChangePrice('min-price')" />
                         <button type="button" id="min-price-add" onclick="changePrice('min-price', 1)">+</button>
                         <button type="button" id="min-price-minus" onclick="changePrice('min-price', -1)">-</button>
                     </div>
                     <div class="row-center">
                         <div>RM (max)</div>
-                        <input id="max-price" type="number" placeholder="30000" min="1"
+                        <input id="max-price" name="max_price" type="number" placeholder="30000" min="1"
                             onchange="checkOnChangePrice('max-price')" />
                         <button type="button" id="max-price-add" onclick="changePrice('max-price', 1)">+</button>
                         <button type="button" id="max-price-minus" onclick="changePrice('max-price', -1)">-</button>
@@ -48,7 +49,7 @@
             <div class="filter-block">
                 <div class="filter-type">Capacity</div>
                 <div class="filter-body">
-                    <input id="capacity" type="number" placeholder="1" min="1" onchange="checkOnChangeCapacity()" />
+                    <input id="capacity" name="capacity" type="number" placeholder="1" min="1" onchange="checkOnChangeCapacity()" />
                     <button type="button" id="capacity-add" onclick="changeCapacity(1)">+</button>
                     <button type="button" id="capacity-minus" onclick="changeCapacity(-1)">-</button>
                 </div>
@@ -58,39 +59,39 @@
             <div class="filter-block">
                 <div class="filter-type">Event</div>
                 <div class="filter-body">
-                    <input type="checkbox" value="annual-dinner">
+                    <input type="checkbox" value="Annual Dinner" name="events[]">
                     <label>Annual Dinner</label><br>
-                    <input type="checkbox" value="product-launch">
+                    <input type="checkbox" value="Product Launch" name="events[]">
                     <label>Product Launch</label><br>
-                    <input type="checkbox" value="training">
+                    <input type="checkbox" value="Training" name="events[]">
                     <label>Training</label><br>
-                    <input type="checkbox" value="meeting">
+                    <input type="checkbox" value="Meeting" name="events[]">
                     <label>Meeting</label><br>
-                    <input type="checkbox" value="engagement">
+                    <input type="checkbox" value="Engagement" name="events[]">
                     <label>Engagement</label><br>
-                    <input type="checkbox" value="exhibition">
+                    <input type="checkbox" value="Exhibition" name="events[]">
                     <label>Exhibition</label><br>
-                    <input type="checkbox" value="photo-shoot">
+                    <input type="checkbox" value="Photo Shoot" name="events[]">
                     <label>Photo Shoot</label><br>
-                    <input type="checkbox" value="press-conference">
+                    <input type="checkbox" value="Press Conference" name="events[]">
                     <label>Press Conference</label><br>
-                    <input type="checkbox" value="team-building">
+                    <input type="checkbox" value="Team Building" name="events[]">
                     <label>Team Building</label><br>
-                    <input type="checkbox" value="wedding">
+                    <input type="checkbox" value="Wedding" name="events[]">
                     <label>Wedding</label><br>
-                    <input type="checkbox" value="birthday-party">
+                    <input type="checkbox" value="Birthday Party" name="events[]">
                     <label>Birthday Party</label><br>
-                    <input type="checkbox" value="seminar">
+                    <input type="checkbox" value="Seminar" name="events[]">
                     <label>Seminar</label><br>
-                    <input type="checkbox" value="auditions">
+                    <input type="checkbox" value="Auditions" name="events[]">
                     <label>Auditions</label><br>
-                    <input type="checkbox" value="conference">
+                    <input type="checkbox" value="Conference" name="events[]">
                     <label>Conference</label><br>
-                    <input type="checkbox" value="video-shoots">
+                    <input type="checkbox" value="Video Shoots" name="events[]">
                     <label>Video Shoots</label><br>
-                    <input type="checkbox" value="interviews">
+                    <input type="checkbox" value="Interviews" name="events[]">
                     <label>Interviews</label><br>
-                    <input type="checkbox" value="virtual-event">
+                    <input type="checkbox" value="Virtual Event" name="events[]">
                     <label>Virtual Event</label><br>
                 </div>
             </div>
@@ -99,43 +100,46 @@
             <div class="filter-block">
                 <div class="filter-type">Location</div>
                 <div class="filter-body">
-                    <input type="checkbox" value="taiping">
+                    <input type="checkbox" value="Taiping" name="location[]">
                     <label>Taiping</label><br>
-                    <input type="checkbox" value="petaling-jaya">
+                    <input type="checkbox" value="Petaling Jaya" name="location[]">
                     <label>Petaling Jaya</label><br>
-                    <input type="checkbox" value="subang-jaya">
+                    <input type="checkbox" value="Subang Jaya" name="location[]">
                     <label>Subang Jaya</label><br>
-                    <input type="checkbox" value="sg-buloh">
+                    <input type="checkbox" value="Sg Buloh" name="location[]">
                     <label>Sg Buloh</label><br>
-                    <input type="checkbox" value="damansara">
+                    <input type="checkbox" value="Damansara" name="location[]">
                     <label>Damansara</label><br>
-                    <input type="checkbox" value="shah-alam">
+                    <input type="checkbox" value="Shah Alam" name="location[]">
                     <label>Shah Alam</label><br>
-                    <input type="checkbox" value="kuala-lumpur">
+                    <input type="checkbox" value="Kuala Lumpur" name="location[]">
                     <label>Kuala Lumpur</label><br>
-                    <input type="checkbox" value="ampang">
+                    <input type="checkbox" value="Ampang" name="location[]">
                     <label>Ampang</label><br>
-                    <input type="checkbox" value="cyberjaya">
+                    <input type="checkbox" value="Cyberjaya" name="location[]">
                     <label>Cyberjaya</label><br>
-                    <input type="checkbox" value="penang-georgetown">
+                    <input type="checkbox" value="Penang, Georgetown" name="location[]">
                     <label>Penang, Georgetown</label><br>
-                    <input type="checkbox" value="puchong">
+                    <input type="checkbox" value="Puchong" name="location[]">
                     <label>Puchong</label><br>
-                    <input type="checkbox" value="kl-sentral">
+                    <input type="checkbox" value="KL Sentral" name="location[]">
                     <label>KL Sentral</label><br>
-                    <input type="checkbox" value="bandar-utama">
+                    <input type="checkbox" value="Bandar Utama" name="location[]">
                     <label>Bandar Utama</label><br>
-                    <input type="checkbox" value="bukit-bintang">
+                    <input type="checkbox" value="Bukit Bintang" name="location[]">
                     <label>Bukit Bintang</label><br>
-                    <input type="checkbox" value="johor-bahru">
+                    <input type="checkbox" value="Johor Bahru" name="location[]">
                     <label>Johor Bahru</label><br>
-                    <input type="checkbox" value="kuantan">
+                    <input type="checkbox" value="Kuantan" name="location[]">
                     <label>Kuantan</label><br>
-                    <input type="checkbox" value="ipoh">
+                    <input type="checkbox" value="Ipoh" name="location[]">
                     <label>Ipoh</label><br>
                 </div>
             </div>
+
+            <div><button id="filter-button" type="submit">Filter</button></div>
         </div>
+        </form>
 
         <!--Search results area-->
         <div class="search-results-area">
@@ -154,6 +158,7 @@
             </div>
         </div>
     </div>
+    
     
     <!-- <footer id="footer"></footer> -->
 
@@ -198,13 +203,6 @@
                 console.log("Min price and max price are not null");
                 //Filter based on price
                 //Take location, event, minprice, maxprice & capacity and query the database
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "search_query.php", true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                var data = `{
-                    "min_price": minPrice
-                }`
-                xhr.send(data);
             }
             
         }
@@ -303,6 +301,7 @@
         window.addEventListener("load", function () {
             // Initially, add grey background color to header
             headerInitialGray();
+
             // Load the images onload
             var targetObserver = document.querySelectorAll(".each-img");
             for (var eachTarget of targetObserver) {
