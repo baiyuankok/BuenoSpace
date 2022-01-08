@@ -88,7 +88,7 @@
     </div>
 
     <div id="rent-section">
-        <button id="rentButton" class="rent-btn ms-auto justify-content-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
+        <button id="rentButton" class="rent-btn ms-auto justify-content-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="signUpOrRent()"></button>
     </div>
 
     <!-- Modal -->
@@ -305,6 +305,15 @@
             // Add listener to load more review section
             document.getElementById("load-more-review").addEventListener("click", loadMoreReview);
         });
+
+        function signUpOrRent() {
+            if (document.getElementById("rentButton").innerText == "Sign In & Rent") {
+                location.href="/Home/customer_signIn.php";
+            }
+            else {
+                console.log("hehehe");
+            }
+        }
 
         function calcDiff() {
             var startDate = $("#startDatePicker").datepicker('getDate');
