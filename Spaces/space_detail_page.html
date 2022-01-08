@@ -423,6 +423,19 @@
                         y[i].classList.remove("invalid");
                 }
 
+                if (y[i].id == "guest-number") {
+                    var guestNumber = parseInt(y[i].value);
+                    var maxGuestNumber = document.getElementById("guest-number").max;
+                    if ((guestNumber<1) || (guestNumber>maxGuestNumber)) {
+                        y[i].className += " invalid";
+                        valid = false;
+                    }
+                    else {
+                        if(y[i].classList.contains("invalid"))
+                            y[i].classList.remove("invalid");
+                    }
+                }
+
                 if (y[i].id == "card-number") {
                     var cardNumber = y[i].value;
                     cardNumber = cardNumber.replace(/-/g,"").length;
