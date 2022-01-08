@@ -88,7 +88,7 @@
     </div>
 
     <div id="rent-section">
-        <button id="rentButton" class="rent-btn ms-auto justify-content-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="signUpOrRent()"></button>
+        <button id="rentButton" class="rent-btn ms-auto justify-content-end" data-bs-target="#staticBackdrop" onclick="signUpOrRent()"></button>
     </div>
 
     <!-- Modal -->
@@ -221,13 +221,13 @@
                 startDate: new Date(),
                 maxDate: '+1Y+6M'
             }).on('changeDate', function (ev) {
+                $('#endDatePicker').datepicker('setStartDate', $("#start-date").val());
+                calcBusinessDates();
+                if (bookingDuration == 0) {
+                    $('#endDatePicker').datepicker('update', '');
+                    $("#end-date").val("");
                     $('#endDatePicker').datepicker('setStartDate', $("#start-date").val());
-                    calcDiff();
-                    if (bookingDuration == 0) {
-                        $('#endDatePicker').datepicker('update', '');
-                        $("#end-date").val("");
-                        $('#endDatePicker').datepicker('setStartDate', $("#start-date").val());
-                    }
+                }
             });
 
             $('#endDatePicker').datepicker({
@@ -240,7 +240,7 @@
                 startDate: new Date(),
                 maxDate: '+1Y+6M'
             }).on('changeDate', function (ev) {
-                    calcDiff();
+                calcBusinessDates();
             });
         });
 
@@ -311,24 +311,30 @@
                 location.href="/Home/customer_signIn.php";
             }
             else {
-                console.log("hehehe");
+                $("#staticBackdrop").modal("show");
             }
         }
 
-        function calcDiff() {
+        function calcBusinessDates() {
             var startDate = $("#startDatePicker").datepicker('getDate');
             var endDate = $("#endDatePicker").datepicker('getDate');
-            var diff = 0;
-            if (startDate && endDate && (endDate > startDate)) {
-                var diff = parseInt((endDate.getTime()-startDate.getTime())/(24*3600*1000)); // milliseconds
-                bookingDuration = diff + 1;
+
+            var curDate = new Date(startDate);
+            if (startDate && endDate && (endDate >= startDate)) {
+                bookingDuration = 0;
+                while (curDate <= endDate) {
+                    var dayOfWeek = curDate.getDay();
+                    if (availableSlots.every(x => x != dayOfWeek))
+                        bookingDuration++;
+                    curDate.setDate(curDate.getDate() + 1);
+                }
                 document.getElementById("totalPrice").innerHTML = (pricePerDay * bookingDuration).toFixed(2);
             }
             else {
                 bookingDuration = 0;
                 spaceTotalPrice = 0;
                 document.getElementById("totalPrice").innerHTML = 0;
-            }
+            } 
         }
 
         $("#card-number").keypress(function() {

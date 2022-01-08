@@ -5,6 +5,7 @@ require "../Spaces/space_detail_page.html";
 
 $userID = isset($_SESSION['userID']) ? trim($_SESSION['userID']) : '';
 $get_space_id = $_GET['spaceID'];
+$_SESSION["recentURL"] = htmlspecialchars($_SERVER['REQUEST_URI']);
 
 function select_images_id($pdo, $space) {
     $results = $pdo->query("SELECT imgID FROM myfirstdatabase.space_image WHERE spaceID = $space");
