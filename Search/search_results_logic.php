@@ -4,17 +4,17 @@
 require_once "../Home/config.php";
 require "../Search/search_results_page.html";
 
-//Test to see if search attributes were received from main page
-echo $_POST["events"];
-echo '<html><br></html>';
-echo $_POST["location"];
-echo '<html><br></html>';
-echo $_POST["min_price"];
-echo '<html><br></html>';
-echo $_POST["max_price"];
-echo '<html><br></html>';
-echo $_POST["capacity"];
-echo '<html><br></html>';
+// //Test to see if search attributes were received from main page
+// echo $_POST["events"];
+// echo '<html><br></html>';
+// echo $_POST["location"];
+// echo '<html><br></html>';
+// echo $_POST["min_price"];
+// echo '<html><br></html>';
+// echo $_POST["max_price"];
+// echo '<html><br></html>';
+// echo $_POST["capacity"];
+// echo '<html><br></html>';
 
 //Get event type, location, minimum price (if it exists), maximum price (if it exists) and capacity (if it exists)
 if (isset($_POST["events"])) {
@@ -37,16 +37,16 @@ if (isset($_POST["capacity"])) {
     $capacity = $_POST["capacity"] ;
 } else $capacity = NULL;
 
-//Test to see if variables were initialized
-echo $event_type;
-echo '<html><br></html>';
-echo $location;
-echo '<html><br></html>';
-echo $min_price;
-echo '<html><br></html>';
-echo $max_price;
-echo '<html><br></html>';
-echo $capacity;
+// //Test to see if variables were initialized
+// echo $event_type;
+// echo '<html><br></html>';
+// echo $location;
+// echo '<html><br></html>';
+// echo $min_price;
+// echo '<html><br></html>';
+// echo $max_price;
+// echo '<html><br></html>';
+// echo $capacity;
 
 //Put a "tick" in the checkboxes
 if (is_array($event_type)) {
@@ -184,6 +184,13 @@ function select_details($pdo, $space) {
     return $results->fetch();
 }
 
+
+
+
+
+
+
+
 //TODO: Display "Sorry! We couldn't find any spaces." if no space ID is returned
 
 if(count($space_id) == 0) {
@@ -212,8 +219,16 @@ foreach($space_id as $each_space) {
                 <p class="space-name" id="space-name-'.$counter.'">Name</p>
                 <p class="space-location" id="space-location-'.$counter.'">Location</p>
                 <div>
-                    <span class="space-price" id="space-price-'.$counter.'">Price</span>
-                    <span class="space-capacity" id="space-capacity-'.$counter.'">Capacity</span>
+                    <span class="space-price">
+                        <span>RM</span>
+                        <span id="space-price-'.$counter.'"></span>
+                        <span class="per-day-word">per day</span>
+                    </span>
+                    <span class="space-capacity">
+                        <span class="fas fa-user-friends"></span>
+                        <span id="space-capacity-'.$counter.'">Capacity</span>
+                        <span class="max-word">Max</span>
+                    </span>
                 </div>
             </li>`);
         </script>';
@@ -240,7 +255,6 @@ foreach($space_id as $each_space) {
     $counter += 1;
 }
 
-//TODO: Click on space image to link to selected space_details page
 
 // Search queries v1
 // if ($location != "all") {

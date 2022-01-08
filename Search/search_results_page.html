@@ -26,20 +26,28 @@
             <!--Price filter-->
             <div class="filter-block">
                 <div class="filter-type">Price (per day)</div>
-                <div class="filter-body">
-                    <div class="row-center">
+                <div id ="price-section" class="filter-body">
+                    <div class="price-row">
                         <div>RM (min)</div>
-                        <input id="min-price" name="min_price" type="number" placeholder="10" min="1"
-                            onchange="checkOnChangePrice('min-price')" />
-                        <button type="button" id="min-price-add" onclick="changePrice('min-price', 1)">+</button>
-                        <button type="button" id="min-price-minus" onclick="changePrice('min-price', -1)">-</button>
+                        <div class="number-field">
+                            <input id="min-price" name="min_price" type="number" placeholder="10" min="1"
+                                onchange="checkOnChangePrice('min-price')" />
+                            <button type="button" id="min-price-add" class="fas fa-plus add-btn" 
+                                onclick="changePrice('min-price', 1)"></button>
+                            <button type="button" id="min-price-minus" class="fas fa-minus minus-btn"
+                                onclick="changePrice('min-price', -1)"></button>
+                        </div>
                     </div>
-                    <div class="row-center">
+                    <div class="price-row">
                         <div>RM (max)</div>
-                        <input id="max-price" name="max_price" type="number" placeholder="30000" min="1"
-                            onchange="checkOnChangePrice('max-price')" />
-                        <button type="button" id="max-price-add" onclick="changePrice('max-price', 1)">+</button>
-                        <button type="button" id="max-price-minus" onclick="changePrice('max-price', -1)">-</button>
+                        <div class="number-field">
+                            <input id="max-price" name="max_price" type="number" placeholder="30000" min="1"
+                                onchange="checkOnChangePrice('max-price')" />
+                            <button type="button" id="max-price-add" class="fas fa-plus add-btn"
+                                onclick="changePrice('max-price', 1)"></button>
+                            <button type="button" id="max-price-minus" class="fas fa-minus minus-btn"
+                                onclick="changePrice('max-price', -1)"></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -48,10 +56,12 @@
             <!--Capacity filter-->
             <div class="filter-block">
                 <div class="filter-type">Capacity</div>
-                <div class="filter-body">
+                <div id="capacity-section" class="filter-body">
                     <input id="capacity" name="capacity" type="number" placeholder="1" min="1" onchange="checkOnChangeCapacity()" />
-                    <button type="button" id="capacity-add" onclick="changeCapacity(1)">+</button>
-                    <button type="button" id="capacity-minus" onclick="changeCapacity(-1)">-</button>
+                    <button type="button" id="capacity-add" class="fas fa-plus add-btn"
+                        onclick="changeCapacity(1)"></button>
+                    <button type="button" id="capacity-minus" class="fas fa-minus minus-btn"
+                        onclick="changeCapacity(-1)"></button>
                 </div>
             </div>
 
@@ -137,7 +147,9 @@
                 </div>
             </div>
 
-            <div><button id="filter-button" type="submit">Filter</button></div>
+            <div id="button-container">
+                <button id="filter-button" type="submit">Filter</button>
+            </div>
         </div>
         </form>
 
@@ -160,7 +172,7 @@
     </div>
     
     
-    <!-- <footer id="footer"></footer> -->
+    <footer id="footer"></footer>
 
     <script>
         // Load the page for header and footer using jQuery
@@ -201,8 +213,8 @@
             }
             if ((minPrice != "") && (maxPrice != "")) {
                 console.log("Min price and max price are not null");
-                //Filter based on price
                 //Take location, event, minprice, maxprice & capacity and query the database
+                
             }
             
         }
@@ -267,36 +279,6 @@
             return newValue;
         }
 
-        var slideIndex = {
-            "1-space": 1,
-            "2-space": 1,
-            "3-space": 1,
-            "4-space": 1,
-            "5-space": 1,
-            "6-space": 1
-        }
-
-
-        // Display multiple images in one space
-        function showDivs(key) {
-            var imgId = document.getElementById(key);
-            if (imgId) {
-                var img = imgId.getElementsByClassName("each-img");
-                // If the image index more than the image length (when move to right max)
-                if (slideIndex[key] > img.length) {
-                    slideIndex[key] = 1;
-                }
-                // If the image index less than the 1 (when move to left max)
-                if (slideIndex[key] < 1) {
-                    slideIndex[key] = img.length;
-                }
-                for (var i = 0; i < img.length; i++) {
-                    img[i].style.display = "none";
-                }
-                img[slideIndex[key] - 1].style.display = "flex";
-            }
-        }
-
         //Onload
         window.addEventListener("load", function () {
             // Initially, add grey background color to header
@@ -309,9 +291,22 @@
                     eachTarget.setAttribute("src", eachTarget.dataset.src);
                 }
                 // Add listener to all images to link to space details page
-                // eachTarget.addEventListener("click", linkSpaceDetail);
+                eachTarget.addEventListener("click", linkSpaceDetail);
             }
         });
+
+        // Link the space images to the space details page
+        function linkSpaceDetail() {
+            var parentId = this.parentNode.id;
+            var parentDiv = document.getElementById(parentId).classList;
+            for (var i = 0; i < parentDiv.length; i++) {
+                var clsName = parentDiv.item(i);
+                if (clsName.includes("database-space")) {
+                    var dbSpaceId = clsName.split("-").pop().trim();
+                    location.href = "../Spaces/space_detail_logic.php?spaceID=" + dbSpaceId;
+                }
+            }
+        }
 
     </script>
 
