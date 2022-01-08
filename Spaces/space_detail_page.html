@@ -91,18 +91,21 @@
         <button id="rentButton" class="rent-btn ms-auto justify-content-end" data-bs-target="#staticBackdrop" onclick="signUpOrRent()"></button>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h4 class="modal-title" id="staticBackdropLabel"></h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="bookingForm">
+    <form id="bookingForm" action="../Spaces/book_space.php" method="post" enctype="multipart/form-data">
+         <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h4 class="modal-title" id="staticBackdropLabel"></h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
                         <div class="tab">
                             <p class="sub-head-form">Event Details</p>
+                            <div style="display: none;">
+                                <input type="number" class="form-control" id="space-id" name="spaceId">
+                            </div>
                             <div class="mb-3">
                                 <label for="event-name" class="col-form-label">Event Name</label>
                                 <input type="text" class="form-control" id="event-name" name="eventName" required>
@@ -164,6 +167,9 @@
                         <div class="tab">
                             <p class="sub-head-form">Payment Details</p>
                             <p style="font-weight: bold;">RM <span id="totalPrice" style="font-weight: bold;"></span></p>
+                            <div style="display: none;">
+                                <input type="number" class="form-control" id="event-total-price" name="eventTotalPrice">
+                            </div>
                             <div class="mb-3">
                                 <label for="card-number" class="col-form-label">Card Number</label>
                                 <input type="text" class="form-control" id="card-number" name="cardNumber" placeholder="xxxx-xxxx-xxxx-xxxx" maxlength="19" onkeypress="return onlyNumberKey(event)" required>
@@ -184,15 +190,15 @@
 
                         <div style="overflow:auto;">
                             <div style="float:right;">
-                              <button type="button" class="modalPrvBtn" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                              <button type="button" class="modalNextBtn" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                            <button type="button" class="modalPrvBtn" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                            <button type="button" class="modalNextBtn" id="nextBtn" onclick="nextPrev(1)">Next</button>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
     
 
     <footer id="footer"></footer>
@@ -329,6 +335,7 @@
                     curDate.setDate(curDate.getDate() + 1);
                 }
                 document.getElementById("totalPrice").innerHTML = (pricePerDay * bookingDuration).toFixed(2);
+                document.getElementById("event-total-price").value = (pricePerDay * bookingDuration).toFixed(2);
             }
             else {
                 bookingDuration = 0;
@@ -382,7 +389,7 @@
             x[currentTab].style.display = "none";
             currentTab = currentTab + n;
             if (currentTab >= x.length) {
-                // document.getElementById("bookingForm").submit();
+                document.getElementById("bookingForm").submit();
                 return false;
             }
             showTab(currentTab);

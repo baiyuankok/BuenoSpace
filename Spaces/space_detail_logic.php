@@ -71,6 +71,7 @@ echo '<script>
     document.getElementById("price").innerHTML = "'.$each_detail['price'].'";
     document.getElementById("capacity").innerHTML = "'.$each_detail['capacity'].'";
     document.getElementById("staticBackdropLabel").innerHTML = "'.$each_detail['name'].'";
+    document.getElementById("space-id").value = '.$get_space_id.';
 </script>';
 
 $space_event_type = select_event_type($pdo, $get_space_id);
