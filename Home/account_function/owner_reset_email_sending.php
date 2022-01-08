@@ -33,3 +33,5 @@ if (!$mail->send()) {
     echo "Email sent.";
     header("location: ../Home/account_function/resetpassword_message.php");
 }
+
+?>
