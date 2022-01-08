@@ -1,8 +1,9 @@
 <?php
-// Connect to database
+session_start();
 require_once "../Home/config.php";
 require "../Spaces/space_detail_page.html";
 
+$userID = isset($_SESSION['userID']) ? trim($_SESSION['userID']) : '';
 $get_space_id = $_GET['spaceID'];
 
 function select_images_id($pdo, $space) {
@@ -30,6 +31,17 @@ function select_event_type($pdo, $space) {
 function select_available_slot($pdo, $space) {
     $results = $pdo->query("SELECT availableMonday, availableTuesday, availableWednesday, availableThursday, availableFriday, availableSaturday, availableSunday FROM myfirstdatabase.available_slot WHERE spaceID = $space");
     return $results->fetch();
+}
+
+if(isset($_SESSION["customer_loggedin"]) && $_SESSION["customer_loggedin"] === true){
+    echo '<script>
+        document.getElementById("rentButton").innerText = "Rent";
+    </script>';
+}
+else {
+    echo '<script>
+        document.getElementById("rentButton").innerText = "Sign In & Rent";
+    </script>';
 }
 
 $img_id = select_images_id($pdo, $get_space_id);
