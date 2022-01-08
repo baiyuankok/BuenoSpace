@@ -188,6 +188,11 @@
                             </div>
                         </div>
 
+                        <div id="loadingAnimation" class="center" style="display: none;">
+                            <div class="ring"></div>
+                            <span id="loadingText">loading...</span>
+                        </div>
+
                         <div style="overflow:auto;">
                             <div style="float:right;">
                             <button type="button" class="modalPrvBtn" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
@@ -390,6 +395,9 @@
             currentTab = currentTab + n;
             if (currentTab >= x.length) {
                 document.getElementById("bookingForm").submit();
+                $('#loadingAnimation').show();
+                document.getElementById("prevBtn").style.display = "none";
+                document.getElementById("nextBtn").style.display = "none";
                 return false;
             }
             showTab(currentTab);
