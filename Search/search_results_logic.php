@@ -48,6 +48,23 @@ if (isset($_POST["capacity"])) {
 // echo '<html><br></html>';
 // echo $capacity;
 
+//Remember values of price and capacity
+if($min_price != NULL) {
+    echo '<script>
+            document.getElementById("min-price").value = '.$min_price.';
+        </script>';
+}
+if($max_price != NULL) {
+    echo '<script>
+            document.getElementById("max-price").value = '.$max_price.';
+        </script>';
+}
+if($capacity != NULL) {
+    echo '<script>
+            document.getElementById("capacity").value = '.$capacity.';
+        </script>';
+}
+
 //Put a "tick" in the checkboxes
 if (is_array($event_type)) {
     foreach (range(0, count($event_type)-1) as $i) {
@@ -90,6 +107,8 @@ else {
             }
         </script>';
 }
+
+
 
 
 
