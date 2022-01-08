@@ -222,6 +222,10 @@
 
         $(document).ready(function() {
             pricePerDay = document.getElementById("price").textContent;
+            var spaceCapacity = document.getElementById("capacity").innerHTML;
+            document.getElementById("guest-number").max = spaceCapacity;
+            document.getElementById("guest-number").placeholder = spaceCapacity + " max";
+
             $('#startDatePicker').datepicker({
                 format: "dd-mm-yyyy",
                 todayHighlight:'TRUE',
