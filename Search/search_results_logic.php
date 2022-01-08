@@ -98,14 +98,17 @@ $one_filter_added = False;
 
 //Search queries v2
 if($event_type == "all-events") {
-    $query = "SELECT spaceID FROM myfirstdatabase.space ";
+    $query = "SELECT DISTINCT spaceID FROM myfirstdatabase.space ";
     if($location != "all") {
         if($one_filter_added) { $query .= "AND "; } else {$query .= "WHERE "; }
         
         if(is_array($location)) {
+            echo '<script> console.log("More than 1 location!"); console.log('.$location.'.length); </script>';
             $query .= "location = '$location[0]'";
-            foreach (range(1, count($location)-1) as $i) {
-                $query .= "OR location = '$location[$i]'";
+            if(count($location) > 1) {
+                foreach (range(1, count($location)-1) as $i) {
+                    $query .= "OR location = '$location[$i]'";
+                }
             }
         }
         else {$query .= "location = '$location'";}
@@ -124,20 +127,21 @@ if($event_type == "all-events") {
 }
 elseif ($event_type != "all-events") {
     if(is_array($event_type)) {
-        $query = "SELECT spaceID 
+        $query = "SELECT DISTINCT spaceID 
                 FROM myfirstdatabase.space t1
                 INNER JOIN myfirstdatabase.event_space_type t2
                 ON t1.spaceID = t2.space_ID
                 INNER JOIN myfirstdatabase.event_type t3
                 ON t2.event_type_ID = t3.event_type_ID WHERE t3.type = '$event_type[0]' ";
-        echo '<script> console.log("More than 1 event type!") </script>';
-        foreach (range(1, count($event_type)-1) as $i) {
-            $query .= "OR t3.type = '$event_type[$i]' ";
+        echo '<script> console.log("More than 1 event type!"); console.log('.$event_type.'.length); </script>';
+        if(count($event_type) > 1) {
+            foreach (range(1, count($event_type)-1) as $i) {
+                $query .= "OR t3.type = '$event_type[$i]' ";
+            }
         }
-        //BUG: when filter is clicked a second time, the system sends in an empty value plus the current value
     }
     else {
-        $query = "SELECT spaceID 
+        $query = "SELECT DISTINCT spaceID 
                 FROM myfirstdatabase.space t1
                 INNER JOIN myfirstdatabase.event_space_type t2
                 ON t1.spaceID = t2.space_ID
@@ -145,18 +149,13 @@ elseif ($event_type != "all-events") {
                 ON t2.event_type_ID = t3.event_type_ID WHERE t3.type = '$event_type' ";
     }
     if($location != "all") {
-        // $query .= "AND t1.location = '$location[0]'";
-        // if(is_array($location)) {
-        //     echo '<script> console.log("More than 1 location!") </script>';
-        //     foreach (range(1, count($location)-1) as $i) {
-        //         $query .= "OR location = '$location[$i]'";
-        //     }
-        // }
-
         if(is_array($location)) {
+            echo '<script> console.log("More than 1 location!"); console.log('.$location.'.length); </script>';
             $query .= "AND t1.location = '$location[0]'";
-            foreach (range(1, count($location)-1) as $i) {
-                $query .= "OR t1.location = '$location[$i]'";
+            if(count($location) > 1) {
+                foreach (range(1, count($location)-1) as $i) {
+                    $query .= "OR t1.location = '$location[$i]'";
+                }
             }
         }
         else {$query .= "AND t1.location = '$location'";}
@@ -224,7 +223,7 @@ foreach($space_id as $each_space) {
             var imgSec = document.getElementById("space-image-' . $counter . '");
             imgSec.classList.add("database-space-id-' . $each_space . '");
             var imgEle = document.createElement("IMG");
-            imgEle.setAttribute("data-src", "image.php?id=' . $img_id[0] . '");
+            imgEle.setAttribute("data-src", "../Home/image.php?id=' . $img_id[0] . '");
             imgEle.classList.add("each-img");
             imgEle.alt = "space-' . $counter . '-1";
             imgSec.appendChild(imgEle);
