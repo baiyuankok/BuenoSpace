@@ -148,4 +148,20 @@ if($space_available_slot['availableSaturday'] == FALSE) {
     </script>';
 }
 
+
+$sqlAllEventType = "SELECT * FROM myfirstdatabase.event_type";
+$sqlAllEventType= $pdo->query($sqlAllEventType);
+if ($sqlAllEventType) {
+    echo '<script>
+        const allEventTypes = {};
+    </script>';
+    while ($row= $sqlAllEventType->fetch(PDO::FETCH_OBJ)) {
+        $event_type_id=$row->event_type_ID;
+        $event_type_name=$row->type;
+        echo '<script>
+            allEventTypes["'.$event_type_id.'"] = "'.$event_type_name.'";
+        </script>';
+    }
+}
+
 ?>

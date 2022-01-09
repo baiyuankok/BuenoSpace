@@ -26,14 +26,12 @@ $event_start_date = formatDate($start_date);
 $end_date = $_POST["endDate"];
 $event_end_date = formatDate($end_date);
 $guest_number = $_POST["guestNumber"];
-$event_type_id = "1"; // still under development phase
+$event_type_id = $_POST["selectedEventType"];
 $total_price = $_POST["eventTotalPrice"];
 $card_number = $_POST["cardNumber"];
 $card_expiry_date = $_POST["cardExpiryDate"];
 $card_CVV = $_POST["cardCVVNumber"];
 $card_holder_name = $_POST["cardHolderName"];
-
-echo $event_start_date;
 
 $pdoQuery="INSERT INTO booking(bookingDate, spaceID, userID, slotID, eventName, eventStartDate, eventEndDate, guestNumber, eventTypeID, totalPrice, cardNumber, cardExpiryDate, cardCVV, cardHolderName) VALUES (:booking_date, :space_id, :user_id, :slot_id, :event_name, :event_start_date, :event_end_date, :guest_number, :event_type_id, :total_price, :card_number, :card_expiry_date, :card_CVV, :card_holder_name)";
 $pdoQuery_run= $pdo->prepare($pdoQuery);
