@@ -3,10 +3,57 @@
 session_start();
 $ownerID = isset($_SESSION['ownerID']) ? trim($_SESSION['ownerID']) : '';
 require_once "../Home/config.php";
+// To prevent the shutdown function from executing if no error occurred
+$global_shutdown = true;
 
+function onShutDown() {
+    global $global_shutdown;
+    // If the error "max_execution_time" is catched, redirect to the owner profile page
+    if ($global_shutdown) {
+        displayMsg("Space details are updated, but images are not uploaded. Please try again.");
+    }
+}
+ 
 function displayMsg($msg) {
     header('Location: ../Home/owner_profile.php?query_msg="' . $msg . '"');
     exit();
+}
+
+function insertNewImage($s_id, $pdo) {
+    global $global_shutdown;
+    $query_result_msg = "";
+    if (count($_FILES["images"]) > 0) {
+        // Insert new images
+        $insert_space_image = "";
+        foreach ($_FILES["images"]["tmp_name"] as $key => $tmp_name) {
+            if (is_uploaded_file($_FILES["images"]["tmp_name"][$key])) {
+                // Get image data and properties
+                $imgData = addslashes(file_get_contents($_FILES["images"]["tmp_name"][$key]));
+                $imageProperties = getimagesize($_FILES["images"]["tmp_name"][$key]);
+
+                $insert_space_image .= "INSERT INTO myfirstdatabase.space_image(`image`, image_type, spaceID) VALUES ('{$imgData}', '{$imageProperties['mime']}', {$s_id});";
+            }
+        }
+        if (!empty($insert_space_image)) {
+            $global_shutdown = true;
+            // The shutdown function will run either an error is caught or finish executing the function
+            register_shutdown_function("onShutDown");
+            // Set the maximum execution time to 120 seconds
+            ini_set("max_execution_time", 120);
+
+            $insert_space_image_exec = $pdo->prepare($insert_space_image)->execute();
+
+            if ($insert_space_image_exec) {
+                $global_shutdown = false;
+                $query_result_msg .= " and images are updated successfully.";
+            } else {
+                $query_result_msg .= " are updated, but images are not uploaded. Please try again.";
+            }
+        } else {
+            $query_result_msg .= " are updated successfully.";
+        } 
+    }
+    return $query_result_msg;
 }
 
 if (isset(($_POST['edit_space_detail']))) {
@@ -73,29 +120,8 @@ if (isset(($_POST['edit_space_detail']))) {
                         $delete_images = $pdo->query('DELETE FROM myfirstdatabase.space_image WHERE imgID = ' . $each_remove_img);
                     }
                 }
-                if (count($_FILES["images"]) > 0) {
-                    // Insert new images
-                    $insert_image_sql = "";
-                    foreach ($_FILES["images"]["tmp_name"] as $key => $tmp_name) {
-                        if (is_uploaded_file($_FILES["images"]["tmp_name"][$key])) {
-                            // Get image data and properties
-                            $imgData = addslashes(file_get_contents($_FILES["images"]["tmp_name"][$key]));
-                            $imageProperties = getimagesize($_FILES["images"]["tmp_name"][$key]);
-                            $insert_image_sql .= "INSERT INTO myfirstdatabase.space_image(`image`, image_type, spaceID) VALUES ('{$imgData}', '{$imageProperties['mime']}', {$space_id});";
-                        }
-                    }
-                    if (!empty($insert_image_sql)) {
-                        $insert_image_exec = $pdo->prepare($insert_image_sql)->execute();
-                        
-                        if ($insert_event_exec) {
-                            $query_result_msg .= " and images are updated successfully.";
-                        } else {
-                            $query_result_msg .= " are updated, but images are not uploaded. Please try again.";
-                        }
-                    } else {
-                        $query_result_msg .= " are updated successfully.";
-                    }
-                }
+                // Insert new images
+                $query_result_msg .= insertNewImage($space_id, $pdo);
             } else {
                 $query_result_msg .= "Space details and images are not updated. Please try again.";
             }
@@ -124,31 +150,8 @@ if (isset(($_POST['edit_space_detail']))) {
             $insert_query_result_msg = "";
             if ($insert_details_exec && $insert_space_event_exec) {
                 $insert_query_result_msg .= "Space details";
-
-                if (count($_FILES["images"]) > 0) {
-                    // Insert new images
-                    $insert_space_image = "";
-                    foreach ($_FILES["images"]["tmp_name"] as $key => $tmp_name) {
-                        if (is_uploaded_file($_FILES["images"]["tmp_name"][$key])) {
-                            // Get image data and properties
-                            $imgData = addslashes(file_get_contents($_FILES["images"]["tmp_name"][$key]));
-                            $imageProperties = getimagesize($_FILES["images"]["tmp_name"][$key]);
-
-                            $insert_space_image .= "INSERT INTO myfirstdatabase.space_image(`image`, image_type, spaceID) VALUES ('{$imgData}', '{$imageProperties['mime']}', {$space_id});";
-                        }
-                    }
-                    if (!empty($insert_space_image)) {
-                        $insert_space_image_exec = $pdo->prepare($insert_space_image)->execute();
-
-                        if ($insert_space_image_exec) {
-                            $insert_query_result_msg .= " and images are listed successfully.";
-                        } else {
-                            $insert_query_result_msg .= " are listed, but images are not uploaded. Please try again.";
-                        }
-                    } else {
-                        $insert_query_result_msg .= " are listed successfully.";
-                    } 
-                }
+                // Insert new images
+                $insert_query_result_msg .= insertNewImage($space_id, $pdo);
             } else {
                 $insert_query_result_msg .= "Space details and images are not listed. Please try again.";
             }
