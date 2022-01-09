@@ -49,10 +49,15 @@
                             $_SESSION["customer_loggedin"] = true;
                             $_SESSION["userID"] = $userID;
                             $_SESSION["customer_name"] = $customer_name;
-                                                      
-                            
-                            // Redirect user to welcome page
-                            header("location: index.php");
+
+                            if($_SESSION["recentURL"] =="")
+                            {
+                                header("location: index.php");
+                            }
+                            else
+                            {
+                                header("location: ".$_SESSION["recentURL"]);   
+                            }
                         } else{
                             // Display an error message if password is not valid
                             $customer_password_err = "The password you entered was not valid.";
