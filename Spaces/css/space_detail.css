@@ -3,12 +3,22 @@
     .modal-body .space-btn-right {
         top: 20% !important;
     }
+
+    #all-image-samples img {
+        width: 100% !important;
+        height: auto !important;
+    }
 }
 
 @media (max-device-width: 768px) {
     .modal-body .space-btn-left,
     .modal-body .space-btn-right {
         top: 15% !important;
+    }
+
+    #all-image-samples img {
+        width: 100% !important;
+        height: auto !important;
     }
 }
 
@@ -141,6 +151,11 @@
 .lpc-details p {
     margin-top: 10px;
     font-size: large;
+}
+
+.lpc-details .fa-heart {
+    color: red;
+    cursor: pointer;
 }
 
 #event-type {

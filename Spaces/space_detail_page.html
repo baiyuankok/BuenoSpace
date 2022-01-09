@@ -66,6 +66,10 @@
                 <span class="fas fa-user-friends"></span>
                 <p><span id="capacity"></span> Max</p>
             </div>
+            <div class="lpc-details">
+                <span class="far fa-heart" id="favourite-icon" onclick="addFavourite()"></span>
+                <p>Favourites (<span id="total-favourite"></span>)</p>
+            </div>
         </div>
 
         <div id="event-type-section">
@@ -300,6 +304,24 @@
                 }
             }
             document.getElementById("load-more-review").style.display = "none";
+        }
+
+        function addFavourite() {
+            var favIcon = document.getElementById("favourite-icon");
+            // When user wants to add to favourite
+            if (favIcon.classList.contains("far")) {
+                favIcon.classList.remove("far");
+                favIcon.classList.add("fas");
+                var oriFav = document.getElementById("total-favourite").innerHTML;
+                oriFav = parseInt(oriFav) + 1;
+                document.getElementById("total-favourite").innerHTML = oriFav;
+            } else { // When user wants to remove favourite
+                favIcon.classList.remove("fas");
+                favIcon.classList.add("far");
+                var oriFav = document.getElementById("total-favourite").innerHTML;
+                oriFav = parseInt(oriFav) - 1;
+                document.getElementById("total-favourite").innerHTML = oriFav;
+            }
         }
 
         window.addEventListener("load", function () {

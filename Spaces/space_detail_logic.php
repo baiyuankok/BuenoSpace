@@ -65,6 +65,8 @@ foreach ($img_id as $each_img) {
 echo '<script>showImg()</script>';
 
 $each_detail = select_details($pdo, $get_space_id);
+$select_total_favourite = $pdo->query('SELECT COUNT(*) AS total_favourite FROM myfirstdatabase.favourite WHERE spaceID = ' .$get_space_id)->fetch();
+$set_favourite = $pdo->query('SELECT favouriteID FROM myfirstdatabase.favourite WHERE spaceID = ' .$get_space_id. ' AND userID = ' .$userID)->fetchAll(PDO::FETCH_COLUMN, 0);
 echo '<script>
     document.getElementById("name").innerHTML = "'.$each_detail['name'].'";
     document.getElementById("location").innerHTML = "'.$each_detail['location'].'";
@@ -72,7 +74,36 @@ echo '<script>
     document.getElementById("capacity").innerHTML = "'.$each_detail['capacity'].'";
     document.getElementById("staticBackdropLabel").innerHTML = "'.$each_detail['name'].'";
     document.getElementById("space-id").value = '.$get_space_id.';
+    document.getElementById("total-favourite").innerHTML = '.$select_total_favourite['total_favourite'].';
+
+    window.addEventListener("beforeunload", function (event) {
+        delete event["returnValue"];
+        var favI = document.getElementById("favourite-icon");
+        var spaceID = ' . $get_space_id . ';
+        var userID = ' . $userID . ';
+        var updateType = 0;
+        if (favI.classList.contains("fas")) {
+            updateType = 1;
+        } else {
+            updateType = -1;
+        }
+        fetch("../Spaces/update_favourite.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body:  `updateType=${updateType}&spaceID=${spaceID}&userID=${userID}`
+        });
+    });
 </script>';
+// Set the favourite icon according to the user favourite table
+if (count($set_favourite) != 0) {
+    echo '<script>
+        var fI = document.getElementById("favourite-icon");
+        fI.classList.remove("far");
+        fI.classList.add("fas");
+    </script>';
+}
 
 $space_event_type = select_event_type($pdo, $get_space_id);
 foreach ($space_event_type as $each_space_event) {
