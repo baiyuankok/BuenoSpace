@@ -189,35 +189,13 @@ while ($row = $user_review->fetch()) {
     if (!$existing_review || $user_id != $userID) {
         $user_name = $pdo->query("SELECT customer_name FROM myfirstdatabase.customer WHERE userID = $user_id")->fetch()['customer_name'];
         $comment = $row['comment'];
-        if ($total_count < 4) {
-            $element_id = "review-content-section";
-            add_review_content($element_id, $user_name, $comment);
-        } else {
-            $element_id = "more-review-content";
-            add_review_content($element_id, $user_name, $comment);
-        }
+        $element_id = "more-review-content";
+        add_review_content($element_id, $user_name, $comment);
     }
 }
 echo '<script>
     document.getElementById("review-num").innerHTML = "'.$total_count.'";
 </script>';
-
-if ($total_count < 4) {
-    echo '<script>
-        var moreRevBtn = document.getElementById("more-review-btn");
-        if (!moreRevBtn.hasAttribute("disabled")) {
-            moreRevBtn.setAttribute("disabled", "disabled");
-        }
-    </script>';
-} else {
-    echo '<script>
-        var moreRevBtn = document.getElementById("more-review-btn");
-        if (moreRevBtn.hasAttribute("disabled")) {
-            moreRevBtn.removeAttribute("disabled");
-        }
-    </script>';
-}
-
 
 $space_available_slot = select_available_slot($pdo, $get_space_id);
 echo '<script>
