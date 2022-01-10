@@ -159,13 +159,10 @@
             <ul id="search-result-container"></ul>
 
             <!--Pagination-->
-            <div class="pagination">
+            <div class="pagination-wrapper">
                 <ul>
-                    <a href="#">prev</a>
-                    <a href="#">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">nextt</a>
+                    <button class="fas fa-angle-double-left" id="prev-page-btn" onclick="previousPage()"></button>
+                    <button class="fas fa-angle-double-right" id="next-page-btn" onclick="nextPage()"></button>
                 </ul>
             </div>
         </div>
@@ -188,6 +185,60 @@
                 event.preventDefault();
             }
         };
+
+        //Go to previous page
+        function previousPage() {
+            var all_returned_items = document.querySelectorAll(".space-box");
+            
+            //Get the ID of the first visible item
+            for (let i=0; i < all_returned_items.length; i++) {
+                if(all_returned_items[i].style.display != "none") {
+                    var first_id_on_page = parseInt(all_returned_items[i].id.split("-").pop().trim());
+                    break;
+                }
+            }
+            console.log("First ID on page: ", first_id_on_page);
+            
+            //Hide items on current page
+            for (let i=0; i < all_returned_items.length; i++) {
+                if(all_returned_items[i].style.display != "none") {
+                    all_returned_items[i].style.display = "none";
+                }
+            }
+
+            //Show items on previous page
+            for (let i=first_id_on_page - 6; i <= first_id_on_page - 1; i++) {
+                //If array out of bounds, exit this loop
+                if (document.getElementById("space-box-" + i.toString()) == null) {
+                    return;
+                }
+                document.getElementById("space-box-" + i.toString()).style.display = "flex";
+            }
+
+        }
+        
+        //Go to next page
+        function nextPage() {
+            //Hide items on current page
+            var all_returned_items = document.querySelectorAll(".space-box");
+            
+            for (let i=0; i < all_returned_items.length; i++) {
+                if(all_returned_items[i].style.display != "none") {
+                    var last_id_on_page = parseInt(all_returned_items[i].id.split("-").pop().trim());
+                    all_returned_items[i].style.display = "none";
+                }
+            }
+
+            //Show items on next page
+            for (let i=last_id_on_page + 1; i <= last_id_on_page + 6; i++) {
+                //If array out of bounds, exit this loop
+                if (document.getElementById("space-box-" + i.toString()) == null) {
+                    return;
+                }
+                document.getElementById("space-box-" + i.toString()).style.display = "flex";
+            }
+
+        }
 
         // To check for min and max price when user type in the numbers
         function checkOnChangePrice(btnId) {

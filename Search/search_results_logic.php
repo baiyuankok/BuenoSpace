@@ -226,17 +226,19 @@ if(count($space_id) == 0) {
 
 //For each space that is found...
 $counter = 1;
+$items_on_page_counter = 1;
 foreach($space_id as $each_space) {
+
     $img_id = select_images_id($pdo, $each_space);
     //Create a list item
     echo '<script>
             console.log("'.$each_space.'");
             resultList = document.getElementById("search-result-container");
             resultList.insertAdjacentHTML(`beforeend`, 
-            `<li class="space-box">
+            `<li class="space-box" id="space-box-'.$counter.'">
                 <div class="space-image" id="space-image-'.$counter.'"></div>
-                <p class="space-name" id="space-name-'.$counter.'">Name</p>
-                <p class="space-location" id="space-location-'.$counter.'">Location</p>
+                <p class="space-name" id="space-name-'.$counter.'"></p>
+                <p class="space-location" id="space-location-'.$counter.'"></p>
                 <div>
                     <span class="space-price">
                         <span>RM</span>
@@ -245,12 +247,19 @@ foreach($space_id as $each_space) {
                     </span>
                     <span class="space-capacity">
                         <span class="fas fa-user-friends"></span>
-                        <span id="space-capacity-'.$counter.'">Capacity</span>
+                        <span id="space-capacity-'.$counter.'"></span>
                         <span class="max-word">Max</span>
                     </span>
                 </div>
             </li>`);
         </script>';
+
+    if($items_on_page_counter > 6) {
+        echo '<script>
+                console.log("There are 6 items on the page");
+                document.getElementById("space-box-'.$counter.'").style.display = "none";
+            </script>';
+    }
 
     //Load the space image
     echo '<script>
@@ -271,8 +280,18 @@ foreach($space_id as $each_space) {
             document.getElementById("space-price-'.$counter.'").innerHTML = "'.$each_detail['price'].'";
             document.getElementById("space-capacity-'.$counter.'").innerHTML = "'.$each_detail['capacity'].'";
         </script>';
+
+    // if($items_on_page_counter > 6) {
+    //     echo '<script>
+    //             console.log("There are 6 items on the page");
+    //             document.getElementById("space-box-'.$counter.'").style.display = "none";
+    //         </script>';
+    // }
+    
     $counter += 1;
+    $items_on_page_counter += 1;
 }
+
 
 
 // Search queries v1
