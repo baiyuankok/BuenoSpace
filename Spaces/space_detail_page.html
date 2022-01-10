@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="css/space_detail.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
     <script src="../Home/javascript/header_background.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 </head>
 
 <body>
@@ -36,8 +38,6 @@
         <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="mx-auto justify-content-center rent-btn"
-                        data-bs-dismiss="modal">RENT</button>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
@@ -88,16 +88,220 @@
     </div>
 
     <div id="rent-section">
-        <button class="rent-btn ms-auto justify-content-end">RENT</button>
+        <button id="rentButton" class="rent-btn ms-auto justify-content-end" data-bs-target="#staticBackdrop" onclick="signUpOrRent()"></button>
+    </div>
+
+    <form id="bookingForm" action="../Spaces/book_space.php" method="post" enctype="multipart/form-data">
+         <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h4 class="modal-title" id="staticBackdropLabel"></h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="tab">
+                            <p class="sub-head-form">Event Details</p>
+                            <div style="display: none;">
+                                <input type="number" class="form-control" id="space-id" name="spaceId">
+                            </div>
+                            <div class="mb-3">
+                                <label for="event-name" class="col-form-label">Event Name</label>
+                                <input type="text" class="form-control" id="event-name" name="eventName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="event-type" class="col-form-label">Event Type</label>
+                                <select name="selectedEventType" class="form-control" id="all-event-type" required>
+                                    <option value="" selected disabled hidden>Select Event Type</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="start-date" class="col-form-label">Start Date</label>
+                                        <div class="input-group date" id="startDatePicker">
+                                            <input type="text" class="form-control" id="start-date" name="startDate" required>
+                                            <span class="input-group-append">
+                                                <span class="input-group-text bg-white d-block">
+                                                    <i class="fa fa-calendar"></i>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="end-date" class="col-form-label">End Date</label>
+                                        <div class="input-group date" id="endDatePicker">
+                                            <input type="text" class="form-control" id="end-date" name="endDate" required>
+                                            <span class="input-group-append">
+                                                <span class="input-group-text bg-white d-block">
+                                                    <i class="fa fa-calendar"></i>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="guest-number" class="col-form-label">Number of Guests</label>
+                                <input type="number" min="1" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control" id="guest-number" name="guestNumber" required>
+                            </div>
+                        </div>
+                        <div class="tab">
+                            <p class="sub-head-form">Payment Details</p>
+                            <p style="font-weight: bold;">RM <span id="totalPrice" style="font-weight: bold;"></span></p>
+                            <div style="display: none;">
+                                <input type="number" class="form-control" id="event-total-price" name="eventTotalPrice">
+                            </div>
+                            <div class="mb-3">
+                                <label for="card-number" class="col-form-label">Card Number</label>
+                                <input type="text" class="form-control" id="card-number" name="cardNumber" placeholder="xxxx-xxxx-xxxx-xxxx" maxlength="19" onkeypress="return onlyNumberKey(event)" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="card-expiry-date" class="col-form-label">Expiry Date</label>
+                                <input type="text" class="form-control" id="card-expiry-date" name="cardExpiryDate" placeholder="MM/YY" maxlength="5" onkeypress="return onlyNumberKey(event)" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="card-cvv-number" class="col-form-label">CVV Number</label>
+                                <input type="text" class="form-control" id="card-cvv-number" name="cardCVVNumber" placeholder="xxx" maxlength="3" onkeypress="return onlyNumberKey(event)" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="card-holder-name" class="col-form-label">Card Holder Name</label>
+                                <input type="text" class="form-control" id="card-holder-name" name="cardHolderName" required>
+                            </div>
+                        </div>
+
+                        <div id="loadingAnimation" class="center" style="display: none;">
+                            <div class="ring"></div>
+                            <span id="loadingText">loading...</span>
+                        </div>
+
+                        <div style="overflow:auto;">
+                            <div style="float:right;">
+                            <button type="button" class="modalPrvBtn" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                            <button type="button" class="modalNextBtn" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div id="errorMessageModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Error Message</h5>
+            </div>
+            <div class="modal-body">
+              <p id="errorMessage"></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
     </div>
 
     <footer id="footer"></footer>
+
+    <style type="text/css">
+        .Highlighted {
+            color: #Ec3638 !important;
+            font-weight: bold !important;
+            font-size: 12pt;
+        }
+    </style>
 
     <script>
         $("#header").load("../Home/header.php");
         $("#footer").load("../Home/footer.html");
         // Index for displaying next/previous images in modal
         var imgIndex = 1;
+
+        var currentTab = 0;
+        showTab(currentTab);
+        var pricePerDay;
+        var spaceTotalPrice = 0;
+        var bookingDuration = 0;
+
+        $(document).ready(function() {
+            pricePerDay = document.getElementById("price").textContent;
+            var spaceCapacity = document.getElementById("capacity").innerHTML;
+            document.getElementById("guest-number").max = spaceCapacity;
+            document.getElementById("guest-number").placeholder = spaceCapacity + " max";
+            createSelectListOption();
+
+            $('#startDatePicker').datepicker({
+                format: "dd-mm-yyyy",
+                todayHighlight:'TRUE',
+                todayBtn: "linked",
+                autoclose: true,
+                orientation: "bottom",
+                daysOfWeekDisabled: availableSlots,
+                datesDisabled: disabledDates,
+                startDate: new Date(),
+                maxDate: '+1Y+6M',
+                beforeShowDay: function (date) {
+                    calender_date = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear();
+                    var search_index = $.inArray(calender_date, disabledDates);
+                    var search_index2 = $.inArray(String(date.getDay()), availableSlots);
+                    if ((search_index > -1) && (search_index2 == -1)) {
+                        return {
+                            classes: 'Highlighted',
+                            tooltip: 'Booked'
+                        };
+                    }
+                }
+            }).on('changeDate', function (ev) {
+                $('#endDatePicker').datepicker('setStartDate', $("#start-date").val());
+                calcBusinessDates();
+                if (bookingDuration == 0) {
+                    $('#endDatePicker').datepicker('update', '');
+                    $("#end-date").val("");
+                    $('#endDatePicker').datepicker('setStartDate', $("#start-date").val());
+                }
+            });
+
+            $('#endDatePicker').datepicker({
+                format: "dd-mm-yyyy",
+                todayHighlight:'TRUE',
+                todayBtn: "linked",
+                autoclose: true,
+                orientation: "bottom",
+                daysOfWeekDisabled: availableSlots,
+                datesDisabled: disabledDates,
+                startDate: new Date(),
+                maxDate: '+1Y+6M',
+                beforeShowDay: function (date) {
+                    calender_date = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear();
+                    var search_index = $.inArray(calender_date, disabledDates);
+                    var search_index2 = $.inArray(String(date.getDay()), availableSlots);
+                    if ((search_index > -1) && (search_index2 == -1)) {
+                        return {
+                            classes: 'Highlighted',
+                            tooltip: 'Booked'
+                        };
+                    }
+                }
+            }).on('changeDate', function (ev) {
+                calcBusinessDates();
+            });
+
+            if (document.getElementById("errorMessage").innerHTML != "")
+                $('#errorMessageModal').modal('show');
+
+            function createSelectListOption() {
+                var eventTypeSelectList = document.getElementById('all-event-type');
+                for (var key of Object.keys(allEventTypes)) {
+                    var objOption = document.createElement("option");
+                    objOption.text = allEventTypes[key];
+                    objOption.value = key;
+                    eventTypeSelectList.appendChild(objOption);
+                }
+            }
+        });
 
         function zoomInImg() {
             showImg(imgIndex);
@@ -160,6 +364,175 @@
             // Add listener to load more review section
             document.getElementById("load-more-review").addEventListener("click", loadMoreReview);
         });
+
+        function signUpOrRent() {
+            if (document.getElementById("rentButton").innerText == "Sign In & Rent") {
+                location.href="/Home/customer_signIn.php";
+            }
+            else {
+                $("#staticBackdrop").modal("show");
+            }
+        }
+
+        function calcBusinessDates() {
+            var startDate = $("#startDatePicker").datepicker('getDate');
+            var endDate = $("#endDatePicker").datepicker('getDate');
+
+            var curDate = new Date(startDate);
+            if (startDate && endDate && (endDate >= startDate)) {
+                bookingDuration = 0;
+                while (curDate <= endDate) {
+                    var dayOfWeek = curDate.getDay();
+                    if (availableSlots.every(x => x != dayOfWeek))
+                        bookingDuration++;
+                    curDate.setDate(curDate.getDate() + 1);
+                }
+                document.getElementById("totalPrice").innerHTML = (pricePerDay * bookingDuration).toFixed(2);
+                document.getElementById("event-total-price").value = (pricePerDay * bookingDuration).toFixed(2);
+            }
+            else {
+                bookingDuration = 0;
+                spaceTotalPrice = 0;
+                document.getElementById("totalPrice").innerHTML = 0;
+            } 
+        }
+
+        $("#card-number").keypress(function() {
+            var foo = $(this).val().split("-").join(""); // remove hyphens
+            if (foo.length > 0) {
+                foo = foo.match(/.{1,4}/g).join("-");
+            }
+            $(this).val(foo);
+        });
+
+        $("#card-expiry-date").keypress(function() {
+            var foo = $(this).val().split("/").join(""); // remove hyphens
+            if (foo.length > 0) {
+                foo = foo.match(new RegExp('.{1,2}', 'g')).join("/");
+            }
+            $(this).val(foo);
+        });
+
+        function onlyNumberKey(evt) {
+            var asciiCode = (evt.which) ? evt.which : evt.keyCode // get the Unicode value of the pressed keyboard key
+            if (asciiCode > 31 && (asciiCode < 48 || asciiCode > 57))
+                return false;
+            return true;
+        }
+
+        function showTab(n) {
+            var x = document.getElementsByClassName("tab");
+            x[n].style.display = "block";
+            if (n == 0) {
+                document.getElementById("prevBtn").style.display = "none";
+            } else {
+                document.getElementById("prevBtn").style.display = "inline";
+            }
+            if (n == (x.length - 1)) {
+                document.getElementById("nextBtn").innerHTML = "Submit";
+            } else {
+                document.getElementById("nextBtn").innerHTML = "Next";
+            }
+        }
+
+        function nextPrev(n) {
+            var x = document.getElementsByClassName("tab");
+            if (n == 1 && !validateForm()) return false;
+
+            x[currentTab].style.display = "none";
+            currentTab = currentTab + n;
+            if (currentTab >= x.length) {
+                document.getElementById("bookingForm").submit();
+                $('#loadingAnimation').show();
+                document.getElementById("prevBtn").style.display = "none";
+                document.getElementById("nextBtn").style.display = "none";
+                return false;
+            }
+            showTab(currentTab);
+        }
+
+        function validateForm() {
+            var x, y, z, i, valid = true;
+            x = document.getElementsByClassName("tab");
+            y = x[currentTab].getElementsByTagName("input");
+            z = x[currentTab].getElementsByTagName("select");
+
+            for (i = 0; i < y.length; i++) {
+                if (y[i].value == "") {
+                    y[i].className += " invalid";
+                    valid = false;
+                }
+                else {
+                    if(y[i].classList.contains("invalid"))
+                        y[i].classList.remove("invalid");
+                }
+
+                if (y[i].id == "guest-number") {
+                    var guestNumber = parseInt(y[i].value);
+                    var maxGuestNumber = document.getElementById("guest-number").max;
+                    if ((guestNumber<1) || (guestNumber>maxGuestNumber)) {
+                        y[i].className += " invalid";
+                        valid = false;
+                    }
+                    else {
+                        if(y[i].classList.contains("invalid"))
+                            y[i].classList.remove("invalid");
+                    }
+                }
+
+                if (y[i].id == "card-number") {
+                    var cardNumber = y[i].value;
+                    cardNumber = cardNumber.replace(/-/g,"").length;
+                    if (cardNumber != 16) {
+                        y[i].className += " invalid";
+                        valid = false;
+                    }
+                    else {
+                        if(y[i].classList.contains("invalid"))
+                            y[i].classList.remove("invalid");
+                    }
+                }
+
+                if (y[i].id == "card-expiry-date") {
+                    var cardExpiryDate = y[i].value;
+                    cardExpiryDate = cardExpiryDate.replace(/\//g,"").length;
+                    if (cardExpiryDate != 4) {
+                        y[i].className += " invalid";
+                        valid = false;
+                    }
+                    else {
+                        if(y[i].classList.contains("invalid"))
+                            y[i].classList.remove("invalid");
+                    }
+                }
+
+                if (y[i].id == "card-cvv-number") {
+                    var cardCCVNumber = y[i].value.length;
+                    if (cardCCVNumber != 3) {
+                        y[i].className += " invalid";
+                        valid = false;
+                    }
+                    else {
+                        if(y[i].classList.contains("invalid"))
+                            y[i].classList.remove("invalid");
+                    }
+                }
+            }
+
+            for (i = 0; i < z.length; i++) {
+                if (z[i].value == "") {
+                    z[i].className += " invalid";
+                    valid = false;
+                }
+                else {
+                    if(z[i].classList.contains("invalid"))
+                        z[i].classList.remove("invalid");
+                }
+            }
+        
+            return valid;
+        }
+
     </script>
 </body>
 
