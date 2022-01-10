@@ -67,7 +67,7 @@
                 <p><span id="capacity"></span> Max</p>
             </div>
             <div class="lpc-details">
-                <span class="far fa-heart" id="favourite-icon" onclick="addFavourite()"></span>
+                <span class="far fa-heart" id="favourite-icon"></span>
                 <p>Favourites (<span id="total-favourite"></span>)</p>
             </div>
         </div>
@@ -82,17 +82,73 @@
             <p style="font-size: larger;"><b>Reviews</b><span
                     style="font-size: small; padding-left: 10px; opacity: 0.85;">(
                     <span id="review-num"></span> reviews)</span></p>
+            <div id="write-review-section" style="margin-bottom: 8px;">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="space-review" placeholder="Write a review">
+                    <button type="button" class="btn btn-primary" id="submit-review-btn" 
+                        onclick="postReview()">Post Review</button>
+                </div>
+            </div>
+            <div id="posted-review-section" style="margin-bottom: 8px; display: none;">
+                <p class="user-name"><span id="current-user"></span>
+                    <span class="fas fa-edit" style="margin: 0px 0px 10px 25px; cursor: pointer;" onclick="startEditReview()"></span>
+                    <span class="fas fa-trash" style="margin: 0px 0px 10px 15px; cursor: pointer;" onclick="deleteReview()"></span>
+                </p>
+                <p class="review-content" id="current-review"></p>
+                <div class="input-group" id="edit-review-section" style="display: none;">
+                    <input type="text" class="form-control" id="edit-space-review">
+                    <button type="button" class="btn btn-primary" id="edit-review-btn" 
+                        onclick="editReview()">Confirm</button>
+                </div>
+            </div>
             <div id="review-content-section">
             </div>
             <div id="load-more-review">
-                <p><i>... Load More</i><span style="margin-left: 10px; opacity: 0.65;"
-                        class="fas fa-angle-double-down"></span></p>
+                <button type="button" id="more-review-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#more-review-modal">
+                    Read More Reviews
+                </button>
             </div>
         </div>
     </div>
 
     <div id="rent-section">
         <button id="rentButton" class="rent-btn ms-auto justify-content-end" data-bs-target="#staticBackdrop" onclick="signUpOrRent()"></button>
+    </div>
+
+    <!-- Modal to show no sign in messages -->
+    <div class="modal fade" id="no-sign-in-notes" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Please sign in to save your favourite spaces and write reviews for the spaces!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="signUpOrRent()" id="sign-in-btn">Sign In</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal to show more reviews -->
+    <div class="modal fade" id="more-review-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">More Reviews</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="more-review-content">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <form id="bookingForm" action="../Spaces/book_space.php" method="post" enctype="multipart/form-data">
@@ -285,27 +341,6 @@
             showImg(imgIndex);
         }
 
-        function showReviews() {
-            var allReviews = document.querySelectorAll("#review-content-section > p");
-            if (allReviews.length > 6) {
-                for (var i = 6; i < allReviews.length; i++) {
-                    allReviews[i].style.display = "none";
-                }
-            } else {
-                document.getElementById("load-more-review").style.display = "none";
-            }
-        }
-
-        function loadMoreReview() {
-            var allReviews = document.querySelectorAll("#review-content-section > p");
-            if (allReviews) {
-                for (var i = 6; i < allReviews.length; i++) {
-                    allReviews[i].style.display = "block";
-                }
-            }
-            document.getElementById("load-more-review").style.display = "none";
-        }
-
         function addFavourite() {
             var favIcon = document.getElementById("favourite-icon");
             // When user wants to add to favourite
@@ -324,6 +359,76 @@
             }
         }
 
+        function setFavReview(signedIn) {
+            var favIcon = document.getElementById("favourite-icon");
+            if (signedIn) {
+                favIcon.addEventListener("click", addFavourite);
+            } else {
+                // Don't allow the user to click the favourite icon or write reviews if user is not signed in
+                document.getElementById("space-review").setAttribute("disabled", "disabled");
+                document.getElementById("submit-review-btn").setAttribute("disabled", "disabled");
+                document.getElementById("write-review-section").setAttribute("data-bs-toggle", "modal");
+                document.getElementById("write-review-section").setAttribute("data-bs-target", "#no-sign-in-notes");
+                favIcon.setAttribute("data-bs-toggle", "modal");
+                favIcon.setAttribute("data-bs-target", "#no-sign-in-notes");
+            }
+        }
+
+        function hideWriteReview(hide) {
+            document.getElementById("write-review-section").style.display = hide ? "none" : "block";
+        }
+
+        function postReview() {
+            var reviewContent = document.getElementById("space-review").value;
+            if (reviewContent != "") {
+                hideWriteReview(true);
+                document.getElementById("posted-review-section").style.display = "block";
+                document.getElementById("current-review").innerHTML = reviewContent;
+            }
+        }
+
+        function deleteReview() {
+            hideWriteReview(false);
+            document.getElementById("posted-review-section").style.display = "none";
+            document.getElementById("current-review").innerHTML = "";
+            document.getElementById("edit-space-review").value = "";
+            document.getElementById("space-review").value = "";
+        }
+
+        function startEditReview() {
+            var editRevSec = document.getElementById("edit-review-section");
+            var currRev = document.getElementById("current-review");
+            if (editRevSec.style.display == "none") {
+                editRevSec.style.display = "flex";
+                document.getElementById("edit-space-review").value = currRev.innerHTML;
+                currRev.style.display = "none";
+            }
+        }
+
+        function stopEditReview() {
+            var editRevSec = document.getElementById("edit-review-section");
+            var currRev = document.getElementById("current-review");
+            if (editRevSec.style.display != "none") {
+                editRevSec.style.display = "none";
+                currRev.style.display = "block";
+            }
+        }
+
+        function editReview() {
+            stopEditReview();
+            var newReview = document.getElementById("edit-space-review").value;
+            if (newReview != "") {
+                document.getElementById("current-review").innerHTML = newReview;
+            }
+        }
+
+        window.addEventListener("click", function (event) {
+            // Stop editing reviews when user click outside of it
+            if (!document.getElementById("posted-review-section").contains(event.target)) {
+                stopEditReview();
+            }
+        });
+
         window.addEventListener("load", function () {
             headerInitialGray();
             // Load the images onload
@@ -333,12 +438,11 @@
                     eachTarget.setAttribute("src", eachTarget.dataset.src);
                 }
             }
-            // Add listener to load more review section
-            document.getElementById("load-more-review").addEventListener("click", loadMoreReview);
         });
 
         function signUpOrRent() {
-            if (document.getElementById("rentButton").innerText == "Sign In & Rent") {
+            if (document.getElementById("rentButton").innerText == "Sign In & Rent" || 
+                document.getElementById("sign-in-btn").innerHTML == "Sign In") {
                 location.href="/Home/customer_signIn.php";
             }
             else {

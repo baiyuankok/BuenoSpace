@@ -4,8 +4,11 @@ require_once "../Home/config.php";
 require "../Spaces/space_detail_page.html";
 
 $userID = isset($_SESSION['userID']) ? trim($_SESSION['userID']) : '';
+$customer_name = isset($_SESSION['customer_name']) ? trim($_SESSION['customer_name']) : ''; 
 $get_space_id = $_GET['spaceID'];
 $_SESSION["recentURL"] = htmlspecialchars($_SERVER['REQUEST_URI']);
+// To keep track the existing review posted by current user
+$existing_review = False;
 
 function select_images_id($pdo, $space) {
     $results = $pdo->query("SELECT imgID FROM myfirstdatabase.space_image WHERE spaceID = $space");
@@ -29,6 +32,21 @@ function select_event_type($pdo, $space) {
     return $event_results->fetchAll(PDO::FETCH_COLUMN, 0);
 }
 
+function add_review_content($element_id, $user_name, $comment) {
+    echo '<script>
+            var reviewSec = document.getElementById("' . $element_id . '");
+            var pNameEle = document.createElement("P");
+            pNameEle.innerHTML = "' . $user_name . '";
+            pNameEle.classList.add("user-name");
+            reviewSec.appendChild(pNameEle);
+
+            var pReviewEle = document.createElement("P");
+            pReviewEle.innerHTML = "' . $comment . '";
+            pReviewEle.classList.add("review-content");
+            reviewSec.appendChild(pReviewEle);
+        </script>';
+}
+
 function select_available_slot($pdo, $space) {
     $results = $pdo->query("SELECT availableMonday, availableTuesday, availableWednesday, availableThursday, availableFriday, availableSaturday, availableSunday FROM myfirstdatabase.available_slot WHERE spaceID = $space");
     return $results->fetch();
@@ -37,11 +55,73 @@ function select_available_slot($pdo, $space) {
 if(isset($_SESSION["customer_loggedin"]) && $_SESSION["customer_loggedin"] === true){
     echo '<script>
         document.getElementById("rentButton").innerText = "Rent";
+        setFavReview(true);
+        document.getElementById("current-user").innerHTML = "' . $customer_name . '";
+
+        window.addEventListener("beforeunload", function (event) {
+            delete event["returnValue"];
+            var favI = document.getElementById("favourite-icon");
+            var spaceID = ' . $get_space_id . ';
+            var userID = ' . $userID . ';
+            var updateType = 0;
+            if (favI.classList.contains("fas")) {
+                updateType = 1;
+            } else {
+                updateType = -1;
+            }
+            fetch("../Spaces/update_favourite.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body:  `updateType=${updateType}&spaceID=${spaceID}&userID=${userID}`
+            });
+
+            var comment = "";
+            if (document.getElementById("posted-review-section").style.display != "none") {
+                var reviewText = document.getElementById("current-review").innerHTML;
+                if (reviewText != "") {
+                    updateType = 1;
+                    comment = reviewText;
+                } else {
+                    updateType = -1;
+                }
+            } else {
+                updateType = -1;
+            }
+            fetch("../Spaces/update_review.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body:  `updateType=${updateType}&spaceID=${spaceID}&userID=${userID}&comment=${comment}`
+            });
+        });
     </script>';
+    
+    // Set the favourite icon according to the user favourite table if user has logged in
+    $set_favourite = $pdo->query('SELECT favouriteID FROM myfirstdatabase.favourite WHERE spaceID = ' .$get_space_id. ' AND userID = ' .$userID)->fetchAll(PDO::FETCH_COLUMN, 0);
+    if (count($set_favourite) != 0) {
+        echo '<script>
+            var fI = document.getElementById("favourite-icon");
+            fI.classList.remove("far");
+            fI.classList.add("fas");
+        </script>';
+    }
+
+    $set_review = $pdo->query('SELECT comment FROM myfirstdatabase.review WHERE spaceID = ' . $get_space_id . ' AND userID = ' . $userID)->fetchAll(PDO::FETCH_COLUMN, 0);
+    if (count($set_review) != 0) {
+        $existing_review = True;
+        echo '<script>
+            document.getElementById("space-review").value = "' . $set_review[0] . '";
+            postReview();
+        </script>';
+    }
 }
 else {
     echo '<script>
         document.getElementById("rentButton").innerText = "Sign In & Rent";
+        setFavReview(false);
     </script>';
 }
 
@@ -66,7 +146,6 @@ echo '<script>showImg()</script>';
 
 $each_detail = select_details($pdo, $get_space_id);
 $select_total_favourite = $pdo->query('SELECT COUNT(*) AS total_favourite FROM myfirstdatabase.favourite WHERE spaceID = ' .$get_space_id)->fetch();
-$set_favourite = $pdo->query('SELECT favouriteID FROM myfirstdatabase.favourite WHERE spaceID = ' .$get_space_id. ' AND userID = ' .$userID)->fetchAll(PDO::FETCH_COLUMN, 0);
 echo '<script>
     document.getElementById("name").innerHTML = "'.$each_detail['name'].'";
     document.getElementById("location").innerHTML = "'.$each_detail['location'].'";
@@ -75,35 +154,7 @@ echo '<script>
     document.getElementById("staticBackdropLabel").innerHTML = "'.$each_detail['name'].'";
     document.getElementById("space-id").value = '.$get_space_id.';
     document.getElementById("total-favourite").innerHTML = '.$select_total_favourite['total_favourite'].';
-
-    window.addEventListener("beforeunload", function (event) {
-        delete event["returnValue"];
-        var favI = document.getElementById("favourite-icon");
-        var spaceID = ' . $get_space_id . ';
-        var userID = ' . $userID . ';
-        var updateType = 0;
-        if (favI.classList.contains("fas")) {
-            updateType = 1;
-        } else {
-            updateType = -1;
-        }
-        fetch("../Spaces/update_favourite.php", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body:  `updateType=${updateType}&spaceID=${spaceID}&userID=${userID}`
-        });
-    });
 </script>';
-// Set the favourite icon according to the user favourite table
-if (count($set_favourite) != 0) {
-    echo '<script>
-        var fI = document.getElementById("favourite-icon");
-        fI.classList.remove("far");
-        fI.classList.add("fas");
-    </script>';
-}
 
 $space_event_type = select_event_type($pdo, $get_space_id);
 foreach ($space_event_type as $each_space_event) {
@@ -119,24 +170,42 @@ $total_count = 0;
 while ($row = $user_review->fetch()) {
     $total_count += 1;
     $user_id = $row['userID'];
-    $user_name = $pdo->query("SELECT customer_name FROM myfirstdatabase.customer WHERE userID = $user_id")->fetch();
-    echo '<script>
-        var reviewSec = document.getElementById("review-content-section");
-        var pNameEle = document.createElement("P");
-        pNameEle.innerHTML = "'.$user_name['customer_name'].'";
-        pNameEle.classList.add("user-name");
-        reviewSec.appendChild(pNameEle);
-
-        var pReviewEle = document.createElement("P");
-        pReviewEle.innerHTML = "'.$row['comment'].'";
-        pReviewEle.classList.add("review-content");
-        reviewSec.appendChild(pReviewEle);
-    </script>';
+    if (!$existing_review || $user_id != $userID) {
+        $user_name = $pdo->query("SELECT customer_name FROM myfirstdatabase.customer WHERE userID = $user_id")->fetch()['customer_name'];
+        $comment = $row['comment'];
+        if ($total_count < 4) {
+            $element_id = "review-content-section";
+            add_review_content($element_id, $user_name, $comment);
+        } else {
+            $element_id = "more-review-content";
+            add_review_content($element_id, $user_name, $comment);
+        }
+    }
 }
 echo '<script>
     document.getElementById("review-num").innerHTML = "'.$total_count.'";
-    showReviews();
 </script>';
+
+if ($total_count > 0) {
+    echo '<script>
+        document.getElementById("review-content-section").style.backgroundColor = "#d3d3d3";
+    </script>';
+}
+if ($total_count < 4) {
+    echo '<script>
+        var moreRevBtn = document.getElementById("more-review-btn");
+        if (!moreRevBtn.hasAttribute("disabled")) {
+            moreRevBtn.setAttribute("disabled", "disabled");
+        }
+    </script>';
+} else {
+    echo '<script>
+        var moreRevBtn = document.getElementById("more-review-btn");
+        if (moreRevBtn.hasAttribute("disabled")) {
+            moreRevBtn.removeAttribute("disabled");
+        }
+    </script>';
+}
 
 
 $space_available_slot = select_available_slot($pdo, $get_space_id);

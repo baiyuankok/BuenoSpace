@@ -20,6 +20,10 @@
         width: 100% !important;
         height: auto !important;
     }
+
+    #footer {
+        bottom: 0;
+    }
 }
 
 #space-img-section {
@@ -178,17 +182,18 @@
     margin-top: 20px;
 }
 
+#review-content-section {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
 .user-name {
     font-weight: bold;
 }
 
 .review-content {
     padding-left: 20px;
-}
-
-#load-more-review {
-    max-width: fit-content;
-    cursor: pointer;
 }
 
 #rent-section {
