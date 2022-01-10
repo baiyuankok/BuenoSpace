@@ -89,10 +89,10 @@
                         onclick="postReview()">Post Review</button>
                 </div>
             </div>
-            <div id="posted-review-section" style="margin-bottom: 8px; display: none;">
+            <div id="posted-review-section" style="display: none;">
                 <p class="user-name"><span id="current-user"></span>
-                    <span class="fas fa-edit" style="margin: 0px 0px 10px 25px; cursor: pointer;" onclick="startEditReview()"></span>
-                    <span class="fas fa-trash" style="margin: 0px 0px 10px 15px; cursor: pointer;" onclick="deleteReview()"></span>
+                    <span class="fas fa-edit" style="margin-left: 25px; cursor: pointer;" onclick="startEditReview()"></span>
+                    <span class="fas fa-trash" style="margin-left: 15px; cursor: pointer;" onclick="deleteReview()"></span>
                 </p>
                 <p class="review-content" id="current-review"></p>
                 <div class="input-group" id="edit-review-section" style="display: none;">
@@ -434,6 +434,10 @@
                 hideWriteReview(true);
                 document.getElementById("posted-review-section").style.display = "block";
                 document.getElementById("current-review").innerHTML = reviewContent;
+                var totalReview = document.getElementById("review-num").innerHTML;
+                if (totalReview != "") {
+                    document.getElementById("review-num").innerHTML = parseInt(totalReview) + 1;
+                }
             }
         }
 
@@ -443,6 +447,10 @@
             document.getElementById("current-review").innerHTML = "";
             document.getElementById("edit-space-review").value = "";
             document.getElementById("space-review").value = "";
+            var totalReview = document.getElementById("review-num").innerHTML;
+            if (totalReview != "") {
+                document.getElementById("review-num").innerHTML = parseInt(totalReview) - 1;
+            }
         }
 
         function startEditReview() {

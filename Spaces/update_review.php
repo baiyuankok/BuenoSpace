@@ -13,7 +13,7 @@ function add_review($pdo, $space, $user, $comment) {
     $select_review = $pdo->query('SELECT reviewID FROM myfirstdatabase.review WHERE spaceID = ' . $space . ' AND userID = ' . $user)->fetchAll(PDO::FETCH_COLUMN, 0);
     if (count($select_review) == 0) {
         // Insert new review
-        $add_review = 'INSERT INTO myfirstdatabase.review(comment, spaceID, userID) VALUES (' . $comment . ', ' . $space . ', ' . $user . ')';
+        $add_review = 'INSERT INTO myfirstdatabase.review(comment, spaceID, userID) VALUES ("' . $comment . '", ' . $space . ', ' . $user . ')';
         $add_exec = $pdo->prepare($add_review)->execute();
         $query_result .= $add_exec ? "Executed successfully." : "Failed to execute.";
     } else {

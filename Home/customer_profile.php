@@ -146,7 +146,6 @@
                             $space_id = $row->spaceID; ?>
 
                             <tr>
-                                <td><?php echo $name; ?></td>
                                 <td><a href="../Spaces/space_detail_logic.php?spaceID=<?php echo $space_id; ?>"><?php echo $name; ?></a></td>
                                 <td id="icon_td" onclick="deleteFav(<?php echo $favouriteID; ?>)"><i class="fa fa-trash" ></i></td>
                             </tr>

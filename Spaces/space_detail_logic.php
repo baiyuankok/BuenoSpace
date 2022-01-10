@@ -202,11 +202,6 @@ echo '<script>
     document.getElementById("review-num").innerHTML = "'.$total_count.'";
 </script>';
 
-if ($total_count > 0) {
-    echo '<script>
-        document.getElementById("review-content-section").style.backgroundColor = "#d3d3d3";
-    </script>';
-}
 if ($total_count < 4) {
     echo '<script>
         var moreRevBtn = document.getElementById("more-review-btn");
