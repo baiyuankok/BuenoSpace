@@ -187,9 +187,32 @@
             </div>
         </div>
     </form>
-    
+
+    <div id="errorMessageModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Error Message</h5>
+            </div>
+            <div class="modal-body">
+              <p id="errorMessage"></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
 
     <footer id="footer"></footer>
+
+    <style type="text/css">
+        .Highlighted {
+            color: #Ec3638 !important;
+            font-weight: bold !important;
+            font-size: 12pt;
+        }
+    </style>
 
     <script>
         $("#header").load("../Home/header.php");
@@ -217,8 +240,20 @@
                 autoclose: true,
                 orientation: "bottom",
                 daysOfWeekDisabled: availableSlots,
+                datesDisabled: disabledDates,
                 startDate: new Date(),
-                maxDate: '+1Y+6M'
+                maxDate: '+1Y+6M',
+                beforeShowDay: function (date) {
+                    calender_date = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear();
+                    var search_index = $.inArray(calender_date, disabledDates);
+                    var search_index2 = $.inArray(String(date.getDay()), availableSlots);
+                    if ((search_index > -1) && (search_index2 == -1)) {
+                        return {
+                            classes: 'Highlighted',
+                            tooltip: 'Booked'
+                        };
+                    }
+                }
             }).on('changeDate', function (ev) {
                 $('#endDatePicker').datepicker('setStartDate', $("#start-date").val());
                 calcBusinessDates();
@@ -236,11 +271,26 @@
                 autoclose: true,
                 orientation: "bottom",
                 daysOfWeekDisabled: availableSlots,
+                datesDisabled: disabledDates,
                 startDate: new Date(),
-                maxDate: '+1Y+6M'
+                maxDate: '+1Y+6M',
+                beforeShowDay: function (date) {
+                    calender_date = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear();
+                    var search_index = $.inArray(calender_date, disabledDates);
+                    var search_index2 = $.inArray(String(date.getDay()), availableSlots);
+                    if ((search_index > -1) && (search_index2 == -1)) {
+                        return {
+                            classes: 'Highlighted',
+                            tooltip: 'Booked'
+                        };
+                    }
+                }
             }).on('changeDate', function (ev) {
                 calcBusinessDates();
             });
+
+            if (document.getElementById("errorMessage").innerHTML != "")
+                $('#errorMessageModal').modal('show');
 
             function createSelectListOption() {
                 var eventTypeSelectList = document.getElementById('all-event-type');

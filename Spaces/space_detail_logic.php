@@ -4,7 +4,8 @@ require_once "../Home/config.php";
 require "../Spaces/space_detail_page.html";
 
 $userID = isset($_SESSION['userID']) ? trim($_SESSION['userID']) : '';
-$get_space_id = $_GET['spaceID'];
+$query_msg = isset($_GET['query_msg']) ? trim($_GET['query_msg']) : '';
+$get_space_id = isset($_GET['spaceID']) ? trim($_GET['spaceID']) : '';
 $_SESSION["recentURL"] = htmlspecialchars($_SERVER['REQUEST_URI']);
 
 function select_images_id($pdo, $space) {
@@ -33,6 +34,21 @@ function select_available_slot($pdo, $space) {
     $results = $pdo->query("SELECT availableMonday, availableTuesday, availableWednesday, availableThursday, availableFriday, availableSaturday, availableSunday FROM myfirstdatabase.available_slot WHERE spaceID = $space");
     return $results->fetch();
 }
+
+function createRange($start, $end, $format = 'd-m-Y') {
+    $start  = new DateTime($start);
+    $end    = new DateTime($end);
+    $invert = $start > $end;
+
+    $dates = array();
+    $dates[] = $start->format($format);
+    while ($start != $end) {
+        $start->modify(($invert ? '-' : '+') . '1 day');
+        $dates[] = $start->format($format);
+    }
+    return $dates;
+}
+
 
 if(isset($_SESSION["customer_loggedin"]) && $_SESSION["customer_loggedin"] === true){
     echo '<script>
@@ -162,6 +178,30 @@ if ($sqlAllEventType) {
             allEventTypes["'.$event_type_id.'"] = "'.$event_type_name.'";
         </script>';
     }
+}
+
+$sqlSpaceBookedDates = "SELECT eventStartDate, eventEndDate FROM myfirstdatabase.booking WHERE spaceID = $get_space_id";
+$sqlSpaceBookedDates= $pdo->query($sqlSpaceBookedDates);
+if ($sqlSpaceBookedDates) {
+    echo '<script>
+        const disabledDates = [];
+    </script>';
+    while ($row= $sqlSpaceBookedDates->fetch(PDO::FETCH_OBJ)) {
+        $event_start_date=$row->eventStartDate;
+        $event_end_date=$row->eventEndDate;
+        $space_booked_dates = createRange($event_start_date, $event_end_date);
+        foreach ($space_booked_dates as $each_booked_date) {
+            echo '<script>
+                disabledDates.push("'.$each_booked_date.'");
+            </script>';
+        }
+    }
+}
+
+if(!empty($query_msg)) {
+    echo '<script>
+        document.getElementById("errorMessage").innerHTML = "'.$query_msg.'";
+    </script>';
 }
 
 ?>
