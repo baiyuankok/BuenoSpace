@@ -4,7 +4,8 @@ require_once "../Home/config.php";
 require "../Spaces/space_detail_page.html";
 
 $userID = isset($_SESSION['userID']) ? trim($_SESSION['userID']) : '';
-$get_space_id = $_GET['spaceID'];
+$query_msg = isset($_GET['query_msg']) ? trim($_GET['query_msg']) : '';
+$get_space_id = isset($_GET['spaceID']) ? trim($_GET['spaceID']) : '';
 $_SESSION["recentURL"] = htmlspecialchars($_SERVER['REQUEST_URI']);
 
 function select_images_id($pdo, $space) {
@@ -195,6 +196,12 @@ if ($sqlSpaceBookedDates) {
             </script>';
         }
     }
+}
+
+if(!empty($query_msg)) {
+    echo '<script>
+        document.getElementById("errorMessage").innerHTML = "'.$query_msg.'";
+    </script>';
 }
 
 ?>
