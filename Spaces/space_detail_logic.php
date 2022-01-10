@@ -34,6 +34,21 @@ function select_available_slot($pdo, $space) {
     return $results->fetch();
 }
 
+function createRange($start, $end, $format = 'd-m-Y') {
+    $start  = new DateTime($start);
+    $end    = new DateTime($end);
+    $invert = $start > $end;
+
+    $dates = array();
+    $dates[] = $start->format($format);
+    while ($start != $end) {
+        $start->modify(($invert ? '-' : '+') . '1 day');
+        $dates[] = $start->format($format);
+    }
+    return $dates;
+}
+
+
 if(isset($_SESSION["customer_loggedin"]) && $_SESSION["customer_loggedin"] === true){
     echo '<script>
         document.getElementById("rentButton").innerText = "Rent";
@@ -161,6 +176,24 @@ if ($sqlAllEventType) {
         echo '<script>
             allEventTypes["'.$event_type_id.'"] = "'.$event_type_name.'";
         </script>';
+    }
+}
+
+$sqlSpaceBookedDates = "SELECT eventStartDate, eventEndDate FROM myfirstdatabase.booking WHERE spaceID = $get_space_id";
+$sqlSpaceBookedDates= $pdo->query($sqlSpaceBookedDates);
+if ($sqlSpaceBookedDates) {
+    echo '<script>
+        const disabledDates = [];
+    </script>';
+    while ($row= $sqlSpaceBookedDates->fetch(PDO::FETCH_OBJ)) {
+        $event_start_date=$row->eventStartDate;
+        $event_end_date=$row->eventEndDate;
+        $space_booked_dates = createRange($event_start_date, $event_end_date);
+        foreach ($space_booked_dates as $each_booked_date) {
+            echo '<script>
+                disabledDates.push("'.$each_booked_date.'");
+            </script>';
+        }
     }
 }
 

@@ -191,6 +191,14 @@
 
     <footer id="footer"></footer>
 
+    <style type="text/css">
+        .Highlighted {
+            color: #Ec3638 !important;
+            font-weight: bold !important;
+            font-size: 12pt;
+        }
+    </style>
+
     <script>
         $("#header").load("../Home/header.php");
         $("#footer").load("../Home/footer.html");
@@ -217,8 +225,20 @@
                 autoclose: true,
                 orientation: "bottom",
                 daysOfWeekDisabled: availableSlots,
+                datesDisabled: disabledDates,
                 startDate: new Date(),
-                maxDate: '+1Y+6M'
+                maxDate: '+1Y+6M',
+                beforeShowDay: function (date) {
+                    calender_date = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear();
+                    var search_index = $.inArray(calender_date, disabledDates);
+                    var search_index2 = $.inArray(String(date.getDay()), availableSlots);
+                    if ((search_index > -1) && (search_index2 == -1)) {
+                        return {
+                            classes: 'Highlighted',
+                            tooltip: 'Booked'
+                        };
+                    }
+                }
             }).on('changeDate', function (ev) {
                 $('#endDatePicker').datepicker('setStartDate', $("#start-date").val());
                 calcBusinessDates();
@@ -236,8 +256,20 @@
                 autoclose: true,
                 orientation: "bottom",
                 daysOfWeekDisabled: availableSlots,
+                datesDisabled: disabledDates,
                 startDate: new Date(),
-                maxDate: '+1Y+6M'
+                maxDate: '+1Y+6M',
+                beforeShowDay: function (date) {
+                    calender_date = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear();
+                    var search_index = $.inArray(calender_date, disabledDates);
+                    var search_index2 = $.inArray(String(date.getDay()), availableSlots);
+                    if ((search_index > -1) && (search_index2 == -1)) {
+                        return {
+                            classes: 'Highlighted',
+                            tooltip: 'Booked'
+                        };
+                    }
+                }
             }).on('changeDate', function (ev) {
                 calcBusinessDates();
             });
