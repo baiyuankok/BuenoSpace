@@ -6,15 +6,19 @@
   width:50%;
   display:block;
   margin:auto;
- 
+}
 
- 
+#table_layout{
+  display:block;
+  margin-left:20px;
+  margin-right:20px;
 }
 
 .profile_infor{
-   margin-top:120px;
+  margin-top:120px;
+  margin-left: auto;
+  margin-right: auto;
   text-align:center;
-  padding:0px 150px;
 }
 
 #profile_logo img{
@@ -33,17 +37,80 @@
   color: green;
 }
 
-/*table styling*/
 table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
   width: 100%;
+  table-layout: fixed;
 }
 
-table td, table th {
-  border: 1px solid #cbc7c7;
-  text-align: left;
-  padding: 8px;
+.tableName {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
 }
 
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+table th, table td {
+  padding: .625em;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+  
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+    word-wrap: break-word;
+  }
+  
+  table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
 
 #icon_td{
   text-align:center;
