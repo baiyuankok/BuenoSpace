@@ -65,6 +65,40 @@ if($capacity != NULL) {
         </script>';
 }
 
+//Get list of event types from database
+$sqlAllEventType = "SELECT * FROM myfirstdatabase.event_type";
+$sqlAllEventType= $pdo->query($sqlAllEventType);
+if ($sqlAllEventType) {
+    echo '<script>
+        const allEventTypes = {};
+    </script>';
+    while ($row= $sqlAllEventType->fetch(PDO::FETCH_OBJ)) {
+        $event_type_id=$row->event_type_ID;
+        $event_type_name=$row->type;
+        echo '<script>
+            allEventTypes["'.$event_type_id.'"] = "'.$event_type_name.'";
+        </script>';
+    }
+}
+
+//Get event type filters 
+echo '<script>
+            var filterBody = document.getElementById("event-type-checkbox");
+
+            for (var key of Object.keys(allEventTypes)) {
+                var checkBox = document.createElement("input");
+                var label = document.createElement("label");
+                var linebreak = document.createElement("br");
+                checkBox.type = "checkbox";
+                checkBox.value = allEventTypes[key];
+                checkBox.name = "events[]";
+                filterBody.appendChild(checkBox);
+                filterBody.appendChild(label);
+                label.appendChild(document.createTextNode(allEventTypes[key]));
+                filterBody.appendChild(linebreak);
+            }
+        </script>';
+
 //Put a "tick" in the checkboxes
 if (is_array($event_type)) {
     foreach (range(0, count($event_type)-1) as $i) {
@@ -107,8 +141,6 @@ else {
             }
         </script>';
 }
-
-
 
 
 
@@ -232,7 +264,6 @@ foreach($space_id as $each_space) {
     $img_id = select_images_id($pdo, $each_space);
     //Create a list item
     echo '<script>
-            console.log("'.$each_space.'");
             resultList = document.getElementById("search-result-container");
             resultList.insertAdjacentHTML(`beforeend`, 
             `<li class="space-box" id="space-box-'.$counter.'">

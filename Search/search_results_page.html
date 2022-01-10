@@ -68,48 +68,14 @@
             <!--Event type filter-->
             <div class="filter-block">
                 <div class="filter-type">Event</div>
-                <div class="filter-body">
-                    <input type="checkbox" value="Annual Dinner" name="events[]">
-                    <label>Annual Dinner</label><br>
-                    <input type="checkbox" value="Product Launch" name="events[]">
-                    <label>Product Launch</label><br>
-                    <input type="checkbox" value="Training" name="events[]">
-                    <label>Training</label><br>
-                    <input type="checkbox" value="Meeting" name="events[]">
-                    <label>Meeting</label><br>
-                    <input type="checkbox" value="Engagement" name="events[]">
-                    <label>Engagement</label><br>
-                    <input type="checkbox" value="Exhibition" name="events[]">
-                    <label>Exhibition</label><br>
-                    <input type="checkbox" value="Photo Shoot" name="events[]">
-                    <label>Photo Shoot</label><br>
-                    <input type="checkbox" value="Press Conference" name="events[]">
-                    <label>Press Conference</label><br>
-                    <input type="checkbox" value="Team Building" name="events[]">
-                    <label>Team Building</label><br>
-                    <input type="checkbox" value="Wedding" name="events[]">
-                    <label>Wedding</label><br>
-                    <input type="checkbox" value="Birthday Party" name="events[]">
-                    <label>Birthday Party</label><br>
-                    <input type="checkbox" value="Seminar" name="events[]">
-                    <label>Seminar</label><br>
-                    <input type="checkbox" value="Auditions" name="events[]">
-                    <label>Auditions</label><br>
-                    <input type="checkbox" value="Conference" name="events[]">
-                    <label>Conference</label><br>
-                    <input type="checkbox" value="Video Shoots" name="events[]">
-                    <label>Video Shoots</label><br>
-                    <input type="checkbox" value="Interviews" name="events[]">
-                    <label>Interviews</label><br>
-                    <input type="checkbox" value="Virtual Event" name="events[]">
-                    <label>Virtual Event</label><br>
+                <div class="filter-body" id="event-type-checkbox">
                 </div>
             </div>
 
             <!--Location filter-->
             <div class="filter-block">
                 <div class="filter-type">Location</div>
-                <div class="filter-body">
+                <div class="filter-body" id="location-checkbox">
                     <input type="checkbox" value="Taiping" name="location[]">
                     <label>Taiping</label><br>
                     <input type="checkbox" value="Petaling Jaya" name="location[]">
@@ -185,6 +151,19 @@
                 event.preventDefault();
             }
         };
+        
+        // $(document).ready(function() {
+        //     // getEventTypes();
+            
+        //     // getLocations();
+
+        // });
+
+        // //Get location filters
+        // function getLocations(){
+        //     var filterBody = document.getElementById("location-checkbox");
+            
+        // }
 
         //Go to previous page
         function previousPage() {
