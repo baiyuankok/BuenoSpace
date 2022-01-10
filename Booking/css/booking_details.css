@@ -1,0 +1,16 @@
+@media (min-width: 800px) {
+    #space-form-custom {
+        width: 50%;
+    }
+}
+
+#page-title {
+    margin-top: 90px;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+
+#space-form-custom {
+    padding: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
