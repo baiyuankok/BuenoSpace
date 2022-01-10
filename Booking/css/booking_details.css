@@ -10,6 +10,11 @@
     font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
 }
 
+.paymentDescription {
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    font-weight: bold;
+}
+
 #space-form-custom {
     padding: 20px;
     font-family: Georgia, 'Times New Roman', Times, serif;

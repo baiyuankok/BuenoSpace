@@ -67,6 +67,31 @@
                 <label for="guest-number" class="col-form-label">Number of Guests</label>
                 <input type="number" min="1" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control" id="guest-number" name="guestNumber" required>
             </div>
+            <br><br>
+            <div id="paymentSection" class="mb-3" style="display: none;">
+                <p class="paymentDescription" style="text-decoration: underline; font-size: 18px;">Payment Details  <i class="fa fa-info-circle" title="An additional fee will be charged for extending the booking period.&#010;If the booking period is cut short, a refund will be issued within five working days."></i></p>
+                <p class="paymentDescription">Total Price: RM <span id="totalPrice" style="font-weight: bold;"></span></p>
+                <p class="paymentDescription">Total Paid Price: RM <span id="totalPaidPrice" style="font-weight: bold;"></span></p>
+                <div style="display: none;">
+                    <input type="number" class="form-control" id="event-total-price" name="eventTotalPrice">
+                </div>
+                <div class="mb-3">
+                    <label for="card-number" class="col-form-label">Card Number</label>
+                    <input type="text" class="form-control" id="card-number" name="cardNumber" placeholder="xxxx-xxxx-xxxx-xxxx" maxlength="19" onkeypress="return onlyNumberKey(event)" required>
+                </div>
+                <div class="mb-3">
+                    <label for="card-expiry-date" class="col-form-label">Expiry Date</label>
+                    <input type="text" class="form-control" id="card-expiry-date" name="cardExpiryDate" placeholder="MM/YY" maxlength="5" onkeypress="return onlyNumberKey(event)" required>
+                </div>
+                <div class="mb-3">
+                    <label for="card-cvv-number" class="col-form-label">CVV Number</label>
+                    <input type="text" class="form-control" id="card-cvv-number" name="cardCVVNumber" placeholder="xxx" maxlength="3" onkeypress="return onlyNumberKey(event)" required>
+                </div>
+                <div class="mb-3">
+                    <label for="card-holder-name" class="col-form-label">Card Holder Name</label>
+                    <input type="text" class="form-control" id="card-holder-name" name="cardHolderName" required>
+                </div>
+            </div>
             <div class="text-end">
                 <button type="submit" class="btn btn-primary" id="submit-text-btn" name="edit_space_detail">Submit</button>
                 <button type="button" class="btn btn-secondary" onclick="cancelUpdate()">Cancel</button>
@@ -89,14 +114,18 @@
 
             // Index to keep track of number of removed images
             var removeImageIndex = 0;
+            var bookingDuration = 0;
 
             $(document).ready(function() {
                 // var spaceCapacity = document.getElementById("capacity").innerHTML;
                 // document.getElementById("guest-number").max = spaceCapacity;
                 // document.getElementById("guest-number").placeholder = spaceCapacity + " max";
-                //createSelectListOption();
+                document.getElementById("totalPaidPrice").innerHTML = Number(document.getElementById("totalPaidPrice").innerHTML).toFixed(2);
                 createSelectListOption();
                 console.log(disabledDates);
+                console.log(originalStartDate);
+                console.log(originalEndDate);
+                console.log(pricePerDay);
                 document.getElementById('all-event-type').value = eventTypeValue;
 
                 $('#startDatePicker').datepicker({
@@ -122,12 +151,14 @@
                     }
                 }).on('changeDate', function (ev) {
                     $('#endDatePicker').datepicker('setStartDate', $("#start-date").val());
+                    display_HidePaymentStation();
                     calcBusinessDates();
                     if (bookingDuration == 0) {
                         $('#endDatePicker').datepicker('update', '');
                         $("#end-date").val("");
                         $('#endDatePicker').datepicker('setStartDate', $("#start-date").val());
                     }
+                    console.log($("#start-date").val());
                 });
 
                 $('#endDatePicker').datepicker({
@@ -152,6 +183,7 @@
                         }
                     }
                 }).on('changeDate', function (ev) {
+                    display_HidePaymentStation();
                     calcBusinessDates();
                 });
 
@@ -166,7 +198,6 @@
                 }
             });
 
-
             window.addEventListener("load", function () {
                 removeImageIndex = 0;
                 headerInitialGray();
@@ -178,6 +209,60 @@
                     }
                 }
             });
+
+            function display_HidePaymentStation() {
+                if (($("#start-date").val() != originalStartDate) || ($("#end-date").val() != originalEndDate)) {
+                    $('#paymentSection').show();
+                }
+                else {
+                    $('#paymentSection').hide();
+                }
+            }
+
+            function calcBusinessDates() {
+                var startDate = $("#startDatePicker").datepicker('getDate');
+                var endDate = $("#endDatePicker").datepicker('getDate');
+
+                var curDate = new Date(startDate);
+                if (startDate && endDate && (endDate >= startDate)) {
+                    bookingDuration = 0;
+                    while (curDate <= endDate) {
+                        var dayOfWeek = curDate.getDay();
+                        if (availableSlots.every(x => x != dayOfWeek))
+                            bookingDuration++;
+                        curDate.setDate(curDate.getDate() + 1);
+                    }
+                    document.getElementById("totalPrice").innerHTML = (pricePerDay * bookingDuration).toFixed(2);
+                    document.getElementById("event-total-price").value = (pricePerDay * bookingDuration).toFixed(2);
+                }
+                else {
+                    bookingDuration = 0;
+                    document.getElementById("totalPrice").innerHTML = 0;
+                } 
+            }
+
+            $("#card-number").keypress(function() {
+                var foo = $(this).val().split("-").join(""); // remove hyphens
+                if (foo.length > 0) {
+                    foo = foo.match(/.{1,4}/g).join("-");
+                }
+                $(this).val(foo);
+            });
+
+            $("#card-expiry-date").keypress(function() {
+                var foo = $(this).val().split("/").join(""); // remove hyphens
+                if (foo.length > 0) {
+                    foo = foo.match(new RegExp('.{1,2}', 'g')).join("/");
+                }
+                $(this).val(foo);
+            });
+
+            function onlyNumberKey(evt) {
+                var asciiCode = (evt.which) ? evt.which : evt.keyCode // get the Unicode value of the pressed keyboard key
+                if (asciiCode > 31 && (asciiCode < 48 || asciiCode > 57))
+                    return false;
+                return true;
+            }
 
             function cancelUpdate() {
                 location.href = "../Home/customer_profile.php";

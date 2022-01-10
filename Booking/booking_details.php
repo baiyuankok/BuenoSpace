@@ -6,9 +6,21 @@
     $userID = isset($_SESSION['userID']) ? trim($_SESSION['userID']) : '';
     $booking_id = isset($_GET['bookingID']) ? trim($_GET['bookingID']) : '';
 
+    function select_details($pdo, $space) {
+        $results = $pdo->query("SELECT price FROM myfirstdatabase.space WHERE spaceID = $space");
+        return $results->fetch();
+    }
+
     function select_available_slot($pdo, $space) {
         $results = $pdo->query("SELECT availableMonday, availableTuesday, availableWednesday, availableThursday, availableFriday, availableSaturday, availableSunday FROM myfirstdatabase.available_slot WHERE spaceID = $space");
         return $results->fetch();
+    }
+
+    function formatDate($date) {
+        $year = substr($date, 0, 4);
+        $month = substr($date, 5, 2);
+        $day = substr($date, 8, 2);
+        return $day . "-" . $month . "-" . $year;
     }
 
     function createRange($start, $end, $format = 'd-m-Y') {
@@ -30,18 +42,27 @@
         $select_info = "SELECT * FROM myfirstdatabase.booking WHERE bookingID = $booking_id";
         $info_results = $pdo->query($select_info)->fetch();
         $spaceID = $info_results['spaceID'];
+        $bookingStartDate = $info_results['eventStartDate'];
+        $bookingEndDate = $info_results['eventEndDate'];
 
         echo '<script>
             document.getElementById("page-title").innerHTML = "Update Booking Info";
             document.getElementById("booking-ID").value = '.$booking_id.';
             document.getElementById("event-name").value = "'.$info_results['eventName'].'";
             const eventTypeValue = "'.$info_results['eventTypeID'].'"
-            document.getElementById("start-date").value = "'.$info_results['eventStartDate'].'";
-            document.getElementById("end-date").value = "'.$info_results['eventEndDate'].'";
+            document.getElementById("start-date").value = "'.formatDate($bookingStartDate).'";
+            document.getElementById("end-date").value = "'.formatDate($bookingEndDate).'";
             document.getElementById("guest-number").value = "'.$info_results['guestNumber'].'";
+            document.getElementById("totalPaidPrice").innerHTML = "'.$info_results['totalPrice'].'";
         </script>';
 
-         // Event Type
+        // Space Details
+        $space_detail = select_details($pdo, $spaceID);
+        echo '<script>
+            const pricePerDay = "'.$space_detail['price'].'";
+        </script>';
+
+        // Event Type
         $sqlAllEventType = "SELECT * FROM myfirstdatabase.event_type";
         $sqlAllEventType= $pdo->query($sqlAllEventType);
         if ($sqlAllEventType) {
@@ -108,10 +129,18 @@
             while ($row= $sqlSpaceBookedDates->fetch(PDO::FETCH_OBJ)) {
                 $event_start_date=$row->eventStartDate;
                 $event_end_date=$row->eventEndDate;
-                $space_booked_dates = createRange($event_start_date, $event_end_date);
-                foreach ($space_booked_dates as $each_booked_date) {
+                if ($bookingStartDate != $event_start_date && $bookingEndDate != $event_end_date) {
+                    $space_booked_dates = createRange($event_start_date, $event_end_date);
+                    foreach ($space_booked_dates as $each_booked_date) {
+                        echo '<script>
+                            disabledDates.push("'.$each_booked_date.'");
+                        </script>';
+                    }
+                }
+                else {
                     echo '<script>
-                        disabledDates.push("'.$each_booked_date.'");
+                        const originalStartDate = "'.formatDate($bookingStartDate).'";
+                        const originalEndDate = "'.formatDate($bookingEndDate).'";
                     </script>';
                 }
             }
