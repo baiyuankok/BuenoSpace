@@ -38,6 +38,7 @@
         <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header">
+                    <h5 class="modal-title"></h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
@@ -66,7 +67,8 @@
                 <span class="fas fa-user-friends"></span>
                 <p><span id="capacity"></span> Max</p>
             </div>
-            <div class="lpc-details">
+            <div class="lpc-details popup">
+                <span class="popuptext" id="favourite-popup">Click here to add to favourites</span>
                 <span class="far fa-heart" id="favourite-icon"></span>
                 <p>Favourites (<span id="total-favourite"></span>)</p>
             </div>
@@ -122,7 +124,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Please sign in to save your favourite spaces and write reviews for the spaces!</p>
+                    <p>Please sign in to save your favourite spaces and write reviews for the spaces.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" onclick="signUpOrRent()" id="sign-in-btn">Sign In</button>
@@ -137,7 +139,7 @@
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Reviews</h5>
+                    <h5 class="modal-title">More Reviews</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="more-review-content">
@@ -483,6 +485,9 @@
             if (!document.getElementById("posted-review-section").contains(event.target)) {
                 stopEditReview();
             }
+            var favPopup = document.getElementById("favourite-popup");
+            favPopup.style.visibility = "hidden";
+            favPopup.style.animationPlayState = "paused";
         });
 
         window.addEventListener("load", function () {

@@ -33,9 +33,9 @@ function select_event_type($pdo, $space) {
     return $event_results->fetchAll(PDO::FETCH_COLUMN, 0);
 }
 
-function add_review_content($element_id, $user_name, $comment) {
+function add_review_content($user_name, $comment) {
     echo '<script>
-            var reviewSec = document.getElementById("' . $element_id . '");
+            var reviewSec = document.getElementById("more-review-content");
             var pNameEle = document.createElement("P");
             pNameEle.innerHTML = "' . $user_name . '";
             pNameEle.classList.add("user-name");
@@ -183,19 +183,29 @@ foreach ($space_event_type as $each_space_event) {
 
 $user_review = $pdo->query("SELECT comment, userID FROM myfirstdatabase.review WHERE spaceID = $get_space_id");
 $total_count = 0;
+$inside_modal_count = 0;
 while ($row = $user_review->fetch()) {
     $total_count += 1;
     $user_id = $row['userID'];
     if (!$existing_review || $user_id != $userID) {
+        $inside_modal_count += 1;
         $user_name = $pdo->query("SELECT customer_name FROM myfirstdatabase.customer WHERE userID = $user_id")->fetch()['customer_name'];
         $comment = $row['comment'];
-        $element_id = "more-review-content";
-        add_review_content($element_id, $user_name, $comment);
+        add_review_content($user_name, $comment);
     }
 }
 echo '<script>
     document.getElementById("review-num").innerHTML = "'.$total_count.'";
 </script>';
+
+if ($inside_modal_count <= 0) {
+    echo '<script>
+        var moreRevBtn = document.getElementById("more-review-btn");
+        if (!moreRevBtn.hasAttribute("disabled")) {
+            moreRevBtn.setAttribute("disabled", "disabled");
+        }
+    </script>';
+}
 
 $space_available_slot = select_available_slot($pdo, $get_space_id);
 echo '<script>
