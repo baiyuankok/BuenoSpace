@@ -76,40 +76,6 @@
             <div class="filter-block">
                 <div class="filter-type">Location</div>
                 <div class="filter-body" id="location-checkbox">
-                    <input type="checkbox" value="Taiping" name="location[]">
-                    <label>Taiping</label><br>
-                    <input type="checkbox" value="Petaling Jaya" name="location[]">
-                    <label>Petaling Jaya</label><br>
-                    <input type="checkbox" value="Subang Jaya" name="location[]">
-                    <label>Subang Jaya</label><br>
-                    <input type="checkbox" value="Sg Buloh" name="location[]">
-                    <label>Sg Buloh</label><br>
-                    <input type="checkbox" value="Damansara" name="location[]">
-                    <label>Damansara</label><br>
-                    <input type="checkbox" value="Shah Alam" name="location[]">
-                    <label>Shah Alam</label><br>
-                    <input type="checkbox" value="Kuala Lumpur" name="location[]">
-                    <label>Kuala Lumpur</label><br>
-                    <input type="checkbox" value="Ampang" name="location[]">
-                    <label>Ampang</label><br>
-                    <input type="checkbox" value="Cyberjaya" name="location[]">
-                    <label>Cyberjaya</label><br>
-                    <input type="checkbox" value="Penang, Georgetown" name="location[]">
-                    <label>Penang, Georgetown</label><br>
-                    <input type="checkbox" value="Puchong" name="location[]">
-                    <label>Puchong</label><br>
-                    <input type="checkbox" value="KL Sentral" name="location[]">
-                    <label>KL Sentral</label><br>
-                    <input type="checkbox" value="Bandar Utama" name="location[]">
-                    <label>Bandar Utama</label><br>
-                    <input type="checkbox" value="Bukit Bintang" name="location[]">
-                    <label>Bukit Bintang</label><br>
-                    <input type="checkbox" value="Johor Bahru" name="location[]">
-                    <label>Johor Bahru</label><br>
-                    <input type="checkbox" value="Kuantan" name="location[]">
-                    <label>Kuantan</label><br>
-                    <input type="checkbox" value="Ipoh" name="location[]">
-                    <label>Ipoh</label><br>
                 </div>
             </div>
 
@@ -121,6 +87,7 @@
 
         <!--Search results area-->
         <div class="search-results-area">
+
             <!--List of spaces-->
             <ul id="search-result-container"></ul>
 
@@ -133,7 +100,6 @@
             </div>
         </div>
     </div>
-    
     
     <footer id="footer"></footer>
 
@@ -151,22 +117,28 @@
                 event.preventDefault();
             }
         };
-        
-        // $(document).ready(function() {
-        //     // getEventTypes();
-            
-        //     // getLocations();
 
-        // });
+        //If there are no more items on the previous page, disable the previous-page-button
+        function disablePrevPageBtn() {
+            var all_returned_items = document.querySelectorAll(".space-box");
+            if(all_returned_items[0].style.display != "none") {
+                document.getElementById("prev-page-btn").disabled = true;
+            }
+        }
 
-        // //Get location filters
-        // function getLocations(){
-        //     var filterBody = document.getElementById("location-checkbox");
-            
-        // }
+        //If there are no more items to show, disable the next-page-button
+        function disableNextPageBtn() {
+            var all_returned_items = document.querySelectorAll(".space-box");
+            if(all_returned_items[all_returned_items.length - 1].style.display != "none") {
+                document.getElementById("next-page-btn").disabled = true;
+            }
+        }
 
         //Go to previous page
         function previousPage() {
+            //Enable the next-page-button
+            document.getElementById("next-page-btn").disabled = false;
+
             var all_returned_items = document.querySelectorAll(".space-box");
             
             //Get the ID of the first visible item
@@ -189,15 +161,23 @@
             for (let i=first_id_on_page - 6; i <= first_id_on_page - 1; i++) {
                 //If array out of bounds, exit this loop
                 if (document.getElementById("space-box-" + i.toString()) == null) {
-                    return;
+                    break;
                 }
                 document.getElementById("space-box-" + i.toString()).style.display = "flex";
+            }
+            
+            //If the first search result is visible, disable the prev-page-button
+            if(all_returned_items[0].style.display != "none") {
+                document.getElementById("prev-page-btn").disabled = true;
             }
 
         }
         
         //Go to next page
         function nextPage() {
+            //Enable the prev-page-button
+            document.getElementById("prev-page-btn").disabled = false;
+
             //Hide items on current page
             var all_returned_items = document.querySelectorAll(".space-box");
             
@@ -212,7 +192,9 @@
             for (let i=last_id_on_page + 1; i <= last_id_on_page + 6; i++) {
                 //If array out of bounds, exit this loop
                 if (document.getElementById("space-box-" + i.toString()) == null) {
-                    return;
+                    //If there are no more items to show, disable the next-page-button
+                    document.getElementById("next-page-btn").disabled = true;
+                    break;
                 }
                 document.getElementById("space-box-" + i.toString()).style.display = "flex";
             }
@@ -314,6 +296,10 @@
             // Initially, add grey background color to header
             headerInitialGray();
 
+            //Disable previous and next page buttons if necessary
+            disablePrevPageBtn();
+            disableNextPageBtn();
+
             // Load the images onload
             var targetObserver = document.querySelectorAll(".each-img");
             for (var eachTarget of targetObserver) {
@@ -339,7 +325,6 @@
         }
 
     </script>
-
 
 </body>
 

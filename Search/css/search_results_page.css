@@ -41,6 +41,7 @@
     flex-flow: column wrap;
     background-color: #eae7dc;
     padding: 20px 50px;
+    flex: 1;
     
 }
 
@@ -148,6 +149,12 @@ input[type=number]::-webkit-outer-spin-button {
 #prev-page-btn, #next-page-btn {
     background-color: #8e8d8a;
     color: white;
+}
+
+#prev-page-btn:disabled, #next-page-btn:disabled {
+    background-color: #eae7dc;
+    color: #8e8d8a;
+    border-color: #8e8d8a;
 }
 
 /* Space gallery stuff */

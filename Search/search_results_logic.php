@@ -81,6 +81,23 @@ if ($sqlAllEventType) {
     }
 }
 
+//Get list of available locations from database
+$sqlAllLocations = "SELECT DISTINCT location FROM myfirstdatabase.space";
+$sqlAllLocations= $pdo->query($sqlAllLocations);
+if ($sqlAllLocations) {
+    echo '<script>
+        const allLocations = [];
+    </script>';
+    $location_list_counter = 0;
+    while ($row= $sqlAllLocations->fetch(PDO::FETCH_OBJ)) {
+        $location_name=$row->location;
+        echo '<script>
+            allLocations["'.$location_list_counter.'"] = "'.$location_name.'";
+        </script>';
+        $location_list_counter += 1;
+    }
+}
+
 //Get event type filters 
 echo '<script>
             var filterBody = document.getElementById("event-type-checkbox");
@@ -98,6 +115,25 @@ echo '<script>
                 filterBody.appendChild(linebreak);
             }
         </script>';
+
+//Get location filters 
+echo '<script>
+            var filterBody = document.getElementById("location-checkbox");
+
+            for (let i=0; i < allLocations.length; i++) {
+                var checkBox = document.createElement("input");
+                var label = document.createElement("label");
+                var linebreak = document.createElement("br");
+                checkBox.type = "checkbox";
+                checkBox.value = allLocations[i];
+                checkBox.name = "location[]";
+                filterBody.appendChild(checkBox);
+                filterBody.appendChild(label);
+                label.appendChild(document.createTextNode(allLocations[i]));
+                filterBody.appendChild(linebreak);
+            }
+        </script>';
+
 
 //Put a "tick" in the checkboxes
 if (is_array($event_type)) {
@@ -141,8 +177,6 @@ else {
             }
         </script>';
 }
-
-
 
 //Flag to check if a filter has been added
 $one_filter_added = False;
@@ -235,24 +269,19 @@ function select_details($pdo, $space) {
     return $results->fetch();
 }
 
-
-
-
-
-
-
-
-//TODO: Display "Sorry! We couldn't find any spaces." if no space ID is returned
-
+//Inform the user "Sorry! We couldn't find any spaces." if no space ID is returned
 if(count($space_id) == 0) {
     echo '<script>
             resultList = document.getElementById("search-result-container");
             resultList.style.justifyContent = "center";
+            resultList.style.alignItems = "center";
             resultList.style.margin = "auto";
             resultList.style.height = "700px";
             resultList.insertAdjacentHTML(`beforeend`, 
                 `<div>Sorry! We couldn\'t find any spaces.</div>`
             );
+            document.getElementById("prev-page-btn").style.display = "none";
+            document.getElementById("next-page-btn").style.display = "none";
         </script>';
 }
 
@@ -285,6 +314,7 @@ foreach($space_id as $each_space) {
             </li>`);
         </script>';
 
+    //Display a maximum of 6 items on the page
     if($items_on_page_counter > 6) {
         echo '<script>
                 console.log("There are 6 items on the page");
@@ -311,13 +341,6 @@ foreach($space_id as $each_space) {
             document.getElementById("space-price-'.$counter.'").innerHTML = "'.$each_detail['price'].'";
             document.getElementById("space-capacity-'.$counter.'").innerHTML = "'.$each_detail['capacity'].'";
         </script>';
-
-    // if($items_on_page_counter > 6) {
-    //     echo '<script>
-    //             console.log("There are 6 items on the page");
-    //             document.getElementById("space-box-'.$counter.'").style.display = "none";
-    //         </script>';
-    // }
     
     $counter += 1;
     $items_on_page_counter += 1;
