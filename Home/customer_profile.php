@@ -78,8 +78,7 @@
                     <th>Event Name</th>
                     <th>Start Date</th>
                     <th>End Date</th>
-                    <th>..</th>
-                    <th>..</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -102,7 +101,6 @@
                                 <td data-label="Start Date"><?php echo $event_start_date; ?></td>
                                 <td data-label="End Date"><?php echo $event_end_date; ?></td>
                                 <td data-label=""><a href="../Booking/booking_details.php?bookingID=<?php echo $booking_id; ?>">Edit</a></td>
-                                <td data-label=""><a href="../Booking/booking_deleting.php?bookingID=<?php echo $booking_id; ?>">Delete</a></td>
                             </tr>
                 <?php }}
                     else {

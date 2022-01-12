@@ -23,7 +23,7 @@
     <body>
         <header id="header"></header>
         <h2 id="page-title"></h2>
-        <form id="space-form-custom" action="booking_update.php" method="post" enctype="multipart/form-data">
+        <form id="space-form-custom" action="../Booking/booking_update.php" method="post" enctype="multipart/form-data">
             <div style="display: none;">
                 <input type="number" class="form-control" id="booking-ID" name="bookingID">
             </div>
@@ -33,16 +33,14 @@
             </div>
             <div class="mb-3">
                 <label for="event-type" class="col-form-label">Event Type</label>
-                <select name="selectedEventType" class="form-control" id="all-event-type" required>
-                    <!-- <option value="" selected disabled hidden>Select Event Type</option> -->
-                </select>
+                <select name="selectedEventType" class="form-control" id="all-event-type" required></select>
             </div>
             <div class="mb-3">
                 <div class="row">
                     <div class="col-md-6">
                         <label for="start-date" class="col-form-label">Start Date</label>
                         <div class="input-group date" id="startDatePicker">
-                            <input type="text" class="form-control" id="start-date" name="startDate" required>
+                            <input type="text" class="form-control" id="start-date" name="startDate" readonly>
                             <span class="input-group-append">
                                 <span class="input-group-text bg-white d-block">
                                     <i class="fa fa-calendar"></i>
@@ -53,7 +51,7 @@
                     <div class="col-md-6">
                         <label for="end-date" class="col-form-label">End Date</label>
                         <div class="input-group date" id="endDatePicker">
-                            <input type="text" class="form-control" id="end-date" name="endDate" required>
+                            <input type="text" class="form-control" id="end-date" name="endDate" readonly>
                             <span class="input-group-append">
                                 <span class="input-group-text bg-white d-block">
                                     <i class="fa fa-calendar"></i>
@@ -67,38 +65,27 @@
                 <label for="guest-number" class="col-form-label">Number of Guests</label>
                 <input type="number" min="1" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control" id="guest-number" name="guestNumber" required>
             </div>
-            <br><br>
-            <div id="paymentSection" class="mb-3" style="display: none;">
-                <p class="paymentDescription" style="text-decoration: underline; font-size: 18px;">Payment Details  <i class="fa fa-info-circle" title="An additional fee will be charged for extending the booking period.&#010;If the booking period is cut short, a refund will be issued within five working days."></i></p>
-                <p class="paymentDescription">Total Price: RM <span id="totalPrice" style="font-weight: bold;"></span></p>
-                <p class="paymentDescription">Total Paid Price: RM <span id="totalPaidPrice" style="font-weight: bold;"></span></p>
-                <p id="additionalChargeDiv" class="paymentDescription" style="display: none;">Additional Charge: RM <span id="additionalCharge" style="font-weight: bold;"></span></p>
-                <p id="refundDiv" class="paymentDescription" style="display: none;">Refunds: RM <span id="refund" style="font-weight: bold;"></span></p>
-                <div style="display: none;">
-                    <input type="number" class="form-control" id="event-total-price" name="eventTotalPrice">
-                </div>
-                <div class="mb-3">
-                    <label for="card-number" class="col-form-label">Card Number</label>
-                    <input type="text" class="form-control" id="card-number" name="cardNumber" placeholder="xxxx-xxxx-xxxx-xxxx" maxlength="19" onkeypress="return onlyNumberKey(event)" required>
-                </div>
-                <div class="mb-3">
-                    <label for="card-expiry-date" class="col-form-label">Expiry Date</label>
-                    <input type="text" class="form-control" id="card-expiry-date" name="cardExpiryDate" placeholder="MM/YY" maxlength="5" onkeypress="return onlyNumberKey(event)" required>
-                </div>
-                <div class="mb-3">
-                    <label for="card-cvv-number" class="col-form-label">CVV Number</label>
-                    <input type="text" class="form-control" id="card-cvv-number" name="cardCVVNumber" placeholder="xxx" maxlength="3" onkeypress="return onlyNumberKey(event)" required>
-                </div>
-                <div class="mb-3">
-                    <label for="card-holder-name" class="col-form-label">Card Holder Name</label>
-                    <input type="text" class="form-control" id="card-holder-name" name="cardHolderName" required>
-                </div>
-            </div>
             <div class="text-end">
                 <button type="submit" class="btn btn-primary" id="submit-text-btn" name="edit_space_detail">Submit</button>
                 <button type="button" class="btn btn-secondary" onclick="cancelUpdate()">Cancel</button>
             </div>
         </form>
+
+        <div id="errorMessageModal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Error Message</h5>
+                </div>
+                <div class="modal-body">
+                  <p id="errorMessage"></p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+        </div>
 
         <footer id="footer"></footer>
 
@@ -119,15 +106,9 @@
             var bookingDuration = 0;
 
             $(document).ready(function() {
-                // var spaceCapacity = document.getElementById("capacity").innerHTML;
-                // document.getElementById("guest-number").max = spaceCapacity;
-                // document.getElementById("guest-number").placeholder = spaceCapacity + " max";
-                document.getElementById("totalPaidPrice").innerHTML = Number(document.getElementById("totalPaidPrice").innerHTML).toFixed(2);
+                document.getElementById("guest-number").max = spaceCapacity;
+                document.getElementById("guest-number").placeholder = spaceCapacity + " max";
                 createSelectListOption();
-                console.log(disabledDates);
-                console.log(originalStartDate);
-                console.log(originalEndDate);
-                console.log(pricePerDay);
                 document.getElementById('all-event-type').value = eventTypeValue;
 
                 $('#startDatePicker').datepicker({
@@ -136,31 +117,10 @@
                     todayBtn: "linked",
                     autoclose: true,
                     orientation: "bottom",
-                    daysOfWeekDisabled: availableSlots,
-                    datesDisabled: disabledDates,
+                    daysOfWeekDisabled: [0, 1, 2, 3, 4, 5, 6],
                     startDate: new Date(),
                     maxDate: '+1Y+6M',
-                    beforeShowDay: function (date) {
-                        calender_date = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear();
-                        var search_index = $.inArray(calender_date, disabledDates);
-                        var search_index2 = $.inArray(String(date.getDay()), availableSlots);
-                        if ((search_index > -1) && (search_index2 == -1)) {
-                            return {
-                                classes: 'Highlighted',
-                                tooltip: 'Booked'
-                            };
-                        }
-                    }
-                }).on('changeDate', function (ev) {
-                    $('#endDatePicker').datepicker('setStartDate', $("#start-date").val());
-                    display_HidePaymentStation();
-                    calcBusinessDates();
-                    if (bookingDuration == 0) {
-                        $('#endDatePicker').datepicker('update', '');
-                        $("#end-date").val("");
-                        $('#endDatePicker').datepicker('setStartDate', $("#start-date").val());
-                    }
-                    console.log($("#start-date").val());
+                    enableOnReadonly: true
                 });
 
                 $('#endDatePicker').datepicker({
@@ -169,25 +129,13 @@
                     todayBtn: "linked",
                     autoclose: true,
                     orientation: "bottom",
-                    daysOfWeekDisabled: availableSlots,
-                    datesDisabled: disabledDates,
+                    daysOfWeekDisabled: [0, 1, 2, 3, 4, 5, 6],
                     startDate: new Date(),
-                    maxDate: '+1Y+6M',
-                    beforeShowDay: function (date) {
-                        calender_date = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear();
-                        var search_index = $.inArray(calender_date, disabledDates);
-                        var search_index2 = $.inArray(String(date.getDay()), availableSlots);
-                        if ((search_index > -1) && (search_index2 == -1)) {
-                            return {
-                                classes: 'Highlighted',
-                                tooltip: 'Booked'
-                            };
-                        }
-                    }
-                }).on('changeDate', function (ev) {
-                    display_HidePaymentStation();
-                    calcBusinessDates();
+                    maxDate: '+1Y+6M'
                 });
+
+                if (document.getElementById("errorMessage").innerHTML != "")
+                    $('#errorMessageModal').modal('show');
 
                 function createSelectListOption() {
                     var eventTypeSelectList = document.getElementById('all-event-type');
@@ -212,85 +160,8 @@
                 }
             });
 
-            function display_HidePaymentStation() {
-                if (($("#start-date").val() != originalStartDate) || ($("#end-date").val() != originalEndDate)) {
-                    $('#paymentSection').show();
-                }
-                else {
-                    $('#paymentSection').hide();
-                }
-            }
-
-            function calcBusinessDates() {
-                var startDate = $("#startDatePicker").datepicker('getDate');
-                var endDate = $("#endDatePicker").datepicker('getDate');
-
-                var curDate = new Date(startDate);
-                if (startDate && endDate && (endDate >= startDate)) {
-                    bookingDuration = 0;
-                    while (curDate <= endDate) {
-                        var dayOfWeek = curDate.getDay();
-                        if (availableSlots.every(x => x != dayOfWeek))
-                            bookingDuration++;
-                        curDate.setDate(curDate.getDate() + 1);
-                    }
-                    document.getElementById("totalPrice").innerHTML = (pricePerDay * bookingDuration).toFixed(2);
-                    document.getElementById("event-total-price").value = (pricePerDay * bookingDuration).toFixed(2);
-                    var result = document.getElementById("totalPrice").innerHTML - document.getElementById("totalPaidPrice").innerHTML;
-                    if (result > 0) {
-                        document.getElementById("refund").innerHTML = 0.00;
-                        $('#refundDiv').hide();
-                        document.getElementById("additionalCharge").innerHTML = result.toFixed(2);
-                        $('#additionalChargeDiv').show();
-                    }
-                    else if (result < 0) {
-                        document.getElementById("additionalCharge").innerHTML = 0.00;
-                        $('#additionalChargeDiv').hide();
-                        document.getElementById("refund").innerHTML = result.toFixed(2);
-                        $('#refundDiv').show();
-                    }
-                    else {
-                        document.getElementById("additionalCharge").innerHTML = 0.00;
-                        document.getElementById("refund").innerHTML = 0.00;
-                        $('#additionalChargeDiv').hide();
-                        $('#refundDiv').hide();
-                    }
-                }
-                else {
-                    bookingDuration = 0;
-                    document.getElementById("totalPrice").innerHTML = 0;
-                } 
-            }
-
-            $("#card-number").keypress(function() {
-                var foo = $(this).val().split("-").join(""); // remove hyphens
-                if (foo.length > 0) {
-                    foo = foo.match(/.{1,4}/g).join("-");
-                }
-                $(this).val(foo);
-            });
-
-            $("#card-expiry-date").keypress(function() {
-                var foo = $(this).val().split("/").join(""); // remove hyphens
-                if (foo.length > 0) {
-                    foo = foo.match(new RegExp('.{1,2}', 'g')).join("/");
-                }
-                $(this).val(foo);
-            });
-
-            function onlyNumberKey(evt) {
-                var asciiCode = (evt.which) ? evt.which : evt.keyCode // get the Unicode value of the pressed keyboard key
-                if (asciiCode > 31 && (asciiCode < 48 || asciiCode > 57))
-                    return false;
-                return true;
-            }
-
             function cancelUpdate() {
                 location.href = "../Home/customer_profile.php";
-            }
-
-            function removeUploadBtn(previousSibling) {
-                previousSibling.nextElementSibling.remove();
             }
         </script>
     </body>
