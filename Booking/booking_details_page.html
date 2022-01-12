@@ -72,6 +72,8 @@
                 <p class="paymentDescription" style="text-decoration: underline; font-size: 18px;">Payment Details  <i class="fa fa-info-circle" title="An additional fee will be charged for extending the booking period.&#010;If the booking period is cut short, a refund will be issued within five working days."></i></p>
                 <p class="paymentDescription">Total Price: RM <span id="totalPrice" style="font-weight: bold;"></span></p>
                 <p class="paymentDescription">Total Paid Price: RM <span id="totalPaidPrice" style="font-weight: bold;"></span></p>
+                <p id="additionalChargeDiv" class="paymentDescription" style="display: none;">Additional Charge: RM <span id="additionalCharge" style="font-weight: bold;"></span></p>
+                <p id="refundDiv" class="paymentDescription" style="display: none;">Refunds: RM <span id="refund" style="font-weight: bold;"></span></p>
                 <div style="display: none;">
                     <input type="number" class="form-control" id="event-total-price" name="eventTotalPrice">
                 </div>
@@ -234,6 +236,25 @@
                     }
                     document.getElementById("totalPrice").innerHTML = (pricePerDay * bookingDuration).toFixed(2);
                     document.getElementById("event-total-price").value = (pricePerDay * bookingDuration).toFixed(2);
+                    var result = document.getElementById("totalPrice").innerHTML - document.getElementById("totalPaidPrice").innerHTML;
+                    if (result > 0) {
+                        document.getElementById("refund").innerHTML = 0.00;
+                        $('#refundDiv').hide();
+                        document.getElementById("additionalCharge").innerHTML = result.toFixed(2);
+                        $('#additionalChargeDiv').show();
+                    }
+                    else if (result < 0) {
+                        document.getElementById("additionalCharge").innerHTML = 0.00;
+                        $('#additionalChargeDiv').hide();
+                        document.getElementById("refund").innerHTML = result.toFixed(2);
+                        $('#refundDiv').show();
+                    }
+                    else {
+                        document.getElementById("additionalCharge").innerHTML = 0.00;
+                        document.getElementById("refund").innerHTML = 0.00;
+                        $('#additionalChargeDiv').hide();
+                        $('#refundDiv').hide();
+                    }
                 }
                 else {
                     bookingDuration = 0;
