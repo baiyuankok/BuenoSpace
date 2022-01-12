@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="css/main_page.css">
     <link rel="stylesheet" href="css/signInsignUp.css">
     <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/evo-calendar.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
 
@@ -139,11 +140,41 @@
         <br><br><br>
 
         <h1>Add Calander Here</h1>
+        <div id="calendarSection">
+            <div id="calendar"></div>
+        </div>
         </section>
 
     <footer id="footer"></footer> 
 
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="../Home/javascript/evo-calendar.min.js"></script>
     <script type="text/javascript" src="../Home/javascript/profileFunction.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#calendar').evoCalendar({
+                theme:"Midnight Blue",
+                calendarEvents: [{
+                    id: 'bHay68s', // Event's ID (required)
+                    name: "New Year", // Event name (required)
+                    date: "January/1/2022", // Event date (required)
+                    description: "Happy New Year",
+                    type: "holiday", // Event type (required)
+                    everyYear: true // Same event every year (optional)
+                },
+                {
+                    name: "Vacation Leave",
+                    badge: "02/13 - 02/15", // Event badge (optional)
+                    date: ["February/13/2022", "February/15/2022"], // Date range
+                    description: "Vacation leave for 3 days.", // Event description (optional)
+                    type: "event",
+                    color: "#63d867" // Event custom color (optional)
+                }
+                ]
+            })
+        })
+    </script>
 </body>
 
 </html>
