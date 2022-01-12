@@ -1,5 +1,6 @@
 <?php
     session_start();
+    ob_start();
     require_once "../Home/config.php";
     require "./booking_details_page.html";
 
@@ -67,7 +68,8 @@
         }
         else {
             header("location: ../Home/customer_profile.php");
-            die();
+            ob_end_flush();
+            exit();
         }
     }
 

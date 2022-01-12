@@ -3,12 +3,26 @@
     .modal-body .space-btn-right {
         top: 20% !important;
     }
+
+    #all-image-samples img {
+        width: 100% !important;
+        height: auto !important;
+    }
 }
 
 @media (max-device-width: 768px) {
     .modal-body .space-btn-left,
     .modal-body .space-btn-right {
         top: 15% !important;
+    }
+
+    #all-image-samples img {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    #footer {
+        bottom: 0;
     }
 }
 
@@ -143,6 +157,54 @@
     font-size: large;
 }
 
+.lpc-details .fa-heart {
+    color: red;
+    cursor: pointer;
+}
+
+.popup {
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.popup .popuptext {
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 120%;
+    left: 49%;
+    margin-left: -80px;
+    opacity: 0.85;
+    animation-name: popup-animation;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes popup-animation {
+    0%   {bottom:120%;}
+    50%  {bottom:110%;}
+    100% {bottom:120%;}
+}
+
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
 #event-type {
     display: flex;
     flex-flow: row wrap;
@@ -155,12 +217,22 @@
 }
 
 #event-type-section p,
-#review-section p {
+#review-section p,
+#more-review-modal p,
+#more-review-modal h5 {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 #review-section {
     margin-top: 20px;
+}
+
+#posted-review-section {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    border: 1px solid;
+    box-shadow: 5px 5px #d3d3d3;
 }
 
 .user-name {
@@ -169,11 +241,6 @@
 
 .review-content {
     padding-left: 20px;
-}
-
-#load-more-review {
-    max-width: fit-content;
-    cursor: pointer;
 }
 
 #rent-section {
