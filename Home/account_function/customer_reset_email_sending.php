@@ -21,10 +21,10 @@ $mail->Body = $body;
 $mail->AddAddress($customer_email);
 $mail->SMTPOptions = array(
     'ssl' => array(
-        'verify_peer' => false,
-        'verify_peer_name' => false,
-        'allow_self_signed' => true,
-    ),
+    'verify_peer' => false,
+    'verify_peer_name' => false,
+    'allow_self_signed' => true
+    )
 );
 
 if (!$mail->send()) {

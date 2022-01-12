@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../Home/css/header.css">
+    <link rel="stylesheet" href="../Home/css/footer.css">
+    <link rel="stylesheet" href="css/search_results_page.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+    <script src="../Home/javascript/header_background.js"></script>
+
+    <title>BuenoSpace</title>
+</head>
+
+<body>
+    <header id="header"></header>
+
+    <div class="search-results-wrapper">
+        <!--Search filter menu-->
+        <form action="search_results_logic.php" method="post">
+        <div class="search-filter-menu">
+            <!--Price filter-->
+            <div class="filter-block">
+                <div class="filter-type">Price (per day)</div>
+                <div id ="price-section" class="filter-body">
+                    <div class="price-row">
+                        <div>RM (min)</div>
+                        <div class="number-field">
+                            <input id="min-price" name="min_price" type="number" placeholder="10" min="1"
+                                onchange="checkOnChangePrice('min-price')" />
+                            <button type="button" id="min-price-add" class="fas fa-plus add-btn" 
+                                onclick="changePrice('min-price', 1)"></button>
+                            <button type="button" id="min-price-minus" class="fas fa-minus minus-btn"
+                                onclick="changePrice('min-price', -1)"></button>
+                        </div>
+                    </div>
+                    <div class="price-row">
+                        <div>RM (max)</div>
+                        <div class="number-field">
+                            <input id="max-price" name="max_price" type="number" placeholder="30000" min="1"
+                                onchange="checkOnChangePrice('max-price')" />
+                            <button type="button" id="max-price-add" class="fas fa-plus add-btn"
+                                onclick="changePrice('max-price', 1)"></button>
+                            <button type="button" id="max-price-minus" class="fas fa-minus minus-btn"
+                                onclick="changePrice('max-price', -1)"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Capacity filter-->
+            <div class="filter-block">
+                <div class="filter-type">Capacity</div>
+                <div id="capacity-section" class="filter-body">
+                    <input id="capacity" name="capacity" type="number" placeholder="1" min="1" onchange="checkOnChangeCapacity()" />
+                    <button type="button" id="capacity-add" class="fas fa-plus add-btn"
+                        onclick="changeCapacity(1)"></button>
+                    <button type="button" id="capacity-minus" class="fas fa-minus minus-btn"
+                        onclick="changeCapacity(-1)"></button>
+                </div>
+            </div>
+
+            <!--Event type filter-->
+            <div class="filter-block">
+                <div class="filter-type">Event</div>
+                <div class="filter-body" id="event-type-checkbox">
+                </div>
+            </div>
+
+            <!--Location filter-->
+            <div class="filter-block">
+                <div class="filter-type">Location</div>
+                <div class="filter-body" id="location-checkbox">
+                </div>
+            </div>
+
+            <div id="button-container">
+                <button id="filter-button" type="submit">Filter</button>
+            </div>
+        </div>
+        </form>
+
+        <!--Search results area-->
+        <div class="search-results-area">
+
+            <!--List of spaces-->
+            <ul id="search-result-container"></ul>
+
+            <!--Pagination-->
+            <div class="pagination-wrapper">
+                <ul>
+                    <button class="fas fa-angle-double-left" id="prev-page-btn" onclick="previousPage()"></button>
+                    <button class="fas fa-angle-double-right" id="next-page-btn" onclick="nextPage()"></button>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <footer id="footer"></footer>
+
+    <script>
+        // Load the page for header and footer using jQuery
+        $("#header").load("../Home/header.php");
+        $("#footer").load("../Home/footer.html");
+
+        // Allow user to type in numbers only without "+", "-", "." and "e" sign in input type number
+        document.getElementById("min-price").addEventListener("keypress", keyAllowInputNum);
+        document.getElementById("max-price").addEventListener("keypress", keyAllowInputNum);
+        document.getElementById("capacity").addEventListener("keypress", keyAllowInputNum);
+        function keyAllowInputNum(event) {
+            if (event.which != 8 && event.which != 0 && event.which < 48 || event.which > 57) {
+                event.preventDefault();
+            }
+        };
+
+        //If there are no more items on the previous page, disable the previous-page-button
+        function disablePrevPageBtn() {
+            var all_returned_items = document.querySelectorAll(".space-box");
+            if(all_returned_items[0].style.display != "none") {
+                document.getElementById("prev-page-btn").disabled = true;
+            }
+        }
+
+        //If there are no more items to show, disable the next-page-button
+        function disableNextPageBtn() {
+            var all_returned_items = document.querySelectorAll(".space-box");
+            if(all_returned_items[all_returned_items.length - 1].style.display != "none") {
+                document.getElementById("next-page-btn").disabled = true;
+            }
+        }
+
+        //Go to previous page
+        function previousPage() {
+            //Enable the next-page-button
+            document.getElementById("next-page-btn").disabled = false;
+
+            var all_returned_items = document.querySelectorAll(".space-box");
+            
+            //Get the ID of the first visible item
+            for (let i=0; i < all_returned_items.length; i++) {
+                if(all_returned_items[i].style.display != "none") {
+                    var first_id_on_page = parseInt(all_returned_items[i].id.split("-").pop().trim());
+                    break;
+                }
+            }
+            console.log("First ID on page: ", first_id_on_page);
+            
+            //Hide items on current page
+            for (let i=0; i < all_returned_items.length; i++) {
+                if(all_returned_items[i].style.display != "none") {
+                    all_returned_items[i].style.display = "none";
+                }
+            }
+
+            //Show items on previous page
+            for (let i=first_id_on_page - 6; i <= first_id_on_page - 1; i++) {
+                //If array out of bounds, exit this loop
+                if (document.getElementById("space-box-" + i.toString()) == null) {
+                    break;
+                }
+                document.getElementById("space-box-" + i.toString()).style.display = "flex";
+            }
+            
+            //If the first search result is visible, disable the prev-page-button
+            if(all_returned_items[0].style.display != "none") {
+                document.getElementById("prev-page-btn").disabled = true;
+            }
+
+        }
+        
+        //Go to next page
+        function nextPage() {
+            //Enable the prev-page-button
+            document.getElementById("prev-page-btn").disabled = false;
+
+            //Hide items on current page
+            var all_returned_items = document.querySelectorAll(".space-box");
+            
+            for (let i=0; i < all_returned_items.length; i++) {
+                if(all_returned_items[i].style.display != "none") {
+                    var last_id_on_page = parseInt(all_returned_items[i].id.split("-").pop().trim());
+                    all_returned_items[i].style.display = "none";
+                }
+            }
+
+            //Show items on next page
+            for (let i=last_id_on_page + 1; i <= last_id_on_page + 6; i++) {
+                //If array out of bounds, exit this loop
+                if (document.getElementById("space-box-" + i.toString()) == null) {
+                    //If there are no more items to show, disable the next-page-button
+                    document.getElementById("next-page-btn").disabled = true;
+                    break;
+                }
+                document.getElementById("space-box-" + i.toString()).style.display = "flex";
+            }
+
+        }
+
+        // To check for min and max price when user type in the numbers
+        function checkOnChangePrice(btnId) {
+            var targetInput = document.getElementById(btnId);
+            var minPrice = document.getElementById("min-price").value;
+            var maxPrice = document.getElementById("max-price").value;
+            if ((minPrice == "" && btnId == "max-price") || (maxPrice == "" && btnId == "min-price")) {
+                if (checkValueType(targetInput.value) < 1) {
+                    targetInput.value = 1;
+                }
+            } else {
+                if (!checkMaxMinPrice(checkValueType(minPrice), checkValueType(maxPrice))) {
+                    if (btnId == "min-price") {
+                        targetInput.value = maxPrice;
+                    } else if (btnId == "max-price") {
+                        targetInput.value = minPrice;
+                    }
+                } else {
+                    if (btnId == "min-price" && checkValueType(targetInput.value) < 1) {
+                        targetInput.value = 1;
+                    }
+                }
+            }
+            if ((minPrice != "") && (maxPrice != "")) {
+                console.log("Min price and max price are not null");
+                //Take location, event, minprice, maxprice & capacity and query the database
+                
+            }
+            
+        }
+
+        function checkOnChangeCapacity() {
+            var targetInput = document.getElementById("capacity");
+            if (targetInput.value < 1) {
+                targetInput.value = 1;
+            }
+        }
+
+        // Check and change the price or capacity values using "+" and "-" buttons
+        function changePrice(btnId, increment) {
+            var targetInput = document.getElementById(btnId);
+            var outputValue = changeValue(targetInput.value, increment);
+            var minPrice;
+            var maxPrice;
+            if (btnId == "min-price") {
+                minPrice = outputValue;
+                maxPrice = document.getElementById("max-price").value;
+            } else if (btnId == "max-price") {
+                minPrice = document.getElementById("min-price").value;
+                maxPrice = outputValue;
+            }
+            if ((minPrice == "" && btnId == "max-price") || (maxPrice == "" && btnId == "min-price")) {
+                targetInput.value = outputValue < 1 ? 1 : outputValue;
+            } else {
+                minPrice = checkValueType(minPrice);
+                maxPrice = checkValueType(maxPrice);
+                if (checkMaxMinPrice(minPrice, maxPrice)) {
+                    targetInput.value = outputValue < 1 ? 1 : outputValue;
+                } else {
+                    if (btnId == "min-price") {
+                        targetInput.value = maxPrice;
+                    } else if (btnId == "max-price") {
+                        targetInput.value = minPrice;
+                    }
+                }
+            }
+        }
+
+        function changeCapacity(increment) {
+            var targetInput = document.getElementById("capacity");
+            var newValue = changeValue(targetInput.value, increment);
+            targetInput.value = newValue < 1 ? 1 : newValue;
+        }
+
+        // To check and change the data type of the input value to integer
+        function checkValueType(inputValue) {
+            return typeof inputValue === "string" ? (inputValue == "" ? 1 : parseInt(inputValue)) : inputValue;
+        }
+
+        // To make sure that min price won't exceed max price
+        function checkMaxMinPrice(minPrice, maxPrice) {
+            return minPrice > maxPrice ? false : true;
+        }
+
+        // Increment or decrement values in the price and capacity sections using "+" and "-" buttons
+        function changeValue(inputValue, increment) {
+            var newValue = checkValueType(inputValue);
+            newValue += increment;
+            return newValue;
+        }
+
+        //Onload
+        window.addEventListener("load", function () {
+            // Initially, add grey background color to header
+            headerInitialGray();
+
+            //Disable previous and next page buttons if necessary
+            disablePrevPageBtn();
+            disableNextPageBtn();
+
+            // Load the images onload
+            var targetObserver = document.querySelectorAll(".each-img");
+            for (var eachTarget of targetObserver) {
+                if (!eachTarget.src) {
+                    eachTarget.setAttribute("src", eachTarget.dataset.src);
+                }
+                // Add listener to all images to link to space details page
+                eachTarget.addEventListener("click", linkSpaceDetail);
+            }
+        });
+
+        // Link the space images to the space details page
+        function linkSpaceDetail() {
+            var parentId = this.parentNode.id;
+            var parentDiv = document.getElementById(parentId).classList;
+            for (var i = 0; i < parentDiv.length; i++) {
+                var clsName = parentDiv.item(i);
+                if (clsName.includes("database-space")) {
+                    var dbSpaceId = clsName.split("-").pop().trim();
+                    location.href = "../Spaces/space_detail_logic.php?spaceID=" + dbSpaceId;
+                }
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
