@@ -128,7 +128,6 @@
                 <tr>
                     <th>Favourite Space</th>
                     <th> </th>
-                    <th> </th>
                 </tr>
             </thead>
             <tbody>
@@ -142,11 +141,11 @@
                         while ($row= $pdoQuery_run->fetch(PDO::FETCH_OBJ)) {                    
                             $name= $row->name;
                             $userID= $row->userID;
-                            $favouriteID = $row->favouriteID; ?>
+                            $favouriteID = $row->favouriteID; 
+                            $space_id = $row->spaceID; ?>
 
                             <tr>
-                                <td><?php echo $name; ?></td>
-                                <td id="icon_td">view space details, Waiting for space's detail page done</td>
+                                <td><a href="../Spaces/space_detail_logic.php?spaceID=<?php echo $space_id; ?>"><?php echo $name; ?></a></td>
                                 <td id="icon_td" onclick="deleteFav(<?php echo $favouriteID; ?>)"><i class="fa fa-trash" ></i></td>
                             </tr>
                 <?php }}

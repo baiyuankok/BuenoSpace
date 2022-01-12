@@ -302,6 +302,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .how-to-use-info > p {
+    margin-top: 8px;
     width: 200px;
     word-wrap: normal;
     text-align: center;
