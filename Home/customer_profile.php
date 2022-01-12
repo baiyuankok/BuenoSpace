@@ -78,8 +78,7 @@
                     <th>Event Name</th>
                     <th>Start Date</th>
                     <th>End Date</th>
-                    <th>..</th>
-                    <th>..</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -88,6 +87,7 @@
                     $pdoQuery_run= $pdo->query($sql);
                     if ($pdoQuery_run) {
                         while ($row= $pdoQuery_run->fetch(PDO::FETCH_OBJ)) {
+                            $booking_id = $row->bookingID;
                             $space_id = $row->spaceID;
                             $event_name= $row->eventName;
                             $event_start_date= $row->eventStartDate;
@@ -100,8 +100,7 @@
                                 <td data-label="Event Name"><?php echo $event_name; ?></td>
                                 <td data-label="Start Date"><?php echo $event_start_date; ?></td>
                                 <td data-label="End Date"><?php echo $event_end_date; ?></td>
-                                <td data-label=".."><a href="../Spaces/space_listing.php?spaceID=<?php echo $space_id; ?>">Edit</a></td>
-                                <td data-label=".."><a href="../Spaces/space_deleting.php?spaceID=<?php echo $space_id; ?>">Delete</a></td>
+                                <td data-label=""><a href="../Booking/booking_details.php?bookingID=<?php echo $booking_id; ?>">Edit</a></td>
                             </tr>
                 <?php }}
                     else {

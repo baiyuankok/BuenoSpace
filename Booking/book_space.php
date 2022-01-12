@@ -75,15 +75,6 @@ if ($sqlSpaceBookedDates) {
             $query_result_msg = "The space was booked in chosen date range!";
             displayMsg($space_id, $query_result_msg);
         }
-        else {
-            $pdoQuery="INSERT INTO booking(bookingDate, spaceID, userID, slotID, eventName, eventStartDate, eventEndDate, guestNumber, eventTypeID, totalPrice, cardNumber, cardExpiryDate, cardCVV, cardHolderName) VALUES (:booking_date, :space_id, :user_id, :slot_id, :event_name, :event_start_date, :event_end_date, :guest_number, :event_type_id, :total_price, :card_number, :card_expiry_date, :card_CVV, :card_holder_name)";
-            $pdoQuery_run= $pdo->prepare($pdoQuery);
-            $pdoQuery_exec= $pdoQuery_run->execute(array(":booking_date"=>$booking_date,":space_id"=>$space_id, ":user_id"=>$user_id, ":slot_id"=>$slot_id, ":event_name"=>$event_name, ":event_start_date"=>$event_start_date, ":event_end_date"=>$event_end_date, ":guest_number"=>$guest_number, ":event_type_id"=>$event_type_id, ":total_price"=>$total_price, ":card_number"=>$card_number, ":card_expiry_date"=>$card_expiry_date, ":card_CVV"=>$card_CVV, ":card_holder_name"=>$card_holder_name));
-
-            if ($pdoQuery_exec){
-                    header("location: ../Home/customer_profile.php");
-            }
-        }
     }
     
     $pdoQuery="INSERT INTO booking(bookingDate, spaceID, userID, slotID, eventName, eventStartDate, eventEndDate, guestNumber, eventTypeID, totalPrice, cardNumber, cardExpiryDate, cardCVV, cardHolderName) VALUES (:booking_date, :space_id, :user_id, :slot_id, :event_name, :event_start_date, :event_end_date, :guest_number, :event_type_id, :total_price, :card_number, :card_expiry_date, :card_CVV, :card_holder_name)";
