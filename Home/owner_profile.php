@@ -93,9 +93,9 @@
                             $space_id = $row->spaceID; ?>
 
                             <tr>
-                                <td><?php echo $name; ?></td>
-                                <td><a href="../Spaces/space_listing.php?spaceID=<?php echo $space_id; ?>">Edit</a></td>
-                                <td><a href="../Spaces/space_deleting.php?spaceID=<?php echo $space_id; ?>">Delete</a></td>
+                                <td data-label="Name"><?php echo $name; ?></td>
+                                <td data-label=""><a href="../Spaces/space_listing.php?spaceID=<?php echo $space_id; ?>">Edit</a></td>
+                                <td data-label=""><a href="../Spaces/space_deleting.php?spaceID=<?php echo $space_id; ?>">Delete</a></td>
                             </tr>
                 <?php }}
                     else{
@@ -116,41 +116,74 @@
             </tbody>
         </table>
         <br><br><br>
-
-        <div id="calendarSection">
+        <?php
+            $sql = "SELECT * FROM space where ownerID=$ownerID";
+            $pdoQuery_run= $pdo->query($sql);
+            if ($pdoQuery_run) {
+                $bookingDateJSONid = 1;
+                $bookingDatesArray = array();
+                while ($row= $pdoQuery_run->fetch(PDO::FETCH_OBJ)) {
+                    $space_id = $row->spaceID;
+                    $sqlBookingDate = "SELECT eventName, eventStartDate, eventEndDate FROM booking where spaceID=$space_id";
+                    $pdoQuery_run2= $pdo->query($sqlBookingDate);
+                    if ($pdoQuery_run2) {
+                        while ($row= $pdoQuery_run2->fetch(PDO::FETCH_OBJ)) {
+                            $event_name=$row->eventName;
+                            $event_start_date=$row->eventStartDate;
+                            $event_end_date=$row->eventEndDate;
+                            $eachArray = array(
+                                "id" => $bookingDateJSONid,
+                                "name" => $event_name,
+                                "date" => [$event_start_date, $event_end_date],
+                                "type" => "event"
+                            );
+                            array_push($bookingDatesArray, $eachArray);
+                            $bookingDateJSONid++;
+                        }
+                    }
+                }
+            }
+        ?>
+        <div id="calendarSection" style="display: inline-block;">
             <div id="calendar"></div>
         </div>
+        
     </section>
     <br><br><br>
-
+    
     <footer id="footer"></footer> 
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script> -->
     <script src="../Home/javascript/evo-calendar.min.js"></script>
     <script type="text/javascript" src="../Home/javascript/profileFunction.js"></script>
 
     <script>
         $(document).ready(function() {
+            
+            var bookingDates = <?php echo json_encode($bookingDatesArray); ?>;
+            console.log(bookingDates);
+
             $('#calendar').evoCalendar({
                 theme:"Midnight Blue",
-                calendarEvents: [{
-                    id: 'bHay68s', // Event's ID (required)
-                    name: "New Year", // Event name (required)
-                    date: "January/1/2022", // Event date (required)
-                    description: "Happy New Year",
-                    type: "holiday", // Event type (required)
-                    everyYear: true // Same event every year (optional)
-                },
-                {
-                    id: 'bHay68d', // Event's ID (required)
-                    name: "Vacation Leave",
-                    badge: "02/13 - 02/15", // Event badge (optional)
-                    date: ["February/13/2022", "February/15/2022"], // Date range
-                    description: "Vacation leave for 3 days.", // Event description (optional)
-                    type: "event",
-                    color: "#63d867" // Event custom color (optional)
-                }
-                ]
+                format: "yyyy-mm-dd",
+                eventHeaderFormat: "dd MM, yyyy",
+                // calendarEvents: [{
+                //     id: 'bHay68s', // Event's ID (required)
+                //     name: "New Year", // Event name (required)
+                //     date: "January/1/2022", // Event date (required)
+                //     type: "holiday", // Event type (required)
+                // },
+                // {
+                //     id: 'bHay68d', // Event's ID (required)
+                //     name: "Vacation Leave",
+                //     badge: "02/13 - 02/15", // Event badge (optional)
+                //     // date: ["February/13/2022", "February/15/2022"], // Date range
+                //     date: ["2022-01-28", "2022-01-29"],
+                //     type: "event",
+                //     color: "#63d867" // Event custom color (optional)
+                // }
+                // ]
+                calendarEvents: bookingDates
             })
         })
     </script>

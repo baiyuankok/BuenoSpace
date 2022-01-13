@@ -503,9 +503,9 @@
         });
 
         function signUpOrRent() {
-            if (document.getElementById("rentButton").innerText == "Sign In & Rent" || 
+            if (document.getElementById("rentButton").innerText == "Sign In & Rent" &&
                 document.getElementById("sign-in-btn").innerHTML == "Sign In") {
-                location.href="/Home/customer_signIn.php";
+                location.href="../Home/customer_signIn.php";
             }
             else {
                 $("#staticBackdrop").modal("show");
