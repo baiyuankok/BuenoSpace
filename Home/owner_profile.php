@@ -155,7 +155,7 @@
     
     <footer id="footer"></footer> 
 
-    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
     <script src="../Home/javascript/evo-calendar.min.js"></script>
     <script type="text/javascript" src="../Home/javascript/profileFunction.js"></script>
 
@@ -166,25 +166,10 @@
             console.log(bookingDates);
 
             $('#calendar').evoCalendar({
-                theme:"Midnight Blue",
+                theme: 'Royal Navy',
                 format: "yyyy-mm-dd",
                 eventHeaderFormat: "dd MM, yyyy",
-                // calendarEvents: [{
-                //     id: 'bHay68s', // Event's ID (required)
-                //     name: "New Year", // Event name (required)
-                //     date: "January/1/2022", // Event date (required)
-                //     type: "holiday", // Event type (required)
-                // },
-                // {
-                //     id: 'bHay68d', // Event's ID (required)
-                //     name: "Vacation Leave",
-                //     badge: "02/13 - 02/15", // Event badge (optional)
-                //     // date: ["February/13/2022", "February/15/2022"], // Date range
-                //     date: ["2022-01-28", "2022-01-29"],
-                //     type: "event",
-                //     color: "#63d867" // Event custom color (optional)
-                // }
-                // ]
+                todayHighlight: true,
                 calendarEvents: bookingDates
             })
         })
