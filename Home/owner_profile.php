@@ -124,6 +124,7 @@
                 $bookingDatesArray = array();
                 while ($row= $pdoQuery_run->fetch(PDO::FETCH_OBJ)) {
                     $space_id = $row->spaceID;
+                    $space_name = $row->name;
                     $sqlBookingDate = "SELECT eventName, eventStartDate, eventEndDate FROM booking where spaceID=$space_id";
                     $pdoQuery_run2= $pdo->query($sqlBookingDate);
                     if ($pdoQuery_run2) {
@@ -134,6 +135,7 @@
                             $eachArray = array(
                                 "id" => $bookingDateJSONid,
                                 "name" => $event_name,
+                                "description" => $space_name,
                                 "date" => [$event_start_date, $event_end_date],
                                 "type" => "event"
                             );
