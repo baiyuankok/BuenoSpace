@@ -37,26 +37,17 @@ if (!empty($get_space_id)) {
 
     $select_event = "SELECT event_type_ID FROM myfirstdatabase.event_space_type WHERE space_ID = $get_space_id";
     $event_results = $pdo->query($select_event)->fetchAll(PDO::FETCH_COLUMN, 0);
+    $all_event_str = "";
     for ($i = 0; $i < count($event_results); $i++) {
         $event_type_id = $event_results[$i];
         $event_name = $pdo->query("SELECT `type` FROM myfirstdatabase.event_type WHERE event_type_ID = $event_type_id")->fetch();
 
-        echo '<script>
-            var allSelect = document.querySelectorAll("#space-event-section select");
-            var allOptions = allSelect['.$i.'].getElementsByTagName("option");
-            for (var eachOption of allOptions) {
-                if (eachOption.innerHTML == "'.$event_name['type'].'") {
-                    eachOption.selected = "true";
-                }
-            }
-        </script>';
-
-        if ($i < count($event_results) - 1) {
-            echo '<script>
-                    document.getElementById("more-events").click();
-                </script>';
-        }
+        $all_event_str .= "\"" . $event_name['type'] . "\",";
     }
+    echo '<script>
+        $("#one-event").val(['.$all_event_str.']);
+        $("#one-event").trigger("change");
+    </script>';
 
     $select_image = "SELECT imgID FROM myfirstdatabase.space_image WHERE spaceID = $get_space_id";
     $image_results = $pdo->query($select_image)->fetchAll(PDO::FETCH_COLUMN, 0);
@@ -72,6 +63,19 @@ if (!empty($get_space_id)) {
         </script>';
         $image_counter += 1;
     }
+
+    $select_available_slot = "SELECT * FROM myfirstdatabase.available_slot WHERE spaceID = $get_space_id";
+    $available_slot_results = $pdo->query($select_available_slot)->fetch();
+    echo '<script>
+        document.getElementById("sunday-box").checked = ' . $available_slot_results['availableSunday'] . ';
+        document.getElementById("monday-box").checked = ' . $available_slot_results['availableMonday'] . ';
+        document.getElementById("tuesday-box").checked = ' . $available_slot_results['availableTuesday'] . ';
+        document.getElementById("wednesday-box").checked = ' . $available_slot_results['availableWednesday'] . ';
+        document.getElementById("thursday-box").checked = ' . $available_slot_results['availableThursday'] . ';
+        document.getElementById("friday-box").checked = ' . $available_slot_results['availableFriday'] . ';
+        document.getElementById("saturday-box").checked = ' . $available_slot_results['availableSaturday'] . ';
+        ifAllChecked();
+    </script>';
     
 } else {    // List Space
     echo '<script>
