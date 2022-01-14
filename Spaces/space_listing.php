@@ -1,11 +1,21 @@
 <?php
 session_start();
+ob_start();
 require_once "../Home/config.php";
 require "../Spaces/space_listing_page.html";
 // Get ownerID
 $ownerID = isset($_SESSION['ownerID']) ? trim($_SESSION['ownerID']) : '';
 // Get spaceID
 $get_space_id = isset($_GET['spaceID']) ? trim($_GET['spaceID']) : '';
+
+// To prevent user from changing the url to view/edit other spaces
+$check_space_query = "SELECT spaceID FROM myfirstdatabase.space WHERE ownerID = $ownerID";
+$check_results = $pdo->query($check_space_query)->fetchAll(PDO::FETCH_COLUMN, 0);
+if (!in_array($get_space_id, $check_results, false)) {
+    header("location: ../Home/owner_profile.php");
+    ob_end_flush();
+    exit();
+}
 
 function setEventDropdown($pdo) {
     $all_event_type = $pdo->query("SELECT * FROM myfirstdatabase.event_type");
