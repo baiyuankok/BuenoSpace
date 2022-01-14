@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="css/signInsignUp.css">
     <link rel="stylesheet" href="css/profile.css">
     <link rel="stylesheet" href="css/evo-calendar.min.css">
+    <link rel="stylesheet" href="css/evo-calendar.royal-navy.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
 
@@ -76,6 +77,7 @@
                     <th>Space</th>
                     <th></th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -96,6 +98,7 @@
                                 <td data-label="Name"><?php echo $name; ?></td>
                                 <td data-label=""><a href="../Spaces/space_listing.php?spaceID=<?php echo $space_id; ?>">Edit</a></td>
                                 <td data-label=""><a href="../Spaces/space_deleting.php?spaceID=<?php echo $space_id; ?>">Delete</a></td>
+                                <td data-label=""><a href="../Spaces/space_exemption.php?spaceID=<?php echo $space_id; ?>">Add Exemption Slot</a></td>
                             </tr>
                 <?php }}
                     else{
@@ -120,8 +123,8 @@
             $sql = "SELECT * FROM space where ownerID=$ownerID";
             $pdoQuery_run= $pdo->query($sql);
             if ($pdoQuery_run) {
-                $bookingDateJSONid = 1;
-                $bookingDatesArray = array();
+                $spaceDateJSONid = 1;
+                $spaceDatesArray = array();
                 while ($row= $pdoQuery_run->fetch(PDO::FETCH_OBJ)) {
                     $space_id = $row->spaceID;
                     $space_name = $row->name;
@@ -133,23 +136,91 @@
                             $event_start_date=$row->eventStartDate;
                             $event_end_date=$row->eventEndDate;
                             $eachArray = array(
-                                "id" => $bookingDateJSONid,
+                                "id" => $spaceDateJSONid,
                                 "name" => $event_name,
                                 "description" => $space_name,
                                 "date" => [$event_start_date, $event_end_date],
                                 "type" => "event"
                             );
-                            array_push($bookingDatesArray, $eachArray);
-                            $bookingDateJSONid++;
+                            array_push($spaceDatesArray, $eachArray);
+                            $spaceDateJSONid++;
                         }
                     }
+
+                    // $sqlAvailableSlot = "SELECT * FROM available_slot where spaceID=$space_id";
+                    // $pdoQuery_run3= $pdo->query($sqlAvailableSlot);
+                    // if ($pdoQuery_run3) {
+                    //     while ($row= $pdoQuery_run3->fetch(PDO::FETCH_OBJ)) {
+                    //         $available_Monday=$row->availableMonday;
+                    //         $available_Tuesday=$row->availableTuesday;
+                    //         $available_Wednesday=$row->availableWednesday;
+                    //         $available_Thursday=$row->availableThursday;
+                    //         $available_Friday=$row->availableFriday;
+                    //         $available_Saturday=$row->availableSaturday;
+                    //         $available_Sunday=$row->availableSunday;
+                    //         if($available_Sunday == FALSE) {
+                    //             $eachArray = array(
+                    //                 "id" => $spaceDateJSONid,
+                    //                 "name" => "Off Day",
+                    //                 "description" => $space_name,
+                    //                 "date" => [$event_start_date, $event_end_date],
+                    //                 "type" => "event"
+                    //             );
+                    //         }
+                    //         if($available_Monday == FALSE) {
+                    //             echo '<script>
+                    //                 availableSlots.push("0");
+                    //             </script>';
+                    //         }
+                    //         if($space_available_slot['availableMonday'] == FALSE) {
+                    //             echo '<script>
+                    //                 availableSlots.push("1");
+                    //             </script>';
+                    //         }
+                    //         if($space_available_slot['availableTuesday'] == FALSE) {
+                    //             echo '<script>
+                    //                 availableSlots.push("2");
+                    //             </script>';
+                    //         }
+                    //         if($space_available_slot['availableWednesday'] == FALSE) {
+                    //             echo '<script>
+                    //                 availableSlots.push("3");
+                    //             </script>';
+                    //         }
+                    //         if($space_available_slot['availableThursday'] == FALSE) {
+                    //             echo '<script>
+                    //                 availableSlots.push("4");
+                    //             </script>';
+                    //         }
+                    //         if($space_available_slot['availableFriday'] == FALSE) {
+                    //             echo '<script>
+                    //                 availableSlots.push("5");
+                    //             </script>';
+                    //         }
+                    //         if($space_available_slot['availableSaturday'] == FALSE) {
+                    //             echo '<script>
+                    //                 availableSlots.push("6");
+                    //             </script>';
+                    //         }
+                    //         $eachArray = array(
+                    //             "id" => $spaceDateJSONid,
+                    //             "name" => $event_name,
+                    //             "description" => $space_name,
+                    //             "date" => [$event_start_date, $event_end_date],
+                    //             "type" => "event"
+                    //         );
+                    //         array_push($spaceDatesArray, $eachArray);
+                    //         $spaceDateJSONid++;
+                    //     }
+                    // }
                 }
             }
         ?>
-        <div id="calendarSection" style="display: inline-block;">
+        <div id="calendarSection">
             <div id="calendar"></div>
         </div>
-        
+        <button id="exemptionBtn" class="exemptionButton">Add Exemption Slot</button>
+
     </section>
     <br><br><br>
     
@@ -160,19 +231,42 @@
     <script type="text/javascript" src="../Home/javascript/profileFunction.js"></script>
 
     <script>
+        var selectedDate;
+
         $(document).ready(function() {
-            
-            var bookingDates = <?php echo json_encode($bookingDatesArray); ?>;
-            console.log(bookingDates);
+            var spaceDates = <?php echo json_encode($spaceDatesArray); ?>;
+            console.log(spaceDates);
 
             $('#calendar').evoCalendar({
                 theme: 'Royal Navy',
                 format: "yyyy-mm-dd",
                 eventHeaderFormat: "dd MM, yyyy",
                 todayHighlight: true,
-                calendarEvents: bookingDates
+                calendarEvents: spaceDates
             })
+
+            $('#calendar').on('selectDate', function(event, newDate, oldDate) {
+                console.log(event);
+                console.log(newDate);
+                console.log(oldDate);
+                selectedDate = newDate;
+                // for (int i = 0; i < bookingDates.length; i++) {
+                //     if (selectedDate = bookingDates[i].)
+                // }
+                var active_events = $('#calendar').evoCalendar('getActiveEvents');
+                console.log(active_events);
+                if (!active_events.length) {
+                    console.log("empty");
+                }
+                else {
+                    console.log("hehehe");
+                }
+            });
         })
+
+        $("#exemptionBtn").click(function() {
+            location.href = "../Spaces/space_exemption.php?date=" + selectedDate;
+        });
     </script>
 </body>
 

@@ -1,0 +1,107 @@
+<?php
+    session_start();
+    ob_start();
+    require_once "../Home/config.php";
+    require "./space_exemption.html";
+
+    //$userID = isset($_SESSION['userID']) ? trim($_SESSION['userID']) : '';
+    $space_id = isset($_GET['spaceID']) ? trim($_GET['spaceID']) : '';
+    $query_msg = isset($_GET['query_msg']) ? trim($_GET['query_msg']) : '';
+
+    function select_details($pdo, $space) {
+        $results = $pdo->query("SELECT name FROM myfirstdatabase.space WHERE spaceID = $space");
+        return $results->fetch();
+    }
+
+    function createRange($start, $end, $format = 'd-m-Y') {
+        $start  = new DateTime($start);
+        $end    = new DateTime($end);
+        $invert = $start > $end;
+    
+        $dates = array();
+        $dates[] = $start->format($format);
+        while ($start != $end) {
+            $start->modify(($invert ? '-' : '+') . '1 day');
+            $dates[] = $start->format($format);
+        }
+        return $dates;
+    }
+
+    if (!empty($space_id)) {
+        // Obtain Space Details
+        $space_detail = select_details($pdo, $space_id);
+        echo '<script>
+            document.getElementById("space-name").value = "'.$space_detail['name'].'";
+        </script>';
+
+        // Obtain Space's Slot Data
+        $select_slot_info = "SELECT * FROM myfirstdatabase.available_slot WHERE spaceID = $space_id";
+        $slot_info_results = $pdo->query($select_slot_info)->fetch();
+        if ($slot_info_results) {
+            echo '<script>
+                const availableSlots = [];
+            </script>';
+            if($slot_info_results['availableSunday'] == FALSE) {
+                echo '<script>
+                    availableSlots.push("0");
+                </script>';
+            }
+            if($slot_info_results['availableMonday'] == FALSE) {
+                echo '<script>
+                    availableSlots.push("1");
+                </script>';
+            }
+            if($slot_info_results['availableTuesday'] == FALSE) {
+                echo '<script>
+                    availableSlots.push("2");
+                </script>';
+            }
+            if($slot_info_results['availableWednesday'] == FALSE) {
+                echo '<script>
+                    availableSlots.push("3");
+                </script>';
+            }
+            if($slot_info_results['availableThursday'] == FALSE) {
+                echo '<script>
+                    availableSlots.push("4");
+                </script>';
+            }
+            if($slot_info_results['availableFriday'] == FALSE) {
+                echo '<script>
+                    availableSlots.push("5");
+                </script>';
+            }
+            if($slot_info_results['availableSaturday'] == FALSE) {
+                echo '<script>
+                    availableSlots.push("6");
+                </script>';
+            }
+        }
+       
+        // Obtain Space's Booking Data
+        $sqlSpaceBookedDates = "SELECT eventStartDate, eventEndDate FROM myfirstdatabase.booking WHERE spaceID = $space_id";
+        $sqlSpaceBookedDates= $pdo->query($sqlSpaceBookedDates);
+        if ($sqlSpaceBookedDates) {
+            echo '<script>
+                const bookedDates = [];
+            </script>';
+            while ($row= $sqlSpaceBookedDates->fetch(PDO::FETCH_OBJ)) {
+                $event_start_date=$row->eventStartDate;
+                $event_end_date=$row->eventEndDate;
+                $space_booked_dates = createRange($event_start_date, $event_end_date);
+                foreach ($space_booked_dates as $each_booked_date) {
+                    echo '<script>
+                        bookedDates.push("'.$each_booked_date.'");
+                    </script>';
+                }
+            }
+        }
+
+        if(!empty($query_msg)) {
+            echo '<script>
+                document.getElementById("errorMessage").innerHTML = "'.$query_msg.'";
+            </script>';
+        }
+    }
+
+?>
