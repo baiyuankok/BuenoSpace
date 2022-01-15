@@ -4,7 +4,6 @@
     require_once "../Home/config.php";
     require "./space_exemption.html";
 
-    //$userID = isset($_SESSION['userID']) ? trim($_SESSION['userID']) : '';
     $space_id = isset($_GET['spaceID']) ? trim($_GET['spaceID']) : '';
     $query_msg = isset($_GET['query_msg']) ? trim($_GET['query_msg']) : '';
 
@@ -27,11 +26,19 @@
         return $dates;
     }
 
+    function formatDate($date) {
+        $year = substr($date, 0, 4);
+        $month = substr($date, 5, 2);
+        $day = substr($date, 8, 2);
+        return $day . "-" . $month . "-" . $year;
+    }
+
     if (!empty($space_id)) {
         // Obtain Space Details
         $space_detail = select_details($pdo, $space_id);
         echo '<script>
             document.getElementById("space-name").value = "'.$space_detail['name'].'";
+            document.getElementById("space-ID").value = "'.$space_id.'";
         </script>';
 
         // Obtain Space's Slot Data
@@ -94,6 +101,25 @@
                         bookedDates.push("'.$each_booked_date.'");
                     </script>';
                 }
+            }
+        }
+
+        // Obtain Space's Exemption Date
+        $sqlSpaceExemptionDates = "SELECT exemptionDate, availability FROM myfirstdatabase.exemption_slot WHERE spaceID = $space_id";
+        $sqlSpaceExemptionDates= $pdo->query($sqlSpaceExemptionDates);
+        if ($sqlSpaceExemptionDates) {
+            echo '<script>
+                const exemptionDates = [];
+                const exemptionDatesAvailability = [];
+            </script>';
+            while ($row= $sqlSpaceExemptionDates->fetch(PDO::FETCH_OBJ)) {
+                $exemption_date=$row->exemptionDate;
+                $availability=$row->availability;
+                $exemption_date = formatDate($exemption_date);
+                echo '<script>
+                    exemptionDates.push("'.$exemption_date.'");
+                    exemptionDatesAvailability.push("'.$availability.'");
+                </script>';
             }
         }
 

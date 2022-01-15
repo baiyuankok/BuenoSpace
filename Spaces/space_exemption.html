@@ -95,8 +95,13 @@
             var removeImageIndex = 0;
 
             $(document).ready(function() {
-                console.log(bookedDates);
-                console.log(availableSlots);
+                if(document.getElementById("exemption-date").value != "") {
+                    $('#check-off-day-div').show();
+                }
+                else {
+                    $('#check-off-day-div').hide();
+                }
+
                 $('#exemptionDatePicker').datepicker({
                     format: "dd-mm-yyyy",
                     todayHighlight:'TRUE',
@@ -111,30 +116,73 @@
                         calender_date = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear();
                         var search_index = $.inArray(calender_date, bookedDates);
                         var search_index2 = $.inArray(String(date.getDay()), availableSlots);
+                        var search_index3 = $.inArray(calender_date, exemptionDates);
+
                         if (search_index > -1) {
                             return {
                                 classes: 'bookingHighlighted',
                                 tooltip: 'Booked Day'
                             };
                         }
+             
                         if (search_index2 > -1) {
-                            return {
-                                classes: 'offDayHighlighted',
-                                tooltip: 'Off Day'
-                            };
+                            if (search_index3 > -1) {
+                                if (exemptionDatesAvailability[search_index3] == "0") {
+                                    return {
+                                        classes: 'offDayHighlighted',
+                                        tooltip: 'Off Day'
+                                    };
+                                }
+                            }
+                            else {
+                                return {
+                                    classes: 'offDayHighlighted',
+                                    tooltip: 'Off Day'
+                                };
+                            }
+                        }
+                        else {
+                            if (search_index3 > -1) {
+                                if (exemptionDatesAvailability[search_index3] == "0") {
+                                    return {
+                                        classes: 'offDayHighlighted',
+                                        tooltip: 'Off Day'
+                                    };
+                                }
+                            }
                         }
                     }
                 }).on('changeDate', function (ev) {
                     $('#check-off-day-div').show();
-                    selected_date = ev.date.getDay();
-                    var search_index = $.inArray(selected_date.toString(), availableSlots);
+                    selected_date_day = ev.date.getDay();
+                    selected_date = ('0' + ev.date.getDate()).slice(-2) + '-' + ('0' + (ev.date.getMonth() + 1)).slice(-2) + '-' + ev.date.getFullYear();
+                    var search_index = $.inArray(selected_date_day.toString(), availableSlots);
+                    var search_index2 = $.inArray(selected_date.toString(), exemptionDates);
                     if (search_index > -1) {
-                        $('#check-off-day').prop('checked', true);
-                        console.log(document.getElementById("check-off-day").checked);
+                        if (search_index2 > -1) {
+                            if (exemptionDatesAvailability[search_index2] == "0") {
+                                $('#check-off-day').prop('checked', true);
+                            }
+                            else {
+                                $('#check-off-day').prop('checked', false);
+                            }
+                        }
+                        else {
+                            $('#check-off-day').prop('checked', true);
+                        }
                     }
                     else {
-                        $('#check-off-day').prop('checked', false);
-                        console.log(document.getElementById("check-off-day").checked);
+                        if (search_index2 > -1) {
+                            if (exemptionDatesAvailability[search_index2] == "0") {
+                                $('#check-off-day').prop('checked', true);
+                            }
+                            else {
+                                $('#check-off-day').prop('checked', false);
+                            }
+                        }
+                        else {
+                            $('#check-off-day').prop('checked', false);
+                        }
                     }
                 });
 

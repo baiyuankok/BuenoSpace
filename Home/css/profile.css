@@ -130,26 +130,3 @@ table th {
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
-
-
-.exemptionButton {
-  border: none;
-  color: white;
-  padding: 16px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: block;
-  font-size: 16px;
-  margin-left: auto;
-  margin-right: auto;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  background-color: white; 
-  color: black; 
-  border: 2px solid #008CBA;
-}
-
-.exemptionButton:hover {
-  background-color: #008CBA;
-  color: white;
-}
