@@ -301,8 +301,6 @@
             document.getElementById("guest-number").max = spaceCapacity;
             document.getElementById("guest-number").placeholder = spaceCapacity + " max";
             createSelectListOption();
-            console.log(exemptionDates);
-            console.log(availableSlots);
 
             $('#startDatePicker').datepicker({
                 format: "dd-mm-yyyy",
@@ -310,7 +308,6 @@
                 todayBtn: "linked",
                 autoclose: true,
                 orientation: "bottom",
-                daysOfWeekDisabled: availableSlots,
                 datesDisabled: disabledDates,
                 startDate: new Date(),
                 maxDate: '+1Y+6M',
@@ -320,55 +317,46 @@
                     var search_index2 = $.inArray(String(date.getDay()), availableSlots);
                     var search_index3 = $.inArray(calender_date, exemptionDates);
 
-                    // if ((search_index > -1) && (search_index2 == -1)) {
-                    //     return {
-                    //         classes: 'Highlighted',
-                    //         tooltip: 'Booked'
-                    //     };
-                    // }
-                    if (search_index > -1) {
+                    if ((search_index > -1) && (search_index2 == -1)) {
                         return {
                             classes: 'bookingHighlighted',
-                            tooltip: 'Booked Day'
+                            tooltip: 'Booked'
                         };
                     }
 
-                    // if (enableDays.indexOf(formatDate(date)) < 0)
-                    //     return {
-                    //     enabled: false
-                    //     }
-                    // else
-                    //     return {
-                    //     enabled: true
-                    //     }
-                    //$('#datepicker').datepicker('setDatesDisabled', disabled);
-            
-                    if (search_index2 > -1) {
-                        console.log(calender_date);
+                    var shouldDisable;
+                    // Found nowDay is in regular off day of week
+                    if(search_index2 > -1){
+                        // Found nowDay exists in exemptionDates data
                         if (search_index3 > -1) {
+                            // Validate the specific exemptionDate's availability
                             if (exemptionDatesAvailability[search_index3] == "1") {
-                                console.log("aaa");
-                                return {
-                                    enabled: true
-                                };
+                                shouldDisable = false;
+                            }
+                            else {
+                                shouldDisable = true;
                             }
                         }
                         else {
-                            console.log("bbb");
-                            return {
-                                enabled: true
-                            };
+                            shouldDisable = true;
                         }
+
+                        return (!shouldDisable);
                     }
                     else {
                         if (search_index3 > -1) {
                             if (exemptionDatesAvailability[search_index3] == "0") {
-                                console.log("ccc");
-                                return {
-                                    enabled: true
-                                };
+                                shouldDisable = true;
+                            }
+                            else {
+                                shouldDisable = false;
                             }
                         }
+                        else {
+                            shouldDisable = false;
+                        }
+
+                        return (!shouldDisable);
                     }
                 }
             }).on('changeDate', function (ev) {
@@ -387,11 +375,57 @@
                 todayBtn: "linked",
                 autoclose: true,
                 orientation: "bottom",
-                // daysOfWeekDisabled: availableSlots,
                 datesDisabled: disabledDates,
                 startDate: new Date(),
                 maxDate: '+1Y+6M',
-                beforeShowDay: getDisableDates
+                beforeShowDay: function (date) {
+                    calender_date = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear();
+                    var search_index = $.inArray(calender_date, disabledDates);
+                    var search_index2 = $.inArray(String(date.getDay()), availableSlots);
+                    var search_index3 = $.inArray(calender_date, exemptionDates);
+
+                    if ((search_index > -1) && (search_index2 == -1)) {
+                        return {
+                            classes: 'bookingHighlighted',
+                            tooltip: 'Booked'
+                        };
+                    }
+
+                    var shouldDisable;
+                    // Found nowDay is in regular off day of week
+                    if(search_index2 > -1){
+                        // Found nowDay exists in exemptionDates data
+                        if (search_index3 > -1) {
+                            // Validate the specific exemptionDate's availability
+                            if (exemptionDatesAvailability[search_index3] == "1") {
+                                shouldDisable = false;
+                            }
+                            else {
+                                shouldDisable = true;
+                            }
+                        }
+                        else {
+                            shouldDisable = true;
+                        }
+
+                        return (!shouldDisable);
+                    }
+                    else {
+                        if (search_index3 > -1) {
+                            if (exemptionDatesAvailability[search_index3] == "0") {
+                                shouldDisable = true;
+                            }
+                            else {
+                                shouldDisable = false;
+                            }
+                        }
+                        else {
+                            shouldDisable = false;
+                        }
+
+                        return (!shouldDisable);
+                    }
+                }
             }).on('changeDate', function (ev) {
                 calcBusinessDates();
             });
@@ -407,43 +441,6 @@
                     objOption.value = key;
                     eventTypeSelectList.appendChild(objOption);
                 }
-            }
-
-            function getDisableDates(date) {
-                var shouldDisable;
-                var nowDate = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear();
-                var search_index = $.inArray(String(date.getDay()), availableSlots);
-                var search_index2 = $.inArray(nowDate, exemptionDates);
-
-                // Found nowDay is in regular off day of week
-                if(search_index > -1){
-                    if (search_index2 > -1) {
-                        if (exemptionDatesAvailability[search_index2] == "1") {
-                            shouldDisable = false;
-                        }
-                        else {
-                            shouldDisable = true;
-                        }
-                    }
-                    else {
-                        shouldDisable = true;
-                    }
-                }
-                else {
-                    if (search_index2 > -1) {
-                        if (exemptionDatesAvailability[search_index2] == "0") {
-                            shouldDisable = true;
-                        }
-                        else {
-                            shouldDisable = false;
-                        }
-                    }
-                    else {
-                        shouldDisable = false;
-                    }
-                }
-
-                return (!shouldDisable);
             }
         });
 
