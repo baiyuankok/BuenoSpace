@@ -32,7 +32,7 @@
 </head>
 
 <body>
-<header id="header"></header>
+    <header id="header"></header>
     <section id="profile_page_layout">
         <div class="profile_infor">
             <div id="information_edit">
@@ -151,20 +151,10 @@
         ?>
 
         <h5 class="tableName">Booking Calendar</h5>
-        <div id="calendarSection">
-            <div id="calendar"></div>
-        </div>
+        <div id="calendar"></div>
+        <br><br><br>
     </section>
 
-    <!-- <section style="display:block; margin-left:20px; margin-right:20px;">
-        <h5 class="tableName">Booking Calendar</h5>
-        <div id="calendarSection">
-            <div id="calendar"></div>
-        </div>
-    </section>
-     -->
-    <br><br><br>
-    
     <footer id="footer"></footer> 
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
