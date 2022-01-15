@@ -188,7 +188,6 @@ if($event_type == "all-events") {
         if($one_filter_added) { $query .= "AND "; } else {$query .= "WHERE "; }
         
         if(is_array($location)) {
-            echo '<script> console.log("More than 1 location!"); console.log('.$location.'.length); </script>';
             $query .= "location = '$location[0]'";
             if(count($location) > 1) {
                 foreach (range(1, count($location)-1) as $i) {
@@ -218,7 +217,6 @@ elseif ($event_type != "all-events") {
                 ON t1.spaceID = t2.space_ID
                 INNER JOIN myfirstdatabase.event_type t3
                 ON t2.event_type_ID = t3.event_type_ID WHERE t3.type = '$event_type[0]' ";
-        echo '<script> console.log("More than 1 event type!"); console.log('.$event_type.'.length); </script>';
         if(count($event_type) > 1) {
             foreach (range(1, count($event_type)-1) as $i) {
                 $query .= "OR t3.type = '$event_type[$i]' ";
@@ -235,7 +233,6 @@ elseif ($event_type != "all-events") {
     }
     if($location != "all") {
         if(is_array($location)) {
-            echo '<script> console.log("More than 1 location!"); console.log('.$location.'.length); </script>';
             $query .= "AND t1.location = '$location[0]'";
             if(count($location) > 1) {
                 foreach (range(1, count($location)-1) as $i) {
@@ -253,7 +250,6 @@ elseif ($event_type != "all-events") {
     }  
 }
 //Get the IDs of all spaces that match the search criteria
-echo '<script> console.log("'.$query.'"); </script>';
 $space_id = $pdo->query($query)->fetchAll(PDO::FETCH_COLUMN, 0);
 
 
@@ -317,7 +313,6 @@ foreach($space_id as $each_space) {
     //Display a maximum of 6 items on the page
     if($items_on_page_counter > 6) {
         echo '<script>
-                console.log("There are 6 items on the page");
                 document.getElementById("space-box-'.$counter.'").style.display = "none";
             </script>';
     }

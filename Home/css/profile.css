@@ -116,3 +116,7 @@ table th {
   text-align:center;
 }
 
+#calendar {
+	width: 100%;
+	position: relative;
+}
