@@ -14,6 +14,27 @@
 </div>
 
 <script>
-    document.body.classList.add("d-flex", "flex-column", "min-vh-100");
-    document.getElementById("footer").classList.add("mt-auto");
+    window.addEventListener("load", setBottom);
+    window.addEventListener("resize", preventTwiceExecution);
+    var resizeTimer;
+    function preventTwiceExecution() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+            setBottom();
+        }, 200);
+    }
+    function setBottom() {
+        var footerTop = document.getElementById("footer").offsetTop;
+        var ch = document.getElementById("footer").clientHeight;
+        var bodyh = document.documentElement.clientHeight;
+        if (footerTop + ch < bodyh || document.body.style.overflow == "hidden") {
+            if (!document.getElementById("footer").classList.contains("footer-bottom")) {
+                document.getElementById("footer").classList.add("footer-bottom");
+            }
+        } else {
+            if (document.getElementById("footer").classList.contains("footer-bottom")) {
+                document.getElementById("footer").classList.remove("footer-bottom");
+            }
+        }
+    }
 </script>
