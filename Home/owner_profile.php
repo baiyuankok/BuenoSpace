@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="css/main_page.css">
     <link rel="stylesheet" href="css/signInsignUp.css">
     <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/evo-calendar.min.css">
+    <link rel="stylesheet" href="css/evo-calendar.royal-navy.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
 
@@ -30,120 +32,154 @@
 </head>
 
 <body>
-<header id="header"></header>
-    
-
-
+    <header id="header"></header>
     <section id="profile_page_layout">
-
         <div class="profile_infor">
-           
             <div id="information_edit">
-                
-            <h5>WELCOME - <?php echo $owner_name; ?></h5>
-
-            <br>
-            <form class="profile_form" action="" method="post">
-
-                <label>Name</label>
-                <input type="text" name="owner_name"  value="<?php echo $owner_name; ?>">
+                <h5>WELCOME - <?php echo $owner_name; ?></h5>
                 <br>
-                <span class="help-block"><?php echo $owner_name_err; ?></span>
-                <br>
+                <form class="profile_form" action="" method="post">
+                    <label>Name</label>
+                    <input type="text" name="owner_name"  value="<?php echo $owner_name; ?>">
+                    <br>
+                    <span class="help-block"><?php echo $owner_name_err; ?></span>
+                    <br>
 
-                <label for="password">Email</label>
-                <input type="text" id="password" name="owner_email" value="<?php echo $owner_email; ?>">
-                <br>
-                <span class="help-block"><?php echo $owner_email_err; ?></span>
-                <br>
+                    <label for="password">Email</label>
+                    <input type="text" id="password" name="owner_email" value="<?php echo $owner_email; ?>">
+                    <br>
+                    <span class="help-block"><?php echo $owner_email_err; ?></span>
+                    <br>
 
-                <label for="password">Contact Number</label>
-                <input type="text" id="password" name="owner_contact" value="<?php echo $owner_contact; ?>">
-                <br>
-                <span class="help-block"><?php echo $owner_contact_err; ?></span>
-                <br><br>
+                    <label for="password">Contact Number</label>
+                    <input type="text" id="password" name="owner_contact" value="<?php echo $owner_contact; ?>">
+                    <br>
+                    <span class="help-block"><?php echo $owner_contact_err; ?></span>
+                    <br><br>
 
-                <div class="form-btn">
-                    <input type="submit" class="small-btn" name="edit_owner_profile" value="Save" onclick="fade_out()">
-                    <p id="success_msg"><?php echo $updatedMsg; ?></p>
-                </div>
+                    <div class="form-btn">
+                        <input type="submit" class="small-btn" name="edit_owner_profile" value="Save" onclick="fade_out()">
+                        <p id="success_msg"><?php echo $updatedMsg; ?></p>
+                    </div>
                 </form>
                 <br><br>
-                            </div>
-        </div>
-           
-        </section>
+            </div>
+        </div>   
+    </section>
 
-    
-    
-        <br><br><br>
-
-        <section id="profile_page_layout">
-            <h5 style="display: inline;">Space Listing</h5>
-            <i class="fas fa-plus" style="display: inline; cursor:pointer; margin-left: 10px" onclick="addSpace()"></i>
-            <span id="query-result-msg" style="margin-left: 10px; display: inline; opacity: 0.85;"><?php echo $query_msg; ?></span>
+    <!-- <br><br><br> -->
+    <section id="table_layout">
         <br><br>
+        <table>
+            <h5 class="tableName">Space Listing <i class="fas fa-plus" style="display: inline; cursor:pointer; margin-left: 10px" onclick="addSpace()"></i><span id="query-result-msg" style="margin-left: 10px; display: inline; opacity: 0.85;"><?php echo $query_msg; ?></span></h5>
+            <thead>
+                <tr>
+                    <th>Space</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    //find the owner space listing and put it in table view
+                    $sql = "SELECT * FROM space where ownerID=$ownerID";
+                    //run the sql query
+                    $pdoQuery_run= $pdo->query($sql);
+                    //if query run
+                    if ($pdoQuery_run) {
+                        //fetch pdo object
+                        while ($row= $pdoQuery_run->fetch(PDO::FETCH_OBJ)) {
+                            ////found owner record in space table
+                            $name= $row->name; 
+                            $space_id = $row->spaceID; ?>
 
-            <table>
-        <tr>
-            <th>Space</th>
-            <th></th>
-            <th></th>
-           
-        </tr>
+                            <tr>
+                                <td data-label="Name"><?php echo $name; ?></td>
+                                <td data-label=""><a href="../Spaces/space_listing.php?spaceID=<?php echo $space_id; ?>">Edit</a></td>
+                                <td data-label=""><a href="../Spaces/space_deleting.php?spaceID=<?php echo $space_id; ?>">Delete</a></td>
+                                <td data-label=""><a href="../Spaces/space_exemption.php?spaceID=<?php echo $space_id; ?>">Add Exemption Slot</a></td>
+                            </tr>
+                <?php }}
+                    else{
+                        echo 'not found data';
+                    }
 
-        <?php
-       
-            //find the owner space listing and put it in table view
-             $sql = "SELECT * FROM space where ownerID=$ownerID";
-             //run the sql query
-             $pdoQuery_run= $pdo->query($sql);
-             //if query run
-             if ($pdoQuery_run) {
-              //fetch pdo object
-              while ($row= $pdoQuery_run->fetch(PDO::FETCH_OBJ)) {
-                  ////found owner record in space table
-                 $name= $row->name; 
-                 $space_id = $row->spaceID; ?>
-
-                    <tr>
-                        <td><?php echo $name; ?></td>
-                        <td><a href="../Spaces/space_listing.php?spaceID=<?php echo $space_id; ?>">Edit</a></td>
-                        <td><a href="../Spaces/space_deleting.php?spaceID=<?php echo $space_id; ?>">Delete</a></td>
-                    </tr>
-
-           <?php  }}
-             else{
-                  echo 'not found data';
-             }
-
-
-             //check if there is space listed by owner. if no then echo 'no space listed' in table row
-                $countRecord="SELECT * FROM space WHERE ownerID=$ownerID";
-                $countRecord= $pdo->query($countRecord);
-                $countRecord=$countRecord->rowCount();
-                
-                if($countRecord<1){ ?>
-
-                    <tr>
-                        <td colspan="2">No listed space.</td>
-                        
-                    
-                    </tr>
-
-            <?php    }
-        ?>
-       
+                    //check if there is space listed by owner. if no then echo 'no space listed' in table row
+                    $countRecord="SELECT * FROM space WHERE ownerID=$ownerID";
+                    $countRecord= $pdo->query($countRecord);
+                    $countRecord=$countRecord->rowCount();
+            
+                    if($countRecord<1){ ?>
+                        <tr>
+                            <td colspan="2">No listed space.</td>
+                        </tr>
+                <?php }
+                ?>
+            </tbody>
         </table>
-
         <br><br><br>
+        <?php
+            $sql = "SELECT * FROM space where ownerID=$ownerID";
+            $pdoQuery_run= $pdo->query($sql);
+            if ($pdoQuery_run) {
+                $spaceDateJSONid = 1;
+                $spaceDatesArray = array();
+                while ($row= $pdoQuery_run->fetch(PDO::FETCH_OBJ)) {
+                    $space_id = $row->spaceID;
+                    $space_name = $row->name;
+                    $sqlBookingDate = "SELECT eventName, eventStartDate, eventEndDate FROM booking where spaceID=$space_id";
+                    $pdoQuery_run2= $pdo->query($sqlBookingDate);
+                    if ($pdoQuery_run2) {
+                        while ($row= $pdoQuery_run2->fetch(PDO::FETCH_OBJ)) {
+                            $event_name=$row->eventName;
+                            $event_start_date=$row->eventStartDate;
+                            $event_end_date=$row->eventEndDate;
+                            $eachArray = array(
+                                "id" => $spaceDateJSONid,
+                                "name" => $event_name,
+                                "description" => $space_name,
+                                "date" => [$event_start_date, $event_end_date],
+                                "type" => "event"
+                            );
+                            array_push($spaceDatesArray, $eachArray);
+                            $spaceDateJSONid++;
+                        }
+                    }
+                }
+            }
+        ?>
 
-        <h1>Add Calander Here</h1>
-        </section>
+        <h5 class="tableName">Booking Calendar</h5>
+        <div id="calendar"></div>
+        <br><br><br>
+    </section>
 
     <footer id="footer"></footer> 
 
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="../Home/javascript/evo-calendar.min.js"></script>
     <script type="text/javascript" src="../Home/javascript/profileFunction.js"></script>
+
+    <script>
+        var selectedDate;
+
+        $(document).ready(function() {
+            var spaceDates = <?php echo json_encode($spaceDatesArray); ?>;
+
+            $('#calendar').evoCalendar({
+                theme: 'Royal Navy',
+                format: "yyyy-mm-dd",
+                eventHeaderFormat: "dd MM, yyyy",
+                todayHighlight: true,
+                calendarEvents: spaceDates
+            })
+        })
+
+        $("#exemptionBtn").click(function() {
+            location.href = "../Spaces/space_exemption.php?date=" + selectedDate;
+        });
+    </script>
 </body>
 
 </html>

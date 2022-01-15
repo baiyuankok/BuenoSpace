@@ -67,6 +67,13 @@ function createRange($start, $end, $format = 'd-m-Y') {
     return $dates;
 }
 
+function formatDate($date) {
+    $year = substr($date, 0, 4);
+    $month = substr($date, 5, 2);
+    $day = substr($date, 8, 2);
+    return $day . "-" . $month . "-" . $year;
+}
+
 
 if(isset($_SESSION["customer_loggedin"]) && $_SESSION["customer_loggedin"] === true){
     echo '<script>
@@ -280,6 +287,24 @@ if ($sqlSpaceBookedDates) {
         }
     }
 }
+
+ $sqlSpaceExemptionDates = "SELECT exemptionDate, availability FROM myfirstdatabase.exemption_slot WHERE spaceID = $get_space_id";
+ $sqlSpaceExemptionDates= $pdo->query($sqlSpaceExemptionDates);
+ if ($sqlSpaceExemptionDates) {
+     echo '<script>
+         const exemptionDates = [];
+         const exemptionDatesAvailability = [];
+     </script>';
+     while ($row= $sqlSpaceExemptionDates->fetch(PDO::FETCH_OBJ)) {
+         $exemption_date=$row->exemptionDate;
+         $availability=$row->availability;
+         $exemption_date = formatDate($exemption_date);
+         echo '<script>
+             exemptionDates.push("'.$exemption_date.'");
+             exemptionDatesAvailability.push("'.$availability.'");
+         </script>';
+     }
+ }
 
 if(!empty($query_msg)) {
     echo '<script>

@@ -14,6 +14,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
     <script src="../Home/javascript/header_background.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+    <title>BuenoSpace - Space Details</title>
 </head>
 
 <body>
@@ -267,8 +269,14 @@
     <footer id="footer"></footer>
 
     <style type="text/css">
-        .Highlighted {
+        .bookingHighlighted {
             color: #Ec3638 !important;
+            font-weight: bold !important;
+            font-size: 12pt;
+        }
+
+        .offDayHighlighted {
+            color: #67bd5c !important;
             font-weight: bold !important;
             font-size: 12pt;
         }
@@ -285,6 +293,7 @@
         var pricePerDay;
         var spaceTotalPrice = 0;
         var bookingDuration = 0;
+        var dates = ["25-01-2022"];
 
         $(document).ready(function() {
             pricePerDay = document.getElementById("price").textContent;
@@ -299,7 +308,6 @@
                 todayBtn: "linked",
                 autoclose: true,
                 orientation: "bottom",
-                daysOfWeekDisabled: availableSlots,
                 datesDisabled: disabledDates,
                 startDate: new Date(),
                 maxDate: '+1Y+6M',
@@ -307,11 +315,48 @@
                     calender_date = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear();
                     var search_index = $.inArray(calender_date, disabledDates);
                     var search_index2 = $.inArray(String(date.getDay()), availableSlots);
+                    var search_index3 = $.inArray(calender_date, exemptionDates);
+
                     if ((search_index > -1) && (search_index2 == -1)) {
                         return {
-                            classes: 'Highlighted',
+                            classes: 'bookingHighlighted',
                             tooltip: 'Booked'
                         };
+                    }
+
+                    var shouldDisable;
+                    // Found nowDay is in regular off day of week
+                    if(search_index2 > -1){
+                        // Found nowDay exists in exemptionDates data
+                        if (search_index3 > -1) {
+                            // Validate the specific exemptionDate's availability
+                            if (exemptionDatesAvailability[search_index3] == "1") {
+                                shouldDisable = false;
+                            }
+                            else {
+                                shouldDisable = true;
+                            }
+                        }
+                        else {
+                            shouldDisable = true;
+                        }
+
+                        return (!shouldDisable);
+                    }
+                    else {
+                        if (search_index3 > -1) {
+                            if (exemptionDatesAvailability[search_index3] == "0") {
+                                shouldDisable = true;
+                            }
+                            else {
+                                shouldDisable = false;
+                            }
+                        }
+                        else {
+                            shouldDisable = false;
+                        }
+
+                        return (!shouldDisable);
                     }
                 }
             }).on('changeDate', function (ev) {
@@ -330,7 +375,6 @@
                 todayBtn: "linked",
                 autoclose: true,
                 orientation: "bottom",
-                daysOfWeekDisabled: availableSlots,
                 datesDisabled: disabledDates,
                 startDate: new Date(),
                 maxDate: '+1Y+6M',
@@ -338,11 +382,48 @@
                     calender_date = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear();
                     var search_index = $.inArray(calender_date, disabledDates);
                     var search_index2 = $.inArray(String(date.getDay()), availableSlots);
+                    var search_index3 = $.inArray(calender_date, exemptionDates);
+
                     if ((search_index > -1) && (search_index2 == -1)) {
                         return {
-                            classes: 'Highlighted',
+                            classes: 'bookingHighlighted',
                             tooltip: 'Booked'
                         };
+                    }
+
+                    var shouldDisable;
+                    // Found nowDay is in regular off day of week
+                    if(search_index2 > -1){
+                        // Found nowDay exists in exemptionDates data
+                        if (search_index3 > -1) {
+                            // Validate the specific exemptionDate's availability
+                            if (exemptionDatesAvailability[search_index3] == "1") {
+                                shouldDisable = false;
+                            }
+                            else {
+                                shouldDisable = true;
+                            }
+                        }
+                        else {
+                            shouldDisable = true;
+                        }
+
+                        return (!shouldDisable);
+                    }
+                    else {
+                        if (search_index3 > -1) {
+                            if (exemptionDatesAvailability[search_index3] == "0") {
+                                shouldDisable = true;
+                            }
+                            else {
+                                shouldDisable = false;
+                            }
+                        }
+                        else {
+                            shouldDisable = false;
+                        }
+
+                        return (!shouldDisable);
                     }
                 }
             }).on('changeDate', function (ev) {
@@ -502,9 +583,9 @@
         });
 
         function signUpOrRent() {
-            if (document.getElementById("rentButton").innerText == "Sign In & Rent" || 
+            if (document.getElementById("rentButton").innerText == "Sign In & Rent" &&
                 document.getElementById("sign-in-btn").innerHTML == "Sign In") {
-                location.href="/Home/customer_signIn.php";
+                location.href="../Home/customer_signIn.php";
             }
             else {
                 $("#staticBackdrop").modal("show");
