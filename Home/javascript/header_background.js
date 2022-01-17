@@ -18,11 +18,6 @@ function headerInitialWhite() {
 // Initially, add grey background color to header
 // Add this function to "window.onload"
 function headerInitialGray() {
-    document.getElementById("navbar-section").classList.add("navbar-custom");
-}
-
-// In case the headerLoad don't work in Firefox, this might work
-function headerFirefox() {
     const setNavColor = setTimeout(function () {
         document.getElementById("navbar-section").classList.add("navbar-custom");
         clearTimeout(setNavColor);
