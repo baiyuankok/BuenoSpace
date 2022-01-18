@@ -19,6 +19,25 @@ function select_details($pdo, $space) {
     return $results->fetch();
 }
 
+function select_events($pdo) {
+    $results = $pdo->query("SELECT `type` FROM myfirstdatabase.event_type");
+    return $results->fetchAll(PDO::FETCH_COLUMN, 0);
+}
+
+function select_locations($pdo) {
+    $results = $pdo->query("SELECT DISTINCT location FROM myfirstdatabase.space");
+    return $results->fetchAll(PDO::FETCH_COLUMN, 0);
+}
+
+function appendOption($element_id, $each_option) {
+    echo '<script>
+        var optionEle = document.createElement("option");
+        optionEle.value = "' . $each_option . '";
+        optionEle.text = "' . $each_option . '";
+        document.getElementById("' . $element_id . '").add(optionEle);
+    </script>';
+}
+
 // Select popular spaces
 $select_space = "SELECT spaceID, count(*) FROM myfirstdatabase.booking GROUP BY spaceID ORDER BY count(*) DESC LIMIT 3";
 $space_id = $pdo->query($select_space)->fetchAll(PDO::FETCH_COLUMN, 0);
@@ -63,6 +82,17 @@ foreach ($space_id as $each_space) {
             document.getElementById("space-price-' . $counter . '").innerHTML = "' . $each_detail['price'] . '";
         </script>';
     $counter += 1;
+}
+
+// Select event types and location
+$all_events = select_events($pdo);
+$all_locations = select_locations($pdo);
+foreach ($all_events as $each_event) {
+    appendOption("events-select", $each_event);
+}
+
+foreach ($all_locations as $each_location) {
+    appendOption("location-select", $each_location);
 }
 
 ?>
