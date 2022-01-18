@@ -129,7 +129,7 @@
 
             <div class="row-center">
                 <div class="each-popular-space" id="1-space">
-                    <div class="space-imgs" id="space-image-1">
+                    <div class="space-imgs" id="space-image-1" onclick="linkSpaceDetailNoImg(this)">
                     </div>
 
                     <div class="space-info">
@@ -140,7 +140,7 @@
                     </div>
                 </div>
                 <div class="each-popular-space" id="2-space">
-                    <div class="space-imgs" id="space-image-2">
+                    <div class="space-imgs" id="space-image-2" onclick="linkSpaceDetailNoImg(this)">
                     </div>
 
                     <div class="space-info">
@@ -151,7 +151,7 @@
                     </div>
                 </div>
                 <div class="each-popular-space" id="3-space">
-                    <div class="space-imgs" id="space-image-3">
+                    <div class="space-imgs" id="space-image-3" onclick="linkSpaceDetailNoImg(this)">
                     </div>
 
                     <div class="space-info">
@@ -357,6 +357,18 @@
             var parentDiv = document.getElementById(parentId).classList;
             for (var i = 0; i < parentDiv.length; i++) {
                 var clsName = parentDiv.item(i);
+                if (clsName.includes("database-space")) {
+                    var dbSpaceId = clsName.split("-").pop().trim();
+                    location.href = "../Spaces/space_detail_logic.php?spaceID=" + dbSpaceId;
+                }
+            }
+        }
+
+        function linkSpaceDetailNoImg(current) {
+            var currentId = current.id;
+            var currentDiv = document.getElementById(currentId).classList;
+            for (var i = 0; i < currentDiv.length; i++) {
+                var clsName = currentDiv.item(i);
                 if (clsName.includes("database-space")) {
                     var dbSpaceId = clsName.split("-").pop().trim();
                     location.href = "../Spaces/space_detail_logic.php?spaceID=" + dbSpaceId;
