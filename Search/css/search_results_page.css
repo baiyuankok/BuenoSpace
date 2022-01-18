@@ -1,3 +1,7 @@
+#navbar-section {
+    background-color:#373737;
+}
+
 .search-results-wrapper {
     display: flex;
     flex-direction: row;

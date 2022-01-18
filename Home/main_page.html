@@ -14,7 +14,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
-    <script src="../Home/javascript/header_background.js"></script>
 
     <title>BuenoSpace - Home</title>
 </head>
@@ -309,7 +308,17 @@
 
         // Change background color for sticky header when scrolling
         window.onscroll = function () {
-            headerInitialWhite();
+            var navSection = document.getElementById("navbar-section");
+            // Get the offset position of the navbar
+            var stickyPos = navSection.offsetTop;
+            if (window.pageYOffset > stickyPos) {
+                navSection.classList.add("navbar-custom");
+            } else {
+                // If the triple bar is not clicked, then the background color should be removed
+                if (!document.getElementById("navbarSupportedContent").classList.contains("show")) {
+                    navSection.classList.remove("navbar-custom");
+                }
+            }
         };
 
         // Set the background image height onload and onresize
