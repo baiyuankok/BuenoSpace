@@ -329,7 +329,7 @@
             const btnListenTimeout = setTimeout(function () {
                 document.getElementById("triple-bar").addEventListener("click", setNav);
                 clearTimeout(btnListenTimeout);
-            }, 20);
+            }, 100);
 
             // Load the images onload
             var targetObserver = document.querySelectorAll(".each-img");
@@ -337,8 +337,6 @@
                 if (!eachTarget.src) {
                     eachTarget.setAttribute("src", eachTarget.dataset.src);
                 }
-                // Add listener to all images to link to space details page
-                eachTarget.addEventListener("click", linkSpaceDetail);
             }
         });
         function setBackgroundImg() {
@@ -356,19 +354,6 @@
                     navSec.classList.remove("navbar-custom");
                 } else {
                     navSec.classList.add("navbar-custom");
-                }
-            }
-        }
-
-        // Link the space images to the space details page
-        function linkSpaceDetail() {
-            var parentId = this.parentNode.id;
-            var parentDiv = document.getElementById(parentId).classList;
-            for (var i = 0; i < parentDiv.length; i++) {
-                var clsName = parentDiv.item(i);
-                if (clsName.includes("database-space")) {
-                    var dbSpaceId = clsName.split("-").pop().trim();
-                    location.href = "../Spaces/space_detail_logic.php?spaceID=" + dbSpaceId;
                 }
             }
         }

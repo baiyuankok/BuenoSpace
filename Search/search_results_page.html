@@ -302,23 +302,8 @@
                 if (!eachTarget.src) {
                     eachTarget.setAttribute("src", eachTarget.dataset.src);
                 }
-                // Add listener to all images to link to space details page
-                eachTarget.addEventListener("click", linkSpaceDetail);
             }
         });
-
-        // Link the space images to the space details page
-        function linkSpaceDetail() {
-            var parentId = this.parentNode.id;
-            var parentDiv = document.getElementById(parentId).classList;
-            for (var i = 0; i < parentDiv.length; i++) {
-                var clsName = parentDiv.item(i);
-                if (clsName.includes("database-space")) {
-                    var dbSpaceId = clsName.split("-").pop().trim();
-                    location.href = "../Spaces/space_detail_logic.php?spaceID=" + dbSpaceId;
-                }
-            }
-        }
 
         function linkSpaceDetailNoImg(current) {
             var currentId = current.id;

@@ -128,7 +128,7 @@
                     <p>Please sign in to save your favourite spaces and write reviews for the spaces.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="signUpOrRent()" id="sign-in-btn">Sign In</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='../Home/customer_signIn.php';" id="sign-in-btn">Sign In</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -581,8 +581,7 @@
         });
 
         function signUpOrRent() {
-            if (document.getElementById("rentButton").innerText == "Sign In & Rent" &&
-                document.getElementById("sign-in-btn").innerHTML == "Sign In") {
+            if (document.getElementById("rentButton").innerText == "Sign In & Rent") {
                 location.href="../Home/customer_signIn.php";
             }
             else {
