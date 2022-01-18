@@ -115,6 +115,7 @@ if (isset(($_POST['edit_space_detail']))) {
     if (empty($space_id_err)) {
         if (empty($space_name_err) && empty($space_location_err) && empty($space_price_err) && empty($space_capacity_err) && empty($space_event_err) && empty($space_slot_err)) {
             // Update to particular row according to spaceID and ownerID
+            $space_location = ucwords($space_location);
             $update_query = "UPDATE myfirstdatabase.space SET name=:space_name, location=:space_location, price=:space_price, capacity=:space_capacity WHERE ownerID = $ownerID AND spaceID = $space_id";
             $update_query_run = $pdo->prepare($update_query);
             $update_query_exec = $update_query_run->execute(array(":space_name" => $space_name, ":space_location" => $space_location, ":space_price" => $space_price, ":space_capacity" => $space_capacity));
@@ -176,6 +177,7 @@ if (isset(($_POST['edit_space_detail']))) {
     } else { // List new spaces
         if (empty($space_name_err) && empty($space_location_err) && empty($space_price_err) && empty($space_capacity_err) && empty($space_event_err)) {
             // Insert basic space details
+            $space_location = ucwords($space_location);
             $insert_space_details = 'INSERT INTO myfirstdatabase.space(name, location, price, capacity, ownerID) VALUES ("' . $space_name . '", "' . $space_location . '", ' . $space_price . ', ' . $space_capacity . ', ' . $ownerID . ');';
             $insert_details_exec = $pdo->prepare($insert_space_details)->execute();
 
