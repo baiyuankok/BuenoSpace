@@ -1,8 +1,15 @@
 #footer {
     background-color: #373737;
+    position: absolute;
+    left: 0;
+    right: 0;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
+}
+
+.footer-bottom {
+    bottom: 0;
 }
 
 .logo-section {

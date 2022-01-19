@@ -2,6 +2,8 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../Home/css/header.css">
     <link rel="stylesheet" href="../Home/css/footer.css">
     <link rel="stylesheet" href="css/search_results_page.css">
@@ -11,7 +13,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
-    <script src="../Home/javascript/header_background.js"></script>
 
     <title>BuenoSpace</title>
 </head>
@@ -291,9 +292,6 @@
 
         //Onload
         window.addEventListener("load", function () {
-            // Initially, add grey background color to header
-            headerInitialGray();
-
             //Disable previous and next page buttons if necessary
             disablePrevPageBtn();
             disableNextPageBtn();
@@ -304,17 +302,14 @@
                 if (!eachTarget.src) {
                     eachTarget.setAttribute("src", eachTarget.dataset.src);
                 }
-                // Add listener to all images to link to space details page
-                eachTarget.addEventListener("click", linkSpaceDetail);
             }
         });
 
-        // Link the space images to the space details page
-        function linkSpaceDetail() {
-            var parentId = this.parentNode.id;
-            var parentDiv = document.getElementById(parentId).classList;
-            for (var i = 0; i < parentDiv.length; i++) {
-                var clsName = parentDiv.item(i);
+        function linkSpaceDetailNoImg(current) {
+            var currentId = current.id;
+            var currentDiv = document.getElementById(currentId).classList;
+            for (var i = 0; i < currentDiv.length; i++) {
+                var clsName = currentDiv.item(i);
                 if (clsName.includes("database-space")) {
                     var dbSpaceId = clsName.split("-").pop().trim();
                     location.href = "../Spaces/space_detail_logic.php?spaceID=" + dbSpaceId;

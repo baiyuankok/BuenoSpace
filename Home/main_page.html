@@ -14,7 +14,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
-    <script src="../Home/javascript/header_background.js"></script>
 
     <title>BuenoSpace - Home</title>
 </head>
@@ -36,46 +35,12 @@
                                 style="border-bottom-left-radius: 15px; border-top-left-radius: 15px;"
                                 onclick="changeBorderRadius()">
                                 <option value="all-events">All Events</option>
-                                <option value="Annual Dinner">Annual Dinner</option>
-                                <option value="Product Launch">Product Launch</option>
-                                <option value="Training">Training</option>
-                                <option value="Meeting">Meeting</option>
-                                <option value="Engagement">Engagement</option>
-                                <option value="Exhibitionn">Exhibition</option>
-                                <option value="Photo Shoot">Photo Shoot</option>
-                                <option value="Press Conference">Press Conference</option>
-                                <option value="Team Building">Team Building</option>
-                                <option value="Wedding">Wedding</option>
-                                <option value="Birthday Party">Birthday Party</option>
-                                <option value="Seminar">Seminar</option>
-                                <option value="Auditions">Auditions</option>
-                                <option value="Conference">Conference</option>
-                                <option value="Video Shoots">Video Shoots</option>
-                                <option value="Interviews">Interviews</option>
-                                <option value="Virtual Event">Virtual Event</option>
                             </select>
                         </div>
 
                         <div class="dropdown-custom">
                             <select class="location-home search-bar" name="location" id="location-select" tabindex="-1">
                                 <option value="all">All Locations</option>
-                                <option value=Taiping>Taiping</option>
-                                <option value="Petaling Jaya">Petaling Jaya</option>
-                                <option value="Subang Jaya">Subang Jaya</option>
-                                <option value="Sg Buloh">Sg Buloh</option>
-                                <option value="Damansara">Damansara</option>
-                                <option value="Shah Alam">Shah Alam</option>
-                                <option value="Kuala Lumpur">Kuala Lumpur</option>
-                                <option value="Ampang">Ampang</option>
-                                <option value="Cyberjaya">Cyberjaya</option>
-                                <option value="Penang, Georgetown">Penang, Georgetown</option>
-                                <option value="Puchong">Puchong</option>
-                                <option value="KL Sentral">KL Sentral</option>
-                                <option value="Bandar Utama">Bandar Utama</option>
-                                <option value="Bukit Bintang">Bukit Bintang</option>
-                                <option value="Johor Bahru">Johor Bahru</option>
-                                <option value="Kuantan">Kuantan</option>
-                                <option value="Ipoh">Ipoh</option>
                             </select>
                         </div>
                         <div id="more-options">
@@ -163,7 +128,7 @@
 
             <div class="row-center">
                 <div class="each-popular-space" id="1-space">
-                    <div class="space-imgs" id="space-image-1">
+                    <div class="space-imgs" id="space-image-1" onclick="linkSpaceDetailNoImg(this)">
                     </div>
 
                     <div class="space-info">
@@ -174,7 +139,7 @@
                     </div>
                 </div>
                 <div class="each-popular-space" id="2-space">
-                    <div class="space-imgs" id="space-image-2">
+                    <div class="space-imgs" id="space-image-2" onclick="linkSpaceDetailNoImg(this)">
                     </div>
 
                     <div class="space-info">
@@ -185,7 +150,7 @@
                     </div>
                 </div>
                 <div class="each-popular-space" id="3-space">
-                    <div class="space-imgs" id="space-image-3">
+                    <div class="space-imgs" id="space-image-3" onclick="linkSpaceDetailNoImg(this)">
                     </div>
 
                     <div class="space-info">
@@ -343,7 +308,17 @@
 
         // Change background color for sticky header when scrolling
         window.onscroll = function () {
-            headerInitialWhite();
+            var navSection = document.getElementById("navbar-section");
+            // Get the offset position of the navbar
+            var stickyPos = navSection.offsetTop;
+            if (window.pageYOffset > stickyPos) {
+                navSection.classList.add("navbar-custom");
+            } else {
+                // If the triple bar is not clicked, then the background color should be removed
+                if (!document.getElementById("navbarSupportedContent").classList.contains("show")) {
+                    navSection.classList.remove("navbar-custom");
+                }
+            }
         };
 
         // Set the background image height onload and onresize
@@ -354,7 +329,7 @@
             const btnListenTimeout = setTimeout(function () {
                 document.getElementById("triple-bar").addEventListener("click", setNav);
                 clearTimeout(btnListenTimeout);
-            }, 20);
+            }, 100);
 
             // Load the images onload
             var targetObserver = document.querySelectorAll(".each-img");
@@ -362,8 +337,6 @@
                 if (!eachTarget.src) {
                     eachTarget.setAttribute("src", eachTarget.dataset.src);
                 }
-                // Add listener to all images to link to space details page
-                eachTarget.addEventListener("click", linkSpaceDetail);
             }
         });
         function setBackgroundImg() {
@@ -385,12 +358,11 @@
             }
         }
 
-        // Link the space images to the space details page
-        function linkSpaceDetail() {
-            var parentId = this.parentNode.id;
-            var parentDiv = document.getElementById(parentId).classList;
-            for (var i = 0; i < parentDiv.length; i++) {
-                var clsName = parentDiv.item(i);
+        function linkSpaceDetailNoImg(current) {
+            var currentId = current.id;
+            var currentDiv = document.getElementById(currentId).classList;
+            for (var i = 0; i < currentDiv.length; i++) {
+                var clsName = currentDiv.item(i);
                 if (clsName.includes("database-space")) {
                     var dbSpaceId = clsName.split("-").pop().trim();
                     location.href = "../Spaces/space_detail_logic.php?spaceID=" + dbSpaceId;

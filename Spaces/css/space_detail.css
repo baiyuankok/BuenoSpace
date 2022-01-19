@@ -20,6 +20,14 @@
         width: 100% !important;
         height: auto !important;
     }
+
+    #footer {
+        bottom: 0;
+    }
+}
+
+#navbar-section {
+    background-color:#373737;
 }
 
 #space-img-section {

@@ -292,7 +292,7 @@ foreach($space_id as $each_space) {
             resultList = document.getElementById("search-result-container");
             resultList.insertAdjacentHTML(`beforeend`, 
             `<li class="space-box" id="space-box-'.$counter.'">
-                <div class="space-image" id="space-image-'.$counter.'"></div>
+                <div class="space-image" id="space-image-'.$counter.'" onclick="linkSpaceDetailNoImg(this)"></div>
                 <p class="space-name" id="space-name-'.$counter.'"></p>
                 <p class="space-location" id="space-location-'.$counter.'"></p>
                 <div>
