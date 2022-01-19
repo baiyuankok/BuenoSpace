@@ -120,3 +120,21 @@ table th {
 	width: 100%;
 	position: relative;
 }
+
+#searchbar, #search-btn{
+  border:none;
+  border-bottom:1px solid #333;
+  
+  text-align:center;
+  background-color:transparent;
+}
+
+#search-btn{
+ 
+  color:blue;
+  border-bottom:1px solid blue;
+
+}
+
+
+

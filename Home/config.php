@@ -1,6 +1,6 @@
 <?php
-$dsn = 'mysql:host=hellodatabaseinstance.cj959sycwruz.us-east-1.rds.amazonaws.com;port=3306;dbname=myfirstdatabase';
-$username = "adminDatabase";
+$dsn = 'mysql:host=35.224.143.106;port=3306;dbname=myfirstdatabase';
+$username = "root";
 $password = "thisisthepassword";
 
 try {

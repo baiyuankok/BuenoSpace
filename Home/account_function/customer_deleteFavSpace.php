@@ -10,7 +10,7 @@ $favouriteID=$_GET['favouriteID'];
             if ($pdoQuery_exec) {
                 header("location:../customer_profile.php");
             }else{
-                $deleteMsg= "Fail To Delete Instructor, Please Try Again";
+                $deleteMsg= "Fail To Delete Favourite Space, Please Try Again";
 
             }
 
