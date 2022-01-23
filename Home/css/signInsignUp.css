@@ -31,6 +31,7 @@ text-align: center;
 .sign_form{
   width:60%;
   margin:auto;
+ 
 
 }
 
@@ -97,4 +98,16 @@ form label{
   position: relative;
   left: -35px;
   content: "\2613";
+}
+
+
+/* responsive sign in sign up form */
+@media (max-width: 1490px) {
+  .sign_form{
+    width:80%;
+  }
+
+  form input{
+    width:100%;
+  }
 }

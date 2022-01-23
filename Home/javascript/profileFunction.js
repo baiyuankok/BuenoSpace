@@ -26,3 +26,28 @@ function deleteFav($favouriteID) {
         return true;
     }
 }
+
+// to delete customer's account from admin
+function deleteCustomer($userID) {
+    if (confirm("Are you sure you want to delete this customer account? This action cannot be undone.")) {
+       
+        window.location.href = 'account_function/admin_deleteCustomer.php?userIDdelete=' + $userID + '';
+
+       
+
+        return true;
+    }
+}
+
+// to delete owner's account from admin
+function deleteOwner($ownerID) {
+    if (confirm("Are you sure you want to delete this owner account? This action cannot be undone.")) {
+      
+       
+        window.location.href = 'account_function/admin_deleteOwner.php?ownerIDdelete=' + $ownerID + '';
+
+       
+
+        return true;
+    }
+}
