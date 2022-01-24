@@ -685,7 +685,7 @@
                 if (y[i].id == "guest-number") {
                     var guestNumber = parseInt(y[i].value);
                     var maxGuestNumber = document.getElementById("guest-number").max;
-                    if ((guestNumber<1) || (guestNumber>maxGuestNumber)) {
+                    if (isNaN(guestNumber) || (guestNumber<1) || (guestNumber>maxGuestNumber)) {
                         y[i].className += " invalid";
                         valid = false;
                     }

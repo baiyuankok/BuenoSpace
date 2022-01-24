@@ -4,8 +4,20 @@
     require_once "../Home/config.php";
     require "./space_exemption.html";
 
+    $ownerID = isset($_SESSION['ownerID']) ? trim($_SESSION['ownerID']) : '';
     $space_id = isset($_GET['spaceID']) ? trim($_GET['spaceID']) : '';
     $query_msg = isset($_GET['query_msg']) ? trim($_GET['query_msg']) : '';
+
+    // To prevent user from changing the url to view/edit other spaces
+    if (!empty($space_id)) {
+        $check_space_query = "SELECT spaceID FROM myfirstdatabase.space WHERE ownerID = $ownerID";
+        $check_results = $pdo->query($check_space_query)->fetchAll(PDO::FETCH_COLUMN, 0);
+        if (!in_array($space_id, $check_results, false)) {
+            header("location: ../Home/owner_profile.php");
+            ob_end_flush();
+            exit();
+        }
+    }
 
     function select_details($pdo, $space) {
         $results = $pdo->query("SELECT name FROM myfirstdatabase.space WHERE spaceID = $space");
