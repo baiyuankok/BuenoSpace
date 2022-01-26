@@ -192,7 +192,7 @@
         }
 
         // Listen to all onclick events
-        window.onclick = function (event) {
+        window.addEventListener("click", function(event) {
             // Change the events dropdown border radius to curve if the user clicks outside of it
             if (event.target.id != "events-select") {
                 var eventSelect = document.getElementById("events-select");
@@ -200,7 +200,7 @@
                     eventSelect.style.borderBottomLeftRadius = "15px";
                 }
             }
-        }
+        });
 
         // To check and change the data type of the input value to integer
         function checkValueType(inputValue) {
