@@ -188,24 +188,24 @@ if($event_type == "all-events") {
         if($one_filter_added) { $query .= "AND "; } else {$query .= "WHERE "; }
         
         if(is_array($location)) {
-            $query .= "location = '$location[0]'";
+            $query .= "location = '$location[0]' ";
             if(count($location) > 1) {
                 foreach (range(1, count($location)-1) as $i) {
-                    $query .= "OR location = '$location[$i]'";
+                    $query .= "OR location = '$location[$i]' ";
                 }
             }
         }
-        else {$query .= "location = '$location'";}
+        else {$query .= "location = '$location' ";}
         $one_filter_added = True;
     }
     if($min_price != NULL) {
         if($one_filter_added) { $query .= "AND "; } else {$query .= "WHERE "; }
-        $query .= "price BETWEEN $min_price AND $max_price";
+        $query .= "price BETWEEN $min_price AND $max_price ";
         $one_filter_added = True;
     }
     if($capacity != NULL) {
         if($one_filter_added) { $query .= "AND "; } else {$query .= "WHERE "; }
-        $query .= "capacity BETWEEN $capacity-5 AND $capacity+5";
+        $query .= "capacity BETWEEN $capacity AND $capacity+$capacity/2 ";
         $one_filter_added = True;
     }
 }
@@ -233,22 +233,28 @@ elseif ($event_type != "all-events") {
     }
     if($location != "all") {
         if(is_array($location)) {
-            $query .= "AND t1.location = '$location[0]'";
+            $query .= "AND t1.location = '$location[0]' ";
             if(count($location) > 1) {
                 foreach (range(1, count($location)-1) as $i) {
-                    $query .= "OR t1.location = '$location[$i]'";
+                    $query .= "OR t1.location = '$location[$i]' ";
                 }
             }
         }
-        else {$query .= "AND t1.location = '$location'";}
+        else {$query .= "AND t1.location = '$location' ";}
     }
     if($min_price != NULL) {
-        $query .= "AND t1.price BETWEEN $min_price AND $max_price";
+        $query .= "AND t1.price BETWEEN $min_price AND $max_price ";
     }
     if($capacity != NULL) {
-        $query .= "AND t1.capacity BETWEEN $capacity-5 AND $capacity+5";
+        $query .= "AND t1.capacity BETWEEN $capacity AND $capacity+$capacity/2 ";
     }  
 }
+
+//Query testing
+echo '<script>
+            console.log("'.$query.'");
+        </script>';
+
 //Get the IDs of all spaces that match the search criteria
 $space_id = $pdo->query($query)->fetchAll(PDO::FETCH_COLUMN, 0);
 
