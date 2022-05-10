@@ -6,7 +6,7 @@ BuenoSpace is an all-in-one event space rental application. The purpose for prop
 |   | Example |
 | ------------- | ------------- |
 | Home Page  | ![image](https://user-images.githubusercontent.com/72374023/167628127-75ae3cc3-fc9c-48ec-a634-6d43b69d3123.png)  |
-| Space Details Page  | ![image](https://user-images.githubusercontent.com/72374023/167628247-f4e08a0b-37ad-40c1-8737-432c7835aeb4.png =250x250)  |
+| Space Details Page  | <img src="https://user-images.githubusercontent.com/72374023/167628247-f4e08a0b-37ad-40c1-8737-432c7835aeb4.png" width="100" height="100">  |
 
 
 
