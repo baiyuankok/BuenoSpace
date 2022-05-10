@@ -1,0 +1,3 @@
+# BuenoSpace
+
+BuenoSpace is an all-in-one event space rental application. BuenoSpace is a web application that allows people to rent spaces for events and allows property owners to rent out spaces for a profit. The purpose of proposing this project is that we believe that there will be an increase in demand for individuals and companies to organise events following the improved COVID-19 situation in the country. By developing the BuenoSpace web application, we can boost the gig economy as it allows space owners from all over Malaysia to list their event space in order to earn extra income. This web application falls under the transactional category.
